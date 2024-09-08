@@ -12,7 +12,14 @@ module.exports = {
         col3 : '#3a4f50',
         col4 : '#1b2223',
 
-      }
+      },
+      screens: {
+        xs: "480px",
+      },
+      fontFamily: {
+        labrada: ["Labrada"],
+        kufi: ["Reem Kufi Fun"],
+      },
     },
   },
   plugins: [

@@ -20,12 +20,19 @@
 
 
 <nav class="relative bg-color color-shadow-md">
-	<div class="flex flex-wrap items-center justify-between p-4 customContainer">
-		<a href={{ path('app_home') }} class="flex items-center space-x-4 ">
-			<img src="{{ asset('images/avatars/profil_c2c.png') }}" class="w-16 rounded-full color-shadow-md" alt="compagnon de code"/>
-			<h1 class="h3 whitespace-nowrap text-clip">Compagnon de Code</h1>
+	<div class="flex items-center justify-between px-2 py-4 xs:px-4 flex-nowrap customContainer">
+		<a href={{ path('app_home') }}>
+
+			<div class="flex flex-col items-center gap-x-2 xs:flex-row">
+				<img src="{{ asset('images/avatars/profil_c2c.png') }}" class="w-16 rounded-full color-shadow-md" alt="compagnon de code"/>
+				<h1 class="flex items-center max-xs:flex-col h3 text-clip xs:flex-nowrap gap-x-2">
+					<span>Compagnon
+					</span>
+					<span class='text-nowrap'>de Code</span>
+				</h1>
+			</div>
 		</a>
-		<div class="flex items-center space-x-3 md:order-2 md:space-x-0 ">
+		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 ">
 
 			{% if not app.user %}
 				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 " id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
@@ -35,13 +42,13 @@
 				</button>
 				<!-- Dropdown menu -->
 				<div class="z-50 hidden my-4 text-base list-none rounded-lg color-shadow-md bg-col4" id="user-dropdown">
-					<div class="px-4 py-3">
-          {# nom et mail user #}
+					<div
+						class="px-4 py-3">
+						{# nom et mail user #}
 						<span class="block text-sm text-col1 ">Bonnie Green</span>
 						<span class="block text-sm text-gray-400 truncate ">name@flowbite.com</span>
 					</div>
 					<ul class="py-2 " aria-labelledby="user-menu-button">
-						<li aria-current="page">coucou</li>
 						{% for item in navItems_Connected %}
 							<li>
 								<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
@@ -49,19 +56,36 @@
 						{% endfor  %}
 					</ul>
 				</div>
+
+
 			{% else %}
 				<h3 class='h3 text-clip'>connexion</h3>
 			{% endif %}
-			<button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-user" aria-expanded="false">
+
+
+			<button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-user" aria-expanded="false" data-dropdown-toggle="navbar-user">
 				<span class="sr-only">Open main menu</span>
 				<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 17 14">
 					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
 				</svg>
 			</button>
 		</div>
-		<div class="items-center justify-between hidden w-full max-md:absolute max-md:top-[80px] max-md:right-[10px] max-md:w-fit md:flex md:w-auto md:order-1 my-4 text-base list-none max-md:rounded-lg max-md:bg-col4 color-shadow-md md:color-shadow-none" id="navbar-user">
 
-			<ul class="flex flex-col p-4 mt-4 md:p-0 md:space-x-8 md:flex-row md:mt-0 ">
+		{# en mobile on a besoin de l'id pour fermeture si clic hors cadre #}
+		<div class="items-center justify-between hidden w-full max-md:absolute  max-xs:top-[130px] max-md:top-[80px] max-md:right-[10px] max-md:w-fit  my-4 text-base list-none max-md:rounded-lg max-md:bg-col4 color-shadow-md-navbar  md:color-shadow-none" id="navbar-user">
+
+			<ul class="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row md:mt-0 gap-y-2">
+				{% for item in navItems %}
+					<li>
+						<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
+					</li>
+				{% endfor  %}
+			</ul>
+		</div>
+		{#  en pc, il ne nous faut pas l'id qui déplace la navbar #}
+		<div class="items-center justify-between hidden w-full my-4 text-base list-none max-md:w-fit md:flex md:w-auto md:order-1 max-md:rounded-lg max-md:bg-col4 color-shadow-md-navbar md:color-shadow-none">
+
+			<ul class="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row md:mt-0 gap-y-2">
 				{% for item in navItems %}
 					<li>
 						<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
