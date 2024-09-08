@@ -1,7 +1,8 @@
 {% set navItems = [
     {'name': 'Accueil', 'path': 'app_home'},
     {'name': 'Projets', 'path': 'app_home'},
-    {'name': 'Réflexions', 'path': 'app_home'},
+    {'name': 'Register', 'path': 'app_register'},
+     {'name': 'Réflexions', 'path': 'app_home'}, 
     
 ] 
 %}
@@ -21,24 +22,24 @@
 
 <nav class="relative bg-color color-shadow-md">
 	<div class="flex items-center justify-between px-2 py-4 xs:px-4 flex-nowrap customContainer">
-		<a href={{ path('app_home') }}>
+		<a href={{ path('app_home') }} class='w-full'>
 
-			<div class="flex flex-col items-center gap-x-2 xs:flex-row">
+			<div class="flex items-center gap-x-2">
 				<img src="{{ asset('images/avatars/profil_c2c.png') }}" class="w-16 rounded-full color-shadow-md" alt="compagnon de code"/>
-				<h1 class="flex items-center max-xs:flex-col h3 text-clip xs:flex-nowrap gap-x-2">
+				<h1 class="flex items-center max-lg:flex-col h3 text-clip xs:flex-nowrap gap-x-2">
 					<span>Compagnon
 					</span>
 					<span class='text-nowrap'>de Code</span>
 				</h1>
 			</div>
 		</a>
-		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 ">
+		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 shrink-0">
 
-			{% if not app.user %}
-				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 " id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+			{% if app.user %}
+				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 shrink-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
 					{# image du user #}
-					<img class="w-12 rounded-full color-shadow-md" src="{{ asset('images/avatars/astroshiba.jpg') }}" alt="user photo">
+					<img class="w-12 h-12 rounded-full color-shadow-md" src="{{ asset('images/avatars/astroshiba.jpg') }}" alt="user photo">
 				</button>
 				<!-- Dropdown menu -->
 				<div class="z-50 hidden my-4 text-base list-none rounded-lg color-shadow-md bg-col4" id="user-dropdown">
@@ -59,7 +60,7 @@
 
 
 			{% else %}
-				<h3 class='h3 text-clip'>connexion</h3>
+				<h3 class='li_nav'>connexion</h3>
 			{% endif %}
 
 

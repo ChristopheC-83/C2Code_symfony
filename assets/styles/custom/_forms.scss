@@ -1,0 +1,43 @@
+.customForm{
+  max-width: 600px; /* max-w-[600px] */
+  border-radius: 0.75rem; /* rounded-lg */
+  margin: 2rem auto; /* mt-8 */
+  background: linear-gradient(to left, $col4, $col3); /* bg-gradient-to-l from-col4 to-col3 */
+  border: 2px solid $col2; /* border-2 border-col2 */
+  padding: 0.75rem 1rem; /* p-2 */
+  box-shadow: 0px 0px 15px 6px $col2; /* color-shadow-md (assumed shadow, adjust as needed) */
+}
+
+/* For responsive padding adjustments */
+@media (min-width: 640px) { /* xs breakpoint */
+  .customContainer {
+    padding: 0.75rem 1.5rem; /* xs:p-3 */
+  }
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+  .customContainer {
+    padding: 0.75rem 2rem; /* md:p-4 */
+  }
+}
+
+.buttonValidation {
+  width: 100%;
+  padding: 0.5rem 0;
+  margin: 1.25rem 0;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  background: $col1;
+  color: $col3;
+  transition: all 500ms ease;
+  border : 2px solid $col2;
+  box-shadow: 0px 3px 6px  $col2;
+}
+
+.buttonValidation:hover {
+  background: $col2;
+  color: $col4;
+  letter-spacing: 0.3px;
+  box-shadow: none;
+  transform: translateY(3px) scale(0.999);
+}

@@ -1,4 +1,21 @@
 @tailwind base;
 @tailwind components;
-@import './custom.css';
+@import "./custom.css";
 @tailwind utilities;
+
+label {
+  @apply block mt-5 mb-2 text-sm font-medium text-col1;
+}
+
+input,
+textarea,
+select {
+  @apply bg-col1 border border-col2 text-col4 text-sm rounded-lg focus:ring-col3 focus:border-col3 block w-full p-2.5 mb-5;
+}
+
+input,
+textarea,
+select {
+  @apply rounded-lg !important; /* Appliquer le style personnalisé */
+}
+

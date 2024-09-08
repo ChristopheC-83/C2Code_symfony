@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterController!{% endblock %}
+
+{% block body %}
+<section class="customContainer">
+    <h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Page d'enregistrement</h3>
+    {# on appelle le formulaire qu'il faudra styliser #}
+    <div class="customForm">{{ form(registerForm)  }}</div>
+</section>
+{% endblock %}
