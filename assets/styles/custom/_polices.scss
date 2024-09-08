@@ -1,0 +1,57 @@
+// style et couleur
+
+/* Utilisation des variables */
+.bg-clip {
+  background: linear-gradient(
+    45deg,
+    $col2 0%,
+    $col1 100%
+  );
+}
+
+
+.text-clip {
+  background: linear-gradient(45deg, $col2 0%, $col1 100%);
+  -webkit-background-clip: text; /* Ajout du préfixe pour Safari et Chrome */
+  background-clip: text;
+  color: transparent;
+}
+
+
+
+// font-size
+
+.h1 {
+  font-size: clamp(32px, calc(22px + 2.2vw), 60px);
+  letter-spacing: calc(1px + 0.10vw);
+  font-weight: bold;
+}
+.h2 {
+  font-size: clamp(23px, calc(18px + 1.65vw), 40px);
+  letter-spacing: calc(1px + 0.035vw);
+  font-weight: bold;
+}
+.h3 {
+  font-size: clamp(20px, calc(18px + 1vw), 29px);
+  letter-spacing: calc(1px + 0.018vw);
+  font-weight: bold;
+}
+.h4 {
+  font-size: clamp(18px, calc(13px + 0.7vw), 22px);
+  letter-spacing: calc(1px + 0.008vw);
+  font-weight: bold;
+}
+.h5 {
+  font-size: clamp(16px, calc(11px + 0.4vw), 18px);
+  letter-spacing: calc(0.8px + 0.008vw);
+  font-weight: bold;
+}
+.p {
+  font-size: clamp(13px, calc(11px + 0.4vw), 18px);
+  line-height: clamp(27px, calc(22px + 0.66vw), 33px);;
+  font-family: "Roboto";
+  // font-family: "Reem Kufi fun";
+}
+
+
+

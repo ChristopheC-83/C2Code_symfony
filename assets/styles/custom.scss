@@ -1,0 +1,18 @@
+@import "custom/variables";
+@import "custom/animations";
+@import "custom/polices";
+@import "custom/shadow";
+@import "custom/navbar_footer";
+// @import "custom";
+// @import "custom";
+
+.bg-color{
+    background: linear-gradient(90deg, $col4 0%, $col3 100%);
+}
+
+.customContainer{
+    width:96%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+

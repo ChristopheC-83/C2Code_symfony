@@ -15,8 +15,11 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
-      
+    <body class='flex flex-col min-h-svh bg-color'>
+        {% include 'components/navbar.html.twig' %}
+        
+        <main class="flex-grow py-2 md:py-4 customContainer">{% block body %}{% endblock %}</main>
+
+        {% include 'components/footer.html.twig' %}
     </body>
 </html>
