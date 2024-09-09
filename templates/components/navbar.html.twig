@@ -7,9 +7,9 @@
 %}
 
 {% set  navItems_Connected = [
-    {'name': 'Profil', 'path': 'app_home'},
+    {'name': 'Profil', 'path': 'app_account'},
     {'name': 'Favoris', 'path': 'app_home'},
-    {'name': 'Déconnexion', 'path': 'app_home'},
+    {'name': 'Déconnexion', 'path': 'app_logout'},
 ]
 
 %}
@@ -34,7 +34,7 @@
 				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 shrink-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
 					{# image du user #}
-					<img class="w-12 h-12 rounded-full color-shadow-md" src="{{ asset('images/avatars/astroshiba.jpg') }}" alt="user photo">
+					<img class="w-12 h-12 rounded-full color-shadow-md"  src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="user photo">
 				</button>
 				<!-- Dropdown menu -->
 				<div class="z-50 hidden my-4 text-base list-none rounded-lg color-shadow-md bg-col4" id="user-dropdown">
@@ -54,7 +54,7 @@
 				</div>
 
 
-			{% else %}
+			{% else  %}
 				<a class='li_nav' href="{{ path ('app_login')}}">Connexion</a>
 			{% endif %}
 

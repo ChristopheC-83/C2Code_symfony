@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,8 +17,15 @@ class RegisterController extends AbstractController
 
     // Request est une classe de Symfony qui permet de récupérer les données des requêtes HTTP
     // EntityManagerInterface est une classe de Doctrine qui permet de gérer les entités
-    public function index(Request $request, EntityManagerInterface $emi): Response
+    public function index(Request $request, EntityManagerInterface $emi, Security $secu): Response
     {
+        // une fois connecté, on ne peut plus accéder à la page d'inscription
+        if ($secu->getUser()) {
+            return $this->redirectToRoute('app_home'); // Rediriger vers la page d'accueil ou une autre route
+        }
+
+
+
         //  nous voulons créer un nouveau User
         $user = new User();
 
