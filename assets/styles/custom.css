@@ -152,13 +152,13 @@
 }
 
 .customForm {
-  max-width: 600px; /* max-w-[600px] */
-  border-radius: 0.75rem; /* rounded-lg */
-  margin: 2rem auto; /* mt-8 */
-  background: linear-gradient(to left, #1b2223, #3a4f50); /* bg-gradient-to-l from-col4 to-col3 */
-  border: 2px solid #0ef6cc; /* border-2 border-col2 */
-  padding: 0.75rem 1rem; /* p-2 */
-  box-shadow: 0px 0px 15px 6px #0ef6cc; /* color-shadow-md (assumed shadow, adjust as needed) */
+  max-width: 600px;
+  border-radius: 0.75rem;
+  margin: 2rem auto;
+  background: linear-gradient(to left, #1b2223, #3a4f50);
+  border: 2px solid #f4fefd;
+  padding: 0.75rem 1rem;
+  box-shadow: 0px 0px 15px 6px #0ef6cc, inset 0px 0px 10px 4px #0ef6cc;
 }
 
 /* For responsive padding adjustments */
@@ -191,6 +191,13 @@
   letter-spacing: 0.3px;
   box-shadow: none;
   transform: translateY(3px) scale(0.999);
+}
+
+div.customForm > form > div > div > ul > li {
+  color: rgb(250, 70, 70);
+  font-size: 0.875rem; /* Taille plus petite */
+  margin-top: 0.25rem;
+  margin: 10px 0;
 }
 
 .bg-color {

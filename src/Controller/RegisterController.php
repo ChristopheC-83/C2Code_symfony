@@ -2,23 +2,49 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\RegisterType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class RegisterController extends AbstractController
 {
     #[Route('/inscription', name: 'app_register')]
-    public function index(): Response
+
+    // Request est une classe de Symfony qui permet de récupérer les données des requêtes HTTP
+    // EntityManagerInterface est une classe de Doctrine qui permet de gérer les entités
+    public function index(Request $request, EntityManagerInterface $emi): Response
     {
-        // après avoir créé le fichier RegisterUserType dans le dossier Form
+        //  nous voulons créer un nouveau User
+        $user = new User();
+
+        // après avoir créé le fichier RegisterUserType dans le dossier Form et lié à l'objet à créer, ici User
         // nous créons le formulaire à afficher
-        //  nous le passerons dans le rendervia la variable $form
+        //  nous le passerons dans le render via la variable $form
+        $form = $this->createForm(RegisterType::class, $user);
 
-        $form = $this -> createForm(RegisterType::class);
+        // on écoute le formulaire à travers l'objet request
+        $form->handleRequest($request);
+
+        // Si le formulaire est soumis
+        // On vérifie si le formulaire est valide
+        // On récupère les données du formulaire
+        //  on envoie une validation flash
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $data = $form -> getData();
+            // dd($data);
+
+            //  on fige les données
+            $emi->persist($user);
+            // on envoie les données en base
+            $emi->flush();
 
 
+            $this->addFlash('success', 'Votre inscription a bien été prise en compte');
+        }
 
 
 
