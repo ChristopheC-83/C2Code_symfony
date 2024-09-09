@@ -28,7 +28,7 @@ class RegisterType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'label' => 'Le pseudo vu par les membres',
                 'attr' => [
-                    'placeholder' => 'Vous pourrez le modifier 😉'
+                    'placeholder' => 'Vous pourrez le modifier ! 😉'
                 ],
                 'constraints' => [
                     new Length([
@@ -57,13 +57,13 @@ class RegisterType extends AbstractType
                     'label' => 'Votre mot de passe',
                     'hash_property_path' => 'password',
                     'attr' => [
-                        'placeholder' => 'On saisit mot de passe',
+                        'placeholder' => 'On saisit son mot de passe...',
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Confirmirmation votre mot de passe',
+                    'label' => 'Confirmation votre mot de passe',
                     'attr' => [
-                        'placeholder' => 'On valide son mot de passe',
+                        'placeholder' => '... et on vérifie son mot de passe !',
                     ],
                 ],
                 // on explique à Symfo qu'il n'y a pas de lien entre ce formulaire et l'entity lié au formulaire

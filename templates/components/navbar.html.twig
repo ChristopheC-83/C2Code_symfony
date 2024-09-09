@@ -20,12 +20,12 @@
 %}
 
 
-<nav class="relative bg-color color-shadow-md">
+<nav class="relative bg-color ">
 	<div class="flex items-center justify-between px-2 py-4 xs:px-4 flex-nowrap customContainer">
 		<a href={{ path('app_home') }} class='w-full'>
 
 			<div class="flex items-center gap-x-2">
-				<img src="{{ asset('images/avatars/profil_c2c.png') }}" class="w-16 rounded-full color-shadow-md" alt="compagnon de code"/>
+				<img src="{{ asset('images/avatars/profil_c2c.png') }}" class="w-16 border rounded-full color-shadow-md border-col1" alt="compagnon de code"/>
 				<h1 class="flex items-center max-lg:flex-col h3 text-clip xs:flex-nowrap gap-x-2">
 					<span>Compagnon
 					</span>
@@ -95,4 +95,6 @@
 			</ul>
 		</div>
 	</div>
+
+	{% include 'elements/separator.html.twig' %}
 </nav>
