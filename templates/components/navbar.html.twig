@@ -1,16 +1,11 @@
 {% set navItems = [
     {'name': 'Accueil', 'path': 'app_home'},
     {'name': 'Projets', 'path': 'app_home'},
-    {'name': 'Register', 'path': 'app_register'},
-     {'name': 'Réflexions', 'path': 'app_home'}, 
+    {'name': 'Réflexions', 'path': 'app_home'}, 
     
 ] 
 %}
 
-{% set  navItems_unConnected = [
-    {'name': 'Connexion', 'path': 'app_home'}
-]
-%}
 {% set  navItems_Connected = [
     {'name': 'Profil', 'path': 'app_home'},
     {'name': 'Favoris', 'path': 'app_home'},
@@ -60,7 +55,7 @@
 
 
 			{% else %}
-				<h3 class='li_nav'>connexion</h3>
+				<a class='li_nav' href="{{ path ('app_login')}}">Connexion</a>
 			{% endif %}
 
 

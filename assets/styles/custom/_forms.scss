@@ -29,7 +29,7 @@
   border-radius: 0.5rem;
   background: $col1;
   color: $col3;
-  transition: all 500ms ease;
+  transition: all 300ms ease;
   border : 2px solid $col2;
   box-shadow: 0px 3px 6px  $col2;
 }
@@ -37,6 +37,25 @@
 .buttonValidation:hover {
   background: $col2;
   color: $col4;
+  letter-spacing: 0.3px;
+  box-shadow: none;
+  transform: translateY(3px) scale(0.999);
+}
+.buttonSecondary {
+  width: 100%;
+  padding: 0.5rem 0;
+  margin: 1.25rem 0;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  background: $col3;
+  color: $col1;
+  transition: all 300ms ease;
+  border : 2px solid $col2;
+  box-shadow: 0px 3px 6px  $col2;
+}
+
+.buttonSecondary:hover {
+  background: $col4;
   letter-spacing: 0.3px;
   box-shadow: none;
   transform: translateY(3px) scale(0.999);
