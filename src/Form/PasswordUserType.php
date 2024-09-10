@@ -62,16 +62,21 @@ class PasswordUserType extends AbstractType
                 ],
             ])
 
-            // Pour vérifier le mdp actuel, on va écouter l'événement SUBMIT
-            // récupérer les données du formulaire
-            // comparer le mdp actuel avec le mdp en DB
+            // Pour vérifier le mdp actuel, on va écouter l'événement SUBMIT du formulaire
+            //  à quel moment j'écoute ? SUBMIT
+            //  je fais quoi ? 
+            // je récupére les données du formulaire
+            // je compare le mdp actuel avec le mdp en DB
             //  le faire ici allège le controller
 
+            //  le but est de rendre le formulaire isValid() du Controller à true ou false
+
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                // dd($form->getConfig()->getOptions()['data']);
+                //  on récupère le formulaire
                 $form = $event->getForm();
 
                 // dd($form);
+                
                 $user = ($form->getConfig()->getOptions()['data']);
                 $passwordHasher = $form->getConfig()->getOptions()['passwordHasher'];
 
@@ -83,7 +88,6 @@ class PasswordUserType extends AbstractType
     
                 if (!$isValid) {
                     $form->get('actualPassword')->addError(new FormError('Le mot de passe est incorrect, Merci de vérifier votre saisie.'));
-
                 }
             })
         ;
@@ -93,6 +97,9 @@ class PasswordUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            // à null par défaut,
+            // une valeur sera donnée par le controller 
+            // s'il appelle ce formulaire en donnant une valeur à passwordHasher
             'passwordHasher' => null,
         ]);
     }

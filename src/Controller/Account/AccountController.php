@@ -32,14 +32,20 @@ class AccountController extends AbstractController
         // on récupère les données du user connecté pour les envoyer au formulaire
         $user = $this->getUser();  
         // on crée le formulaire lié à la classe PasswordUserType
+        // on lui transfert user pour croiser les infos
+        // on lui transfert passwordHasher pour hasher le mdp
+
         $form = $this->createForm(PasswordUserType::class, $user, [
             'passwordHasher' => $passwordHasher,
         ]);
 
         $form->handleRequest($request);
 
+        // isValid provient de la classe PasswordUserType
+        // au niveau du addEventListener, on a mis un listener sur le SUBMIT
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
+            // Comme on update et pas create, on ne persist pas, le flush suffit
             $this->emi->flush();
         }
 
