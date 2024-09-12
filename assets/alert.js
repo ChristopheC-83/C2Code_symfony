@@ -14,6 +14,6 @@ if (alerts) {
   alerts.forEach((alert) => {
     setTimeout(() => {
       alert.classList.add("move_to_up");
-    }, 3000);
+    }, 4000);
   });
 }
