@@ -2,7 +2,9 @@
 
 namespace App\Controller\Account;
 
+use App\Form\NameUserType;
 use App\Form\PasswordUserType;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -47,9 +49,39 @@ class AccountController extends AbstractController
             $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
             // Comme on update et pas create, on ne persist pas, le flush suffit
             $this->emi->flush();
+            
+            return $this->redirectToRoute('app_account');
         }
 
         return $this->render('account/modify_password.html.twig', [
+            'modifyPwd' => $form->createView(),
+
+        ]);
+    }
+    #[Route('/compte/modifier-pseudo', name: 'app_account_modify_pseudo')]
+    public function modifyPseudo(Request $request): Response
+    {
+        $user = $this->getUser();  
+
+        $form = $this->createForm(NameUserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->emi->flush(); 
+                $newPseudo = $user->getPseudo();
+                $this->addFlash('success', 'Votre pseudo a bien été modifié en : '. $newPseudo .'');
+                return $this->redirectToRoute('app_account');
+            } catch (UniqueConstraintViolationException $e) {
+                // Si le pseudo est déjà utilisé, on attrape l'exception
+                $this->addFlash('danger', "Ce pseudo est déjà utilisé, merci d'en choisir un autre.");
+                return $this->redirectToRoute('app_account_modify_pseudo');
+            }
+           
+        }
+
+        return $this->render('account/modify_pseudo.html.twig', [
             'modifyPwd' => $form->createView(),
 
         ]);

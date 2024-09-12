@@ -13,9 +13,6 @@ class HomeController extends AbstractController
     {
         $meta_description = 'Bienvenue chez le Compagnon de code. Faisons des projets pour valider vos connaissances en développement web.';
 
-        $this->addFlash('success', 'test message pour valider les couleurs');
-        $this->addFlash('danger', 'test message pour valider les couleurs');
-        $this->addFlash('warning', 'test message pour valider les couleurs');
 
 
         return $this->render(
