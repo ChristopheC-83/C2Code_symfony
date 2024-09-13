@@ -6,6 +6,7 @@
 @import "custom/forms";
 @import "custom/modal";
 @import "custom/alert";
+@import "custom/avatars";
 // @import "custom";
 // @import "custom";
 
@@ -19,3 +20,9 @@
     margin: 0 auto;
 }
 
+.midFlex, .flexMid{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+
+}

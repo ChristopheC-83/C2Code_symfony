@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil | C2Code
+{% endblock %}
+{# Metedesc fixe pour une page donnée #}
+{% block meta_description %}
+	Espace privé dun Compagnon de code
+{% endblock %}
+
+{% block body %}
+	<form method="post">
+		<div class="flex-wrap gap-1 xs:gap-2 md:gap-3 flexMid">
+
+
+			<input
+			type="radio" id="avatar-{{ app.user.avatar }}" name="avatar" value="{{ app.user.avatar }}"/>
+			<!-- Label pour l'image, cliquable -->
+			<label for="avatar-{{ app.user.avatar }}">
+
+
+				<img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar {{ app.user.avatar }}" width="100" class="rounded-full cursor-pointer avatar-img color-shadow-md ">
+
+			</label>
+
+			{% for avatar in avatars %}
+				<!-- Bouton radio caché -->
+				{% if  avatar != "profil_c2c.png" and avatar != app.user.avatar %}
+					<input
+					type="radio" id="avatar-{{ avatar }}" name="avatar" value="{{ avatar }}"/>
+					<!-- Label pour l'image, cliquable -->
+					<label for="avatar-{{ avatar }}">
+
+						<img src="{{ asset('images/avatars/' ~ avatar) }}" alt="Avatar {{ avatar }}" width="100" class="rounded-full  cursor-pointer avatar-img {% if avatar == app.user.avatar %}color-shadow-md {% endif %}">
+					</label>
+				{% endif %}
+			{% endfor %}
+		</div>
+		<button type="submit" class="buttonValidation">Changer d'avatar</button>
+	</form>
+
+	<a href={{ path('app_account') }}>
+		<p class="text-center buttonSecondary ">Je garde mon avatar</p>
+	</a>
+
+
+{% endblock %}
