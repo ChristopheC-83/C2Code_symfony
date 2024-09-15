@@ -9,10 +9,83 @@
 
 	<section class="customContainer">
 		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Gestion des utilisateurs</h3>
-        
-        {{ dump(users) }}
 
-        
+		{{ dump(users) }}
+
+
+		<div class="relative overflow-x-auto">
+			<table class="w-full text-col4 bg-gray-50">
+				<thead class="text-xs uppercase ">
+					<tr>
+						<th class="px-6 py-3">
+							ID
+						</th>
+						<th class="px-6 py-3">
+							Avatar
+						</th>
+						<th class="px-6 py-3">
+							Pseudo
+						</th>
+						<th class="px-6 py-3">
+							Email
+						</th>
+						<th class="px-6 py-3">
+							Role
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr class="text-sm text-col3">
+							<td class="px-6 py-4">
+								{{ user.id }}
+							</td>
+							<td class="px-6 py-4">
+								<img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="{{ user.pseudo }}" class="w-10 h-10 rounded-full">
+							</td>
+							<td class="px-6 py-4">
+								{{ user.pseudo }}
+							</td>
+							<td class="px-6 py-4">
+								{{ user.email }}
+							</td>
+							
+							<td class="px-6 py-4 w-[250px]">
+								{% if user.pseudo == "kiki" %}
+									Super Admin
+								{% elseif user.pseudo == app.user.pseudo %}
+									{% if 'ROLE_ADMIN' in app.user.roles %}
+										Vous êtes Administrateur.
+									{% elseif 'ROLE_CREATOR' in app.user.roles %}
+										Vous êtes Créateur.
+									{% elseif 'ROLE_USER' in app.user.roles %}
+										Vous êtes connecté.
+									{% else %}
+										Votre rôle est inconnu.
+									{% endif %}
+								{% else %}
+									<form action="{{ path('app_admin_update_role') }}" method="POST" class="flexMid gap-x-2">
+										<input type="hidden" name="user_id" value="{{ user.id }}">
+										<select name="role" class="m-0" required>
+											<option value="" disabled>Choisissez un rôle</option>
+											<option value="ROLE_USER" {% if 'ROLE_USER' in user.roles %} selected {% endif %}>Utilisateur</option>
+											<option value="ROLE_CREATOR" {% if 'ROLE_CREATOR' in user.roles %} selected {% endif %}>Créateur</option>
+											<option value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in user.roles %} selected {% endif %}>Administrateur</option>
+											<option value="ROLE_BAN" {% if 'ROLE_BAN' in user.roles %} selected {% endif %}>Banni</option>
+										</select>
+										<button type="submit" class="scale-150">✅</button>
+									</form>
+								{% endif %}
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+
+
+			</table>
+		</div>
+
 
 	</section>
 {% endblock %}

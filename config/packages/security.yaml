@@ -38,7 +38,6 @@ security:
         
     access_control:
         # Interdiction globale pour les utilisateurs bannis
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, allow_if: "not is_granted('ROLE_BAN')" }
 
         # Chemins protégés pour les utilisateurs enregistrés
         - { path: ^/compte, roles: ROLE_USER }

@@ -26,8 +26,20 @@ class AccountController extends AbstractController
     #[Route('/compte', name: 'app_account')]
     public function index(): Response
     {
+        $user = $this->getUser();
+    
+        // Vérifier si l'utilisateur est banni
+        if (in_array('ROLE_BAN', $user->getRoles())) {
+    
+            // Rediriger vers la déconnexion
+            return $this->redirectToRoute('app_logout');
+        }
+
+
         return $this->render('account/index.html.twig');
     }
+
+
 
     #[Route('/compte/modifier-mdp', name: 'app_account_modify_password')]
     public function modifyPassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response

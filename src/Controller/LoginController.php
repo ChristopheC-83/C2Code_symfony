@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\MakerBundle\Security\Model\Authenticator;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -12,8 +13,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/connexion', name: 'app_login')]
-    public function index(AuthenticationUtils $authUtils, Security $secu): Response
+    public function index(AuthenticationUtils $authUtils, Security $secu, UserRepository $userRepo): Response
     {
+
+
         // une fois connecté, on ne peut plus accéder à la page de connexion
         if ($secu->getUser()) {
             return $this->redirectToRoute('app_home'); // Rediriger vers la page d'accueil ou une autre route
@@ -30,18 +33,19 @@ class LoginController extends AbstractController
 
 
 
-
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);
     }
 
+
     #[Route('/deconnexion', name: 'app_logout', methods: ['GET'])]
     public function logout(): never
     {
         throw new \LogicException('Tu as bien mis logout dans ton fichier security.yaml !?!');
     }
+   
 }
 //  A mettre dans security.yaml / main :
                 // form_login:
