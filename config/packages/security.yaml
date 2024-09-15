@@ -30,9 +30,21 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy:
+        ROLE_USER: []
+        ROLE_CREATOR: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_CREATOR]
+        ROLE_BAN: []
+        
     access_control:
+        # Interdiction globale pour les utilisateurs bannis
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, allow_if: "not is_granted('ROLE_BAN')" }
+
+        # Chemins protégés pour les utilisateurs enregistrés
         - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/edition, roles: ROLE_CREATOR }
         - { path: ^/admin, roles: ROLE_ADMIN }
+
 
 when@test:
     security:

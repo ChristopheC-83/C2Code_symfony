@@ -31,6 +31,8 @@
 		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 shrink-0">
 
 			{% if app.user %}
+		
+	
 				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 shrink-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
 					{# image du user #}
@@ -41,8 +43,8 @@
 					<div
 						class="px-4 py-3">
 						{# nom et mail user #}
-						<span class="block text-sm text-col1 ">Bonnie Green</span>
-						<span class="block text-sm text-gray-400 truncate ">name@flowbite.com</span>
+						<span class="block text-sm text-col1 ">{{ app.user.pseudo }}</span>
+						<span class="block text-sm text-gray-400 truncate ">{{ app.user.email }}</span>
 					</div>
 					<ul class="py-2 " aria-labelledby="user-menu-button">
 						{% for item in navItems_Connected %}
