@@ -12,17 +12,12 @@
 			<br>
 			id =>
 			{{ language.id }}</h3>
-
-
 		<a href="{{ path('app_admin_languages_index') }}">
 			<div class="text-center buttonSecondary">Retour à la liste</div>
 		</a>
-
 		<a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}">
 			<div class="text-center buttonSecondary">Modifier</div>
 		</a>
-
 		{{ include('admin/languages/_delete_form.html.twig') }}
-
 	</section>
 {% endblock %}

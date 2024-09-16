@@ -12,17 +12,12 @@
 			<br>
 			id =>
 			{{ type.id }}</h3>
-
-
 		<a href="{{ path('app_admin_types_index') }}">
 			<div class="text-center buttonSecondary">Retour à la liste</div>
 		</a>
-
 		<a href="{{ path('app_admin_types_edit', {'id': type.id}) }}">
 			<div class="text-center buttonSecondary">Modifier</div>
 		</a>
-
-
 		{{ include('admin/types/_delete_form.html.twig') }}
 	</section>
 {% endblock %}
