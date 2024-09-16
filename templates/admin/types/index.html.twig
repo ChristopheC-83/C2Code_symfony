@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types index
+{% endblock %}
+
+{% block body %}
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Gestion des Types</h3>
+
+
+		<div class='relative overflow-x-auto rounded-xl'>
+			<table class="w-full text-col4 bg-gray-50">
+				<thead class="text-sm uppercase border-2 border-col3">
+					<tr>
+						<th class="px-6 py-3 text-left">Id</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Type</th>
+						<th class="px-6 py-3 text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for type in types %}
+						<tr class="text-sm border-2 text-col3 border-col3 hover:bg-neutral-200">
+							<td class="px-6 py-3">{{ type.id }}</td>
+							<td class="px-6 py-3 border-2 border-col3">{{ type.type }}</td>
+							<td class="flex justify-between px-6 py-3">
+								<a href="{{ path('app_admin_types_edit', {'id': type.id}) }}">
+									<button class="p-3 font-semibold bg-blue-400 text-col4 rounded-xl hover:opacity-90">Modifier</button>
+								</a>
+								<a href="{{ path('app_admin_types_delete', {'id': type.id}) }}">
+									<button class="p-3 font-semibold bg-red-600 text-col4 rounded-xl hover:opacity-90">Supprimer</button>
+								</a>
+							</td>
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('app_admin_types_new') }}"><div class="text-center buttonSecondary">Ajouter un nouveau</div></a>
+		</section>
+	{% endblock %}

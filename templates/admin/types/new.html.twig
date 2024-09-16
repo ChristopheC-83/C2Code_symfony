@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Types{% endblock %}
+
+{% block body %}
+<section class="customContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">
+    Administration : Création d'un Type</h3>
+
+    {{ include('admin/types/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_types_index') }}"><div class="text-center buttonSecondary">Retour</div></a>
+    </section>
+{% endblock %}
