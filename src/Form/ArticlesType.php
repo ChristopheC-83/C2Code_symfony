@@ -20,6 +20,8 @@ class ArticlesType extends AbstractType
             ->add('thumbnail')
             ->add('pitch')
             ->add('text')
+            ->add('position')
+            ->add('author')
             ->add('types', EntityType::class, [
                 'class' => Types::class,
                 'choice_label' => 'id',

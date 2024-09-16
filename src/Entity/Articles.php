@@ -37,6 +37,12 @@ class Articles
     #[ORM\Column(type: DoctrineTypes::TEXT, nullable: true)] // Utilisation de l'alias pour TEXT
     private ?string $text = null;
 
+    #[ORM\Column]
+    private ?int $position = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $author = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +128,30 @@ class Articles
     public function setText(?string $text): static
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
