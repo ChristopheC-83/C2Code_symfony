@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Languages index
+{% endblock %}
+
+{% block body %}
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Gestion des utilisateurs</h3>
+
+
+		<div class='relative overflow-x-auto rounded-xl'>
+			<table class="w-full text-col4 bg-gray-50">
+				<thead class="text-sm uppercase border-2 border-col3">
+					<tr>
+						<th class="px-6 py-3 text-left">Id</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Language</th>
+						<th class="px-6 py-3 text-center">actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for language in languages %}
+						<tr class="text-sm border-2 text-col3 border-col3">
+							
+							<td class="px-6 py-3">{{ language.id }}</td>
+							
+							<td class="px-6 py-3 border-2 border-col3">{{ language.language }}</td>
+							
+							<td class="flex justify-between px-6 py-3">
+								<a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}">Editer</a>
+								<a href="{{ path('app_admin_languages_delete', {'id': language.id}) }}">Supprimer</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		<a href="{{ path('app_admin_languages_new') }}"><div class="text-center buttonSecondary">Create new</div></a>
+
+	</section>
+{% endblock %}

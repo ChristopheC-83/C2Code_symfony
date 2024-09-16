@@ -47,11 +47,15 @@
 						<span class="block text-sm text-gray-400 truncate ">{{ app.user.email }}</span>
 					</div>
 					<ul class="py-2 " aria-labelledby="user-menu-button">
-						{% if  is_granted('ROLE_ADMIN')  %}
-							
+						{% if  is_granted('ROLE_CREATOR')  %}
 							<li>
-								<a href="{{ path('app_creator_write_new_article') }}" class="li_nav" aria-current="page">Nouvel Article</a>
+								<a href="{{ path('app_home') }}" class="li_nav" aria-current="page">Nouvel Article</a>
 							</li>
+						{% endif %}
+						{% if  is_granted('ROLE_ADMIN')  %}
+							{# <li>
+								<a href="{{ path('app_admin_languages_index') }}" class="li_nav" aria-current="page">Les Langages</a>
+							</li> #}
 						{% endif %}
 						{% for item in navItems_Connected %}
 							<li>
