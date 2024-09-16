@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Creator\Articles;
 use App\Repository\LanguagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LanguagesRepository::class)]
@@ -15,6 +18,17 @@ class Languages
 
     #[ORM\Column(length: 255)]
     private ?string $language = null;
+
+    /**
+     * @var Collection<int, Articles>
+     */
+    #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: 'languages')]
+    private Collection $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +43,36 @@ class Languages
     public function setLanguage(string $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Articles>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Articles $article): static
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setLanguages($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Articles $article): static
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getLanguages() === $this) {
+                $article->setLanguages(null);
+            }
+        }
 
         return $this;
     }
