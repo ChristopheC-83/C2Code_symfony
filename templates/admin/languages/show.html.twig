@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Languages{% endblock %}
+{% block title %}Languages
+{% endblock %}
 
 {% block body %}
-    <h1>Languages</h1>
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 text-center h3 text-clip xs:my-6 md:my-7">Administration Langage <br>
+         Gestion => {{language.language}} <br>
+          id => {{ language.id }}</h3>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ language.id }}</td>
-            </tr>
-            <tr>
-                <th>Language</th>
-                <td>{{ language.language }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_admin_languages_index') }}">back to list</a>
+	
 
-    <a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}">edit</a>
+		<a href="{{ path('app_admin_languages_index') }}">
+			<div class="text-center buttonSecondary">Retour à la liste</div>
+		</a>
 
-    {{ include('admin/languages/_delete_form.html.twig') }}
+		<a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}">
+			<div class="text-center buttonSecondary">Modifier</div>
+		</a>
+
+		{{ include('admin/languages/_delete_form.html.twig') }}
+
+	</section>
 {% endblock %}

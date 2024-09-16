@@ -32,20 +32,27 @@ final class LanguagesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->getData());
             $entityManager->persist($language);
             $entityManager->flush();
             $this->addFlash(
-               'success',
-               $language->getLanguage().' a bien été ajouté'
-            );
+                'success',
+                $language->getLanguage().' a bien été ajouté.'
+             );
 
-            return $this->redirectToRoute('app_admin_languages_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/languages/new.html.twig', [
             'language' => $language,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_admin_languages_show', methods: ['GET'])]
+    public function show(Languages $language): Response
+    {
+        return $this->render('admin/languages/show.html.twig', [
+            'language' => $language,
         ]);
     }
 
@@ -57,7 +64,10 @@ final class LanguagesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $this->addFlash(
+                'success',
+                $language->getLanguage().' a bien été modifié.'
+             );
             return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +83,10 @@ final class LanguagesController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$language->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($language);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                $language->getLanguage().' a bien été supprimé.'
+             );
         }
 
         return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
