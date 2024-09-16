@@ -32,10 +32,15 @@ final class LanguagesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getData());
             $entityManager->persist($language);
             $entityManager->flush();
+            $this->addFlash(
+               'success',
+               $language->getLanguage().' a bien été ajouté'
+            );
 
-            return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_languages_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/languages/new.html.twig', [

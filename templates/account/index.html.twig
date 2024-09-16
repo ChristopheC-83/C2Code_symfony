@@ -53,9 +53,13 @@
 					</a>
 				{% endif %}
 				{% if  is_granted('ROLE_ADMIN')  %}
-					<a href={{ path('app_admin_users') }} class="w-full midFlex">
+					<a href={{ path ('app_admin_users') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des utilisateurs</p>
 					</a>
+					<a href={{ path ('app_admin_languages_index')  }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Les Langages</p>
+					</a>
+							
 				{% endif %}
 				
 			</div>
