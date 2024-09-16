@@ -19,15 +19,15 @@
 				</thead>
 				<tbody>
 					{% for language in languages %}
-						<tr class="text-sm border-2 text-col3 border-col3">
+						<tr class="text-sm border-2 text-col3 border-col3 hover:bg-neutral-200">
 							
 							<td class="px-6 py-3">{{ language.id }}</td>
 							
 							<td class="px-6 py-3 border-2 border-col3">{{ language.language }}</td>
 							
 							<td class="flex justify-between px-6 py-3">
-								<a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}">Editer</a>
-								<a href="{{ path('app_admin_languages_delete', {'id': language.id}) }}">Supprimer</a>
+								<a href="{{ path('app_admin_languages_edit', {'id': language.id}) }}"><button class="p-3 font-semibold bg-blue-400 text-col4 rounded-xl hover:opacity-90">Modifier</button></a>
+								<a href="{{ path('app_admin_languages_delete', {'id': language.id}) }}"><button class="p-3 font-semibold bg-red-600 text-col4 rounded-xl hover:opacity-90">Supprimer</button></a>
 							</td>
 						</tr>
 					{% else %}
