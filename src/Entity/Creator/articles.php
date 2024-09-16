@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Creator;
 
-use App\Repository\ArticlesRepository;
+use App\Entity\articleslanguages;
+use App\Entity\articlestypes;
+use App\Repository\Creator\articlesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ArticlesRepository::class)]
-class Articles
+#[ORM\Entity(repositoryClass: articlesRepository::class)]
+class articles
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,21 +28,19 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $thumbnail = null;
 
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ArticleLanguage $language = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    private ?ArticleType $type = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $pitch = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?articlestypes $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?articleslanguages $language = null;
 
     public function getId(): ?int
     {
@@ -95,30 +95,6 @@ class Articles
         return $this;
     }
 
-    public function getLanguage(): ?ArticleLanguage
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(?ArticleLanguage $language): static
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getType(): ?ArticleType
-    {
-        return $this->type;
-    }
-
-    public function setType(?ArticleType $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getPitch(): ?string
     {
         return $this->pitch;
@@ -143,14 +119,26 @@ class Articles
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getType(): ?articlestypes
     {
-        return $this->author;
+        return $this->type;
     }
 
-    public function setAuthor(string $author): static
+    public function setType(?articlestypes $type): static
     {
-        $this->author = $author;
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?articleslanguages
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?articleslanguages $language): static
+    {
+        $this->language = $language;
 
         return $this;
     }

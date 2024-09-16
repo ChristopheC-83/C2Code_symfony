@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\ArticleLanguage;
+use App\Entity\ArticlesLanguages;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ArticleLanguage>
+ * @extends ServiceEntityRepository<ArticlesLanguages>
  */
-class ArticleLanguageRepository extends ServiceEntityRepository
+class ArticlesLanguagesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ArticleLanguage::class);
+        parent::__construct($registry, ArticlesLanguages::class);
     }
 
     //    /**
-    //     * @return ArticleLanguage[] Returns an array of ArticleLanguage objects
+    //     * @return ArticlesLanguages[] Returns an array of ArticlesLanguages objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ArticleLanguageRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ArticleLanguage
+    //    public function findOneBySomeField($value): ?ArticlesLanguages
     //    {
     //        return $this->createQueryBuilder('a')
     //            ->andWhere('a.exampleField = :val')
