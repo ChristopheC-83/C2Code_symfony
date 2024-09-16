@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Creator\Articles;
+use App\Entity\Articles;
 use App\Repository\LanguagesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
