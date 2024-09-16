@@ -36,17 +36,28 @@
 				<a href={{ path('app_account_modify_password') }} class="w-full midFlex">
 					<p class="buttonSecondary  w-[300px] text-center ">Modifier mon mot de passe</p>
 				</a>
+				{% if app.user.pseudo != "ChristopheC" %}
 				<a href={{ path('app_account_modify_pseudo') }} class="w-full midFlex">
 					<p class="buttonSecondary w-[300px]  text-center">Modifier mon pseudo</p>
 				</a>
+				{% endif %}
 				<a href={{ path('app_home') }} class="w-full midFlex">
 					<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
 				</a>
+				{% if  is_granted('ROLE_CREATOR')  %}
+					<a href={{ path('app_creator_write_new_article') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Ecrire un nouvel article</p>
+					</a>
+					<a href={{ path('app_creator_write_new_article') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Mes articles</p>
+					</a>
+				{% endif %}
 				{% if  is_granted('ROLE_ADMIN')  %}
 					<a href={{ path('app_admin_users') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des utilisateurs</p>
 					</a>
 				{% endif %}
+				
 			</div>
 			<div class="flex flex-col items-center justify-center md:w-1/2 ">
 				<img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.pseudo }}" class="rounded-full w-[250px] color-shadow-md">

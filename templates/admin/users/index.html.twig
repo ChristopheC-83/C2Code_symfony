@@ -10,59 +10,51 @@
 	<section class="customContainer">
 		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Gestion des utilisateurs</h3>
 
-		{{ dump(users) }}
+		{# {{ dump(users) }} #}
 
 
-		<div class="relative overflow-x-auto">
+		<div class="relative overflow-x-auto rounded-xl">
 			<table class="w-full text-col4 bg-gray-50">
-				<thead class="text-xs uppercase ">
-					<tr>
-						<th class="px-6 py-3">
+				<thead class="text-sm uppercase border-2 border-col3">
+					<tr >
+						<th class="px-6 py-3 text-left">
 							ID
 						</th>
-						<th class="px-6 py-3">
+						<th class="px-6 py-3 text-left" >
 							Avatar
 						</th>
-						<th class="px-6 py-3">
+						<th class="px-6 py-3 text-left">
 							Pseudo
 						</th>
-						<th class="px-6 py-3">
+						<th class="px-6 py-3 text-left">
 							Email
 						</th>
-						<th class="px-6 py-3">
+						<th class="px-6 py-3 text-left">
 							Role
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for user in users %}
-						<tr class="text-sm text-col3">
-							<td class="px-6 py-4">
+						<tr class="text-sm border-2 text-col3 border-col3">
+							<td class="px-6 py-3">
 								{{ user.id }}
 							</td>
-							<td class="px-6 py-4">
-								<img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="{{ user.pseudo }}" class="w-10 h-10 rounded-full">
+							<td class="px-6 py-3">
+								<img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="{{ user.pseudo }}" class="w-12 h-12 rounded-full">
 							</td>
-							<td class="px-6 py-4">
+							<td class="px-6 py-3">
 								{{ user.pseudo }}
 							</td>
-							<td class="px-6 py-4">
+							<td class="px-6 py-3">
 								{{ user.email }}
 							</td>
 							
-							<td class="px-6 py-4 w-[250px]">
-								{% if user.pseudo == "kiki" %}
+							<td class="px-6 py-3 w-[250px]">
+								{% if user.pseudo == "ChristopheC" %}
 									Super Admin
 								{% elseif user.pseudo == app.user.pseudo %}
-									{% if 'ROLE_ADMIN' in app.user.roles %}
 										Vous êtes Administrateur.
-									{% elseif 'ROLE_CREATOR' in app.user.roles %}
-										Vous êtes Créateur.
-									{% elseif 'ROLE_USER' in app.user.roles %}
-										Vous êtes connecté.
-									{% else %}
-										Votre rôle est inconnu.
-									{% endif %}
 								{% else %}
 									<form action="{{ path('app_admin_update_role') }}" method="POST" class="flexMid gap-x-2">
 										<input type="hidden" name="user_id" value="{{ user.id }}">

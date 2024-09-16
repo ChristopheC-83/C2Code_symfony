@@ -31,12 +31,12 @@
 		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 shrink-0">
 
 			{% if app.user %}
-		
-	
+
+
 				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 shrink-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
 					{# image du user #}
-					<img class="w-12 h-12 rounded-full color-shadow-md"  src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="user photo">
+					<img class="w-12 h-12 rounded-full color-shadow-md" src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="user photo">
 				</button>
 				<!-- Dropdown menu -->
 				<div class="z-50 hidden my-4 text-base list-none rounded-lg color-shadow-md bg-col4" id="user-dropdown">
@@ -47,11 +47,18 @@
 						<span class="block text-sm text-gray-400 truncate ">{{ app.user.email }}</span>
 					</div>
 					<ul class="py-2 " aria-labelledby="user-menu-button">
+						{% if  is_granted('ROLE_ADMIN')  %}
+							
+							<li>
+								<a href="{{ path('app_creator_write_new_article') }}" class="li_nav" aria-current="page">Nouvel Article</a>
+							</li>
+						{% endif %}
 						{% for item in navItems_Connected %}
 							<li>
 								<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
 							</li>
 						{% endfor  %}
+
 					</ul>
 				</div>
 
