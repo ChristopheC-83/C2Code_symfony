@@ -16,14 +16,14 @@ final class ArticlesController extends AbstractController
 {
     #[Route(name: 'app_creator_articles_index', methods: ['GET'])]
     public function index(ArticlesRepository $articlesRepository): Response
-    {
+{
+    // Récupère les articles triés par position croissante
+    $articles = $articlesRepository->findBy([], ['position' => 'ASC']);
 
-        // $articles = $articlesRepository->findAll();
-        // dd($articles);
-        return $this->render('creator/articles/index.html.twig', [
-            'articles' => $articlesRepository->findAll(),
-        ]);
-    }
+    return $this->render('creator/articles/index.html.twig', [
+        'articles' => $articles,
+    ]);
+}
 
     #[Route('/new', name: 'app_creator_articles_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
