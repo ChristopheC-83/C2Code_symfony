@@ -17,6 +17,9 @@ final class ArticlesController extends AbstractController
     #[Route(name: 'app_creator_articles_index', methods: ['GET'])]
     public function index(ArticlesRepository $articlesRepository): Response
     {
+
+        // $articles = $articlesRepository->findAll();
+        // dd($articles);
         return $this->render('creator/articles/index.html.twig', [
             'articles' => $articlesRepository->findAll(),
         ]);
@@ -26,6 +29,15 @@ final class ArticlesController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $article = new Articles();
+
+          // Récupérer l'utilisateur connecté
+          $user = $this->getUser();
+        
+          // Si l'utilisateur est connecté, définir son pseudo comme auteur
+          if ($user) {
+              $article->setAuthor($user->getPseudo()); // Assure-toi que l'entité Articles a une méthode setAuthor
+          }
+
         $form = $this->createForm(ArticlesType::class, $article);
         $form->handleRequest($request);
 

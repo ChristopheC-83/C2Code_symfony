@@ -45,7 +45,7 @@
 					<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
 				</a>
 				{% if  is_granted('ROLE_CREATOR')  %}
-					<a href={{ path('app_creator_articles_index') }} class="w-full midFlex">
+					<a href={{ path('app_creator_articles_new') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Ecrire un nouvel article</p>
 					</a>
 					{# filtrer sur author #}

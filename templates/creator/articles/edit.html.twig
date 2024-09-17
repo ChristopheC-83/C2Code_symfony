@@ -3,11 +3,15 @@
 {% block title %}Edit Articles{% endblock %}
 
 {% block body %}
-    <h1>Edit Articles</h1>
+       <section class="customContainer">
+		<h3 class="mx-auto my-5 text-center h3 text-clip xs:my-6 md:my-7">Administration Article <br>
+         Article => {{article.title}} <br>
+          Position => {{ article.position }}</h3>
 
     {{ include('creator/articles/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_creator_articles_index') }}">back to list</a>
+    <a href="{{ path('app_creator_articles_index') }}"><div class="text-center buttonSecondary">Retour</div></a>
 
     {{ include('creator/articles/_delete_form.html.twig') }}
+    </section>
 {% endblock %}

@@ -1,50 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Articles{% endblock %}
+{% block title %}Articles
+{% endblock %}
 
 {% block body %}
-    <h1>Articles</h1>
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 text-center h3 text-clip xs:my-6 md:my-7">Suupression Article
+			<br>
+			Article =>
+			{{article.title}}
+			<br>
+			Position =>
+			{{ article.position }}</h3>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Visible</th>
-                <td>{{ article.visible ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Thumbnail</th>
-                <td>{{ article.thumbnail }}</td>
-            </tr>
-            <tr>
-                <th>Pitch</th>
-                <td>{{ article.pitch }}</td>
-            </tr>
-            <tr>
-                <th>Text</th>
-                <td>{{ article.text }}</td>
-            </tr>
-            <tr>
-                <th>Position</th>
-                <td>{{ article.position }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ article.author }}</td>
-            </tr>
-        </tbody>
-    </table>
+		<div class="flex flex-col">
+			<div class="flex">
+				<div class="flex flex-col w-full gap-3">
+					<div class="flex w-full gap-2 text-col1">
+						<p class='font-semibold underline underline-offset-2'>ID :
+						</p>
+						<p>{{ article.id }}</p>
+					</div>
+					<div class="flex w-full gap-2 text-col1">
+						<p class='font-semibold underline underline-offset-2'>TITRE :
+						</p>
+						<p>{{ article.title }}</p>
+					</div>
 
-    <a href="{{ path('app_creator_articles_index') }}">back to list</a>
+					<div class="flex w-full gap-2 text-col1">
+						<p class='font-semibold underline underline-offset-2'>POSITION :
+						</p>
+						<p>{{ article.position }}</p>
+					</div>
+					<div class="flex w-full gap-2 text-col1">
+						<p class='font-semibold underline underline-offset-2'>LANGAGE :
+						</p>
+						<p>{{ article.languages.language }}</p>
+					</div>
+					<div class="flex w-full gap-2 text-col1">
+						<p class='font-semibold underline underline-offset-2'>TYPE :
+						</p>
+						<p>{{ article.types.type }}</p>
+					</div>
 
-    <a href="{{ path('app_creator_articles_edit', {'id': article.id}) }}">edit</a>
+				</div>
+				<div class="flex w-full gap-2 text-col1">
+					<p class='font-semibold underline underline-offset-2'>IMAGE :
+					</p>
+					<img src="{{ article.thumbnail }}" alt="{{ article.title }}" class='w-[180px]'>
+				</div>
+			</div>
+			<div class="flex w-full gap-2 mt-4 mb-6 text-col1">
+				<p class='font-semibold underline underline-offset-2'>PITCH :
+				</p>
+				<p>{{ article.pitch}}</p>
+			</div>
+		</div>
 
-    {{ include('creator/articles/_delete_form.html.twig') }}
+
+		<a href="{{ path('app_creator_articles_index') }}">
+			<div class="text-center buttonSecondary">Retour à la liste</div>
+		</a>
+
+		<a href="{{ path('app_creator_articles_edit', {'id': article.id}) }}">
+			<div class="text-center buttonSecondary">Modifier</div>
+		</a>
+
+
+		{{ include('creator/articles/_delete_form.html.twig') }}
+
+	</section>
 {% endblock %}

@@ -8,6 +8,7 @@ use App\Entity\Types;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +28,10 @@ class ArticlesType extends AbstractType
                 ],
             ])
             ->add('position')
-            ->add('author')
+            ->add('author', TextType::class, [
+                'disabled' => true,  // Rendre le champ non modifiable
+                'label' => 'Auteur',
+            ])
             ->add('types', EntityType::class, [
                 'class' => Types::class,
                 'choice_label' => 'type',
