@@ -22,40 +22,45 @@
 // font-size
 
 .h1 {
-  font-size: clamp(32px, calc(22px + 2.2vw), 60px);
-  letter-spacing: calc(1px + 0.10vw);
+  font-size: clamp(32px, calc(24px + 2.2vw), 60px);
+  letter-spacing: calc(1px + 0.12vw);
   font-weight: bold;
   width: fit-content;
+  font-family: "Labrada";
 }
 .h2 {
-  font-size: clamp(23px, calc(18px + 1.65vw), 40px);
-  letter-spacing: calc(1px + 0.035vw);
+  font-size: clamp(23px, calc(20px + 1.65vw), 40px);
+  letter-spacing: calc(1px + 0.04vw);
   font-weight: bold;
   width: fit-content;
+  font-family: "Labrada";
 }
 .h3 {
-  font-size: clamp(20px, calc(18px + 1vw), 29px);
-  letter-spacing: calc(1px + 0.018vw);
+  font-size: clamp(20px, calc(20px + 1vw), 29px);
+  letter-spacing: calc(1px + 0.02vw);
   font-weight: bold;
   width: fit-content;
+  font-family: "Labrada";
 }
 .h4 {
-  font-size: clamp(18px, calc(13px + 0.7vw), 22px);
-  letter-spacing: calc(1px + 0.008vw);
+  font-size: clamp(18px, calc(14px + 0.7vw), 22px);
+  letter-spacing: calc(1px + 0.01vw);
   font-weight: bold;
   width: fit-content;
+  font-family: "Labrada";
 }
 .h5 {
-  font-size: clamp(16px, calc(11px + 0.4vw), 18px);
-  letter-spacing: calc(0.8px + 0.008vw);
+  font-size: clamp(16px, calc(14px + 0.4vw), 20px);
+  letter-spacing: calc(0.8px + 0.01vw);
   font-weight: bold;
   width: fit-content;
+  font-family: "Labrada";
 }
 .p {
-  font-size: clamp(13px, calc(11px + 0.4vw), 18px);
-  line-height: clamp(27px, calc(22px + 0.66vw), 33px);;
+  font-size: clamp(16px, calc(14px + 0.4vw), 20px);
+  line-height: clamp(30px, calc(24px + 0.66vw), 36px);
   font-family: "Roboto";
-  // font-family: "Reem Kufi fun";
+  font-family: "Reem Kufi fun";
 }
 
 
