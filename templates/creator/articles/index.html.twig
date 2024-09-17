@@ -1,47 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Articles index{% endblock %}
+{% block title %}Articles index
+{% endblock %}
 
 {% block body %}
-    <h1>Articles index</h1>
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Gestion des articles</h3>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Visible</th>
-                <th>Thumbnail</th>
-                <th>Pitch</th>
-                <th>Text</th>
-                <th>Position</th>
-                <th>Author</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.visible ? 'Yes' : 'No' }}</td>
-                <td>{{ article.thumbnail }}</td>
-                <td>{{ article.pitch }}</td>
-                <td>{{ article.text }}</td>
-                <td>{{ article.position }}</td>
-                <td>{{ article.author }}</td>
-                <td>
-                    <a href="{{ path('app_creator_articles_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_creator_articles_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_creator_articles_new') }}">Create new</a>
-{% endblock %}
+		<div class='relative overflow-x-auto rounded-xl'>
+			<table class="w-full text-col4 bg-gray-50">
+				<thead class="text-sm uppercase border-2 border-col3">
+					<tr>
+						<th class="px-6 py-3 text-left">Id</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Title</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Visible</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Thumbnail</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Position</th>
+						<th class="px-6 py-3 text-left border-2 border-col3">Author</th>
+						<th class="px-6 py-3 text-left">actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for article in articles %}
+						<tr>
+							<td>{{ article.id }}</td>
+							<td>{{ article.title }}</td>
+							<td>{{ article.visible ? 'Yes' : 'No' }}</td>
+							<td>{{ article.thumbnail }}</td>
+							<td>{{ article.position }}</td>
+							<td>{{ article.author }}</td>
+
+                            <td class="flex justify-between px-6 py-3">
+								<a href="{{ path('app_creator_articles_edit', {'id': article.id}) }}">
+									<button class="p-3 font-semibold bg-blue-400 text-col4 rounded-xl hover:opacity-90">Modifier</button>
+								</a>
+								<a href="{{ path('app_creator_articles_delete', {'id': article.id}) }}">
+									<button class="p-3 font-semibold bg-red-600 text-col4 rounded-xl hover:opacity-90">Supprimer</button>
+								</a>
+							</td>
+                            
+							
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="9" class="px-6 py-3 border-2 border-col3 ">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('app_creator_articles_new') }}">
+				<div class="text-center buttonSecondary">Ecrire un nouvel article</div>
+			</a>
+		</section>
+
+	{% endblock %}

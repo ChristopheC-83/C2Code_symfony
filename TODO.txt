@@ -1,2 +1,4 @@
-Mettre les liens footer en placement
+filtrer "mes articles" avec author === app.user.pseudo
 
+
+Mettre les liens footer en placement
