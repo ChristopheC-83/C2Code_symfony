@@ -7,5 +7,6 @@
  */
 import "./styles/app.css";
 import "./alert.js";
+import "./tiny.js";
 import "flowbite";
 // console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
