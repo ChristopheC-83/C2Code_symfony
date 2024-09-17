@@ -8,6 +8,8 @@ use App\Repository\ArticlesRepository;
 use App\Repository\LanguagesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,32 +18,48 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ArticlesController extends AbstractController
 {
     #[Route(name: 'app_creator_articles_index', methods: ['GET'])]
-    public function index(ArticlesRepository $articlesRepository, LanguagesRepository $langRepo): Response
-{
-    // Récupère les articles triés par position croissante
-    $articles = $articlesRepository->findBy([], ['position' => 'ASC']);
-    $languages = $langRepo->findAll();
+    public function index(ArticlesRepository $articlesRepository, LanguagesRepository $langRepo, Security $security): Response
+    {
+        // Récupérer l'utilisateur connecté
+        $user = $security->getUser();
+        $pseudo = $user ? $user->getPseudo() : '';
 
-    return $this->render('creator/articles/index.html.twig', [
-        'articles' => $articles,
-        'languages'=> $languages,
-    ]);
-}
+        // Vérifier si l'utilisateur est "Christophe_C"
+        if ($pseudo === 'Christophe_C') {
+            // Récupère tous les articles triés par position croissante
+            $articles = $articlesRepository->findBy([], ['position' => 'ASC']);
+        } else {
+            // Récupère les articles filtrés par l'auteur connecté, triés par position croissante
+            $articles = $articlesRepository->findBy(['author' => $pseudo], ['position' => 'ASC']);
+        }
+
+        $languages = $langRepo->findAll();
+
+        return $this->render('creator/articles/index.html.twig', [
+            'articles' => $articles,
+            'languages' => $languages,
+        ]);
+    }
+
 
     #[Route('/new', name: 'app_creator_articles_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $article = new Articles();
 
-          // Récupérer l'utilisateur connecté
-          $user = $this->getUser();
-        
-          // Si l'utilisateur est connecté, définir son pseudo comme auteur
-          if ($user) {
-              $article->setAuthor($user->getPseudo()); // Assure-toi que l'entité Articles a une méthode setAuthor
-          }
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+
+        // Si l'utilisateur est connecté, définir son pseudo comme auteur
+        if ($user) {
+            $article->setAuthor($user->getPseudo()); // Assure-toi que l'entité Articles a une méthode setAuthor
+        }
 
         $form = $this->createForm(ArticlesType::class, $article);
+        $form->add('author', TextType::class, [
+            'disabled' => $user && $user->getPseudo() === 'Christophe_C' ? false : true,  // Condition pour rendre le champ modifiable
+            'label' => 'Auteur',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,9 +84,25 @@ final class ArticlesController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_creator_articles_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Articles $article, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Articles $article, EntityManagerInterface $entityManager, ArticlesRepository $articlesRepository, Security $security): Response
     {
+        // Récupérer l'utilisateur connecté
+        $user = $security->getUser();
+        $pseudo = $user ? $user->getPseudo() : '';
+
+        // Vérifier si l'utilisateur est autorisé à modifier cet article
+        if ($pseudo !== 'Christophe_C' && $article->getAuthor() !== $pseudo) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cet article.');
+        }
+
         $form = $this->createForm(ArticlesType::class, $article);
+
+        // Modifier le formulaire pour désactiver le champ 'author' sauf pour Christophe_C
+        $form->add('author', TextType::class, [
+            'disabled' => $pseudo !== 'Christophe_C',  // Rendre le champ non modifiable si l'utilisateur n'est pas Christophe_C
+            'label' => 'Auteur',
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,14 +113,14 @@ final class ArticlesController extends AbstractController
 
         return $this->render('creator/articles/edit.html.twig', [
             'article' => $article,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_creator_articles_delete', methods: ['POST'])]
     public function delete(Request $request, Articles $article, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
         }

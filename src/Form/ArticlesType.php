@@ -28,10 +28,7 @@ class ArticlesType extends AbstractType
                 ],
             ])
             ->add('position')
-            ->add('author', TextType::class, [
-                'disabled' => true,  // Rendre le champ non modifiable
-                'label' => 'Auteur',
-            ])
+            ->add('author', TextType::class,)
             ->add('types', EntityType::class, [
                 'class' => Types::class,
                 'choice_label' => 'type',
