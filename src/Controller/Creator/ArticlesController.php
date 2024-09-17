@@ -5,6 +5,7 @@ namespace App\Controller\Creator;
 use App\Entity\Articles;
 use App\Form\ArticlesType;
 use App\Repository\ArticlesRepository;
+use App\Repository\LanguagesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +16,15 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ArticlesController extends AbstractController
 {
     #[Route(name: 'app_creator_articles_index', methods: ['GET'])]
-    public function index(ArticlesRepository $articlesRepository): Response
+    public function index(ArticlesRepository $articlesRepository, LanguagesRepository $langRepo): Response
 {
     // Récupère les articles triés par position croissante
     $articles = $articlesRepository->findBy([], ['position' => 'ASC']);
+    $languages = $langRepo->findAll();
 
     return $this->render('creator/articles/index.html.twig', [
         'articles' => $articles,
+        'languages'=> $languages,
     ]);
 }
 
