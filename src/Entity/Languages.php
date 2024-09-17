@@ -25,6 +25,9 @@ class Languages
     #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: 'languages')]
     private Collection $articles;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $iconLanguage = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -73,6 +76,18 @@ class Languages
                 $article->setLanguages(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIconLanguage(): ?string
+    {
+        return $this->iconLanguage;
+    }
+
+    public function setIconLanguage(?string $iconLanguage): static
+    {
+        $this->iconLanguage = $iconLanguage;
 
         return $this;
     }

@@ -13,6 +13,7 @@ class LanguagesType extends AbstractType
     {
         $builder
             ->add('language')
+            ->add('iconLanguage')
         ;
     }
 
