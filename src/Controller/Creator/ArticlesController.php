@@ -84,7 +84,7 @@ final class ArticlesController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_creator_articles_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Articles $article, EntityManagerInterface $entityManager, ArticlesRepository $articlesRepository, Security $security): Response
+    public function edit(Request $request, Articles $article, EntityManagerInterface $entityManager,  Security $security): Response
     {
         // Récupérer l'utilisateur connecté
         $user = $security->getUser();
