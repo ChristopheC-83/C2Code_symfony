@@ -30,9 +30,9 @@
 		</div>
 		{% include 'components/spacing.html.twig' %}
 		<h2 class="mx-auto mb-8 h2 text-clip">Dernièrement...</h2>
-		<div class="flex flex-wrap justify-between w-full gap-5 max-lg:flex-col max-lg:gap-y-6">
+		<div class="flex flex-wrap justify-between w-full gap-5 max-lg:flex-col max-lg:gap-y-6 ">
 			{% for article in articles  %}
-				<div class="flex-col mx-auto flexMid">
+				<div class="flex-col mx-auto flexMid ">
 					{{ include('components/card.html.twig', { article: article }) }}
 					{% if article.types.type == "projet"  %}
 						<a href="">
