@@ -1,6 +1,5 @@
 <div
-	class='w-[300px] h-[533px] border border-col1 color-shadow-md flex flex-col rounded-xl justify-between'>
-
+	class='w-[300px] h-[533px] border border-col1 color-shadow-card flex flex-col rounded-xl justify-between '>
 	{# Titre #}
 	<div
 		class='flex justify-between items-center w-full h-[100px]'>
@@ -18,7 +17,7 @@
 
 		{# thumbnail #}
 
-		<img src="{{article.thumbnail}}" alt="{{article.title}}" class='w-[300px] h-[170px] '>
+		<img src="{{article.thumbnail}}" alt="{{article.title}}" class='w-[300px] h-[170px] color-shadow-md rounded-lg'>
 
 		<p class="mt-3 h-[120px] p text-col1">{{article.pitch}}</p>
 
@@ -28,17 +27,17 @@
 
 		{# btn accés projet complet #}
 	</div>
-    
-    <button class="px-4 py-3 mx-auto mt-4 mb-6 duration-200 cursor-pointer bg-col2 rounded-xl hover:opacity-80">
-        {% if article.types.type == "projet"  %}
-        <p class="font-semibold p text-col4 ">Projet Complet</p>
-        {% elseif article.types.type == "tuto"   %}
-        <p class="font-semibold p text-col4 hover:opacity-90">Tutoriel Complet</p>
-        {% elseif article.types.type == "partage"   %}
-        <p class="font-semibold p text-col4 hover:opacity-90">Article Complet</p>
-        {% endif %}
-    </button>
-    
+
+	<button class="px-4 py-3 mx-auto mt-4 mb-6 duration-200 cursor-pointer bg-col2 rounded-xl hover:opacity-80">
+		{% if article.types.type == "projet"  %}
+			<p class="font-semibold p text-col4 ">Projet Complet</p>
+		{% elseif article.types.type == "tuto"   %}
+			<p class="font-semibold p text-col4 ">Tutoriel Complet</p>
+		{% elseif article.types.type == "partage"   %}
+			<p class="font-semibold p text-col4 ">Article Complet</p>
+		{% endif %}
+	</button>
+
 </div>
 
 {# btn accés à l'ensemble des tutos/partages/projets #}

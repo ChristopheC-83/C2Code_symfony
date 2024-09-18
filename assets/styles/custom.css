@@ -111,6 +111,16 @@
   font-family: "Reem Kufi fun";
 }
 
+.icoFontawesome {
+  font-size: clamp(32px, 24px + 2.2vw, 60px);
+  color: #0ef6cc;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.icoFontawesome:hover {
+  color: #f4fefd;
+}
+
 .filterShadow {
   filter: drop-shadow(1px 1px 3px #0ef6cc);
 }
@@ -130,6 +140,14 @@
 
 .color-shadow-md {
   box-shadow: 0px 0px 10px 3px #0ef6cc;
+}
+
+.color-shadow-card {
+  box-shadow: 0px 0px 10px 3px #0ef6cc;
+  transition: all 0.3s ease-in-out;
+}
+.color-shadow-card:hover {
+  box-shadow: 0px 0px 15px 6px #0ef6cc;
 }
 
 .color-shadow-inset-md {

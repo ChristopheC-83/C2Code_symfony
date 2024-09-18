@@ -1,0 +1,59 @@
+{% set languages=[
+    {
+        'id' : 1,
+        'language' : 'html',
+        'iconLanguage' : '<i class="fa-brands fa-html5"></i>',
+        'description' : 'Structurer nos sites Web avec des balises',       
+      },
+    {
+        'id' : 2,
+        'language' : 'css',
+        'iconLanguage' : '<i class="fa-brands fa-css3-alt"></i>',
+        'description' : 'Styliser la présentation et la mise en page de nos projets',       
+      },
+    {
+        'id' : 3,
+        'language' : 'javascript',
+        'iconLanguage' : '<i class="fa-brands fa-js"></i>',
+        'description' : "Créer de l'interactivité et dynamiser l'expérience utilisateur.",       
+      },
+    {
+        'id' : 4,
+        'language' : 'php',
+        'iconLanguage' : '<i class="fa-brands fa-php"></i>',
+        'description' : 'Manipuler nos données (CRUD) et organiser le code',       
+      },
+    {
+        'id' : 5,
+        'language' : 'react',
+        'iconLanguage' : '<i class="fa-brands fa-react"></i>',
+        'description' : 'Rendre nos sites rapides, réactifs et notre code modulables',       
+      },
+    {
+        'id' : 6,
+        'language' : 'nextjs',
+        'iconLanguage' : '<i class="fa-solid fa-n"></i>',
+        'description' : 'Le framework fullstack de Vercel basé sur React',       
+      },
+
+    
+]  %}
+
+<h2 class="mx-auto mb-5 h2 text-clip">Les langages que nous utiliserons ensemble</h2>
+
+<div class="flex justify-between w-full">
+    {% for language in languages %}
+        <div class="text-col1 icoFontawesome"
+             data-id="{{ language.id }}"
+             onclick="showDescription({{ language.id }})">
+            {{ language.iconLanguage|raw }}
+        </div>
+    {% endfor %}
+</div>
+
+{% for language in languages %}
+    <div id="description-{{ language.id }}" class="description {% if language.id != 1 %}hidden{% endif %} w-full p-4 border color-shadow-md border-col1 rounded-xl text-col1 h2 mt-3">
+        {{ language.description }}
+    </div>
+{% endfor %}
+

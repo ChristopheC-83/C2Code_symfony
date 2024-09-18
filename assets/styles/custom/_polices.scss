@@ -66,3 +66,13 @@
 
 
 
+.icoFontawesome{
+  font-size: clamp(32px, calc(24px + 2.2vw), 60px);
+  color: $col2;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover{
+    color: $col1;
+  }
+
+}
