@@ -1,0 +1,30 @@
+
+		{% include 'components/spacing.html.twig' %}
+
+<h2 class="mx-auto mt-5 mb-3 h2 text-clip xs:my-6 md:my-7">Choisis ton language :</h2>
+<div class="flex flex-wrap items-center justify-between gap-5 my-6">
+	{% for  language in languages %}
+		<div class="flex flex-wrap items-center justify-center m-4 mx-auto ">
+			<div class="overflow-hidden duration-200 rounded-full cursor-pointer w-14 xs:w-16 md:w-20 aspect-square articles-all color-shadow-md bg-neutral-100 hover:bg-neutral-300 btnLanguages flexMid" id="{{language.language}}"><img src="{{language.iconLanguage}}" alt="{{language.language}}" class='object-cover m-1'></div>
+		</div>
+	{% endfor %}
+</div>
+
+<div class="flex flex-wrap justify-between w-full gap-5 max-lg:flex-col max-lg:gap-y-6 ">
+	{% if articles is empty  %}
+		<h3 class="mx-auto text-center h3 text-col1">Il n'y a pas encore d'article à ce sujet !
+			<br>
+			<span>Ca va venir !!!😉</span>
+		</h3>
+	{% else %}
+	{% for article in articles %}
+		{{ include('components/card.html.twig', { article: article }) }}
+	{% endfor %}
+	<h3 class="mx-auto text-center h3 text-col1" id="no-articles-message" style="display: none;">Il n'y a pas encore d'article à ce sujet !
+		<br>
+		<span>Ca va venir !!!😉</span>
+	</h3>
+	{% endif %}
+</div>
+
+		{% include 'components/spacing.html.twig' %}

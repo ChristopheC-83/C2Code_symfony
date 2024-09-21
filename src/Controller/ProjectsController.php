@@ -26,4 +26,18 @@ class ProjectsController extends AbstractController
 
         ]);
     }
+
+    #[Route('/projects/{id}', name: 'app_project_detail')]
+    public function detail($id, ArticlesRepository $articlesRepository): Response
+    {
+        $article = $articlesRepository->find($id);
+
+        if (!$article || $article->getTypes()->getType() !== 'projet') {
+            throw $this->createNotFoundException('Article non trouvé');
+        }
+
+        return $this->render('article/one_article.html.twig', [
+            'article' => $article,
+        ]);
+    }
 }

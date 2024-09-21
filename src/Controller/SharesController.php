@@ -27,4 +27,18 @@ class SharesController extends AbstractController
             'meta_description' => $meta_meta_description
         ]);
     }
+
+    #[Route('/shares/{id}', name: 'app_share_detail')]
+    public function detail($id, ArticlesRepository $articlesRepository): Response
+    {
+        $article = $articlesRepository->find($id);
+
+        if (!$article || $article->getTypes()->getType() !== 'partage') {
+            throw $this->createNotFoundException('Article non trouvé');
+        }
+
+        return $this->render('article/one_article.html.twig', [
+            'article' => $article,
+        ]);
+    }
 }

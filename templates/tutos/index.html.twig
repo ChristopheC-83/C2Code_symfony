@@ -22,6 +22,7 @@
 				<p class="text-clip h4">Allons creuser ensemble !</p>
 			</div>
 		</div>
-		{% include 'components/spacing.html.twig' %}
+		
+		{{ include('components/cardAndSelectLanguage.html.twig', { articles: articles }) }}
 	</section>
 {% endblock %}

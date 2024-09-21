@@ -27,4 +27,18 @@ class TutosController extends AbstractController
             'meta_description' => $meta_meta_description
         ]);
     }
+
+    #[Route('/tutos/{id}', name: 'app_tuto_detail')]
+    public function detail($id, ArticlesRepository $articlesRepository): Response
+    {
+        $article = $articlesRepository->find($id);
+
+        if (!$article || $article->getTypes()->getType() !== 'tuto') {
+            throw $this->createNotFoundException('Article non trouvé');
+        }
+
+        return $this->render('article/one_article.html.twig', [
+            'article' => $article,
+        ]);
+    }
 }

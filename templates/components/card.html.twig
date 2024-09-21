@@ -30,11 +30,17 @@
 
 	<button class="px-4 py-3 mx-auto mt-4 mb-6 duration-200 cursor-pointer bg-col2 rounded-xl hover:opacity-80">
 		{% if article.types.type == "projet"  %}
-			<p class="font-semibold p text-col4 ">Projet Complet</p>
+			<a href="{{ path('app_project_detail', { id: article.id }) }}">
+				<p class="font-semibold p text-col4 ">Projet Complet</p>
+			</a>
 		{% elseif article.types.type == "tuto"   %}
-			<p class="font-semibold p text-col4 ">Tutoriel Complet</p>
+			<a href="{{ path('app_tuto_detail', { id: article.id }) }}">
+				<p class="font-semibold p text-col4 ">Tutoriel Complet</p>
+			</a>
 		{% elseif article.types.type == "partage"   %}
-			<p class="font-semibold p text-col4 ">Article Complet</p>
+			<a href="{{ path('app_share_detail', { id: article.id }) }}">
+				<p class="font-semibold p text-col4 ">Article Complet</p>
+			</a>
 		{% endif %}
 	</button>
 
