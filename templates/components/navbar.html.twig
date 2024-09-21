@@ -1,10 +1,9 @@
 {% set navItems = [
-    {'name': 'Accueil', 'path': 'app_home'},
-    {'name': 'Projets', 'path': 'app_home'},
-    {'name': 'Réflexions', 'path': 'app_home'}, 
-    
-] 
-%}
+    {'name': 'Projets', 'path': 'app_projects'},
+    {'name': 'Tutos', 'path': 'app_tutos'},
+    {'name': 'Partages', 'path': 'app_shares'},
+] %}
+
 
 {% set  navItems_Connected = [
     {'name': 'Profil', 'path': 'app_account'},
@@ -94,7 +93,8 @@
 					<li>
 						<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
 					</li>
-				{% endfor  %}
+				{% endfor %}
+
 			</ul>
 		</div>
 	</div>

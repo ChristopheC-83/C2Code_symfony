@@ -50,10 +50,10 @@
 </div>
 
 {% for language in languages %}
-	<div id="description-{{ language.id }}" class="description {% if language.id != 1 %}hidden{% endif %} w-full p-4 border color-shadow-md border-col1 rounded-xl text-col1 h2 mt-3">
+	<div id="description-{{ language.id }}" class="description {% if language.id != 1 %}hidden{% endif %} w-full p-4 border color-shadow-md border-col1 rounded-xl text-col1 h2 mt-3 bg-color-reverse">
 		<div class="flex flex-col">
 			<p class="underline p text-col2 underline-offset-8">{{language.language}} : </p>
-			<div class='h3'>{{ language.description }}</div>
+			<div class='h3'>{{ language.description|raw }}</div>
 		</div>
 	</div>
 {% endfor %}

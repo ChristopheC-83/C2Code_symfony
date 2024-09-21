@@ -40,4 +40,15 @@ class ArticlesRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+     // Méthode pour récupérer les articles par type
+     public function findByType(string $type)
+{
+    return $this->createQueryBuilder('a')
+        ->join('a.types', 't') // Jointure entre l'entité 'Articles' et l'entité 'Types'
+        ->where('t.type = :type') // Filtrer par le nom du type
+        ->setParameter('type', $type) // Paramètre pour éviter les injections SQL
+        ->getQuery()
+        ->getResult(); // Récupérer les résultats sous forme d'un tableau d'objets Articles
+}
 }
