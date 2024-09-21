@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-	{{ dump(author) }}
 
 	<div class="flex flex-wrap items-center justify-between gap-5 my-6">
 		<div class="flex flex-wrap items-center justify-center m-4 mx-auto ">
@@ -17,24 +16,23 @@
 		</h3>
 
 		<div class="flex flex-col items-center gap-5 justify-evenly md:gap-7 lg:gap-8 md:flex-row ">
-            <p class="text-center p">{{article.pitch}}</p>
-            <img src="{{article.thumbnail}}" alt="{{article.title}}" class='w-[208px] h-[138px] rounded-xl'>
-        </div>
-		
+			<p class="text-center p">{{article.pitch}}</p>
+			<img src="{{article.thumbnail}}" alt="{{article.title}}" class='w-[208px] h-[138px] rounded-xl'>
+		</div>
+
 	</div>
 	{% include 'components/spacing.html.twig' %}
 
-    <div class='w-full p-4 border color-shadow-md rounded-xl md:p-5 lg:p-6 bg-color-reverse text-col1 border-col1'>
+	<div class='w-full p-4 border color-shadow-md rounded-xl md:p-5 lg:p-6 bg-color-reverse text-col1 border-col1'>
 
-        <div class="flex items-center gap-4">
-            <img src="{{ asset('images/avatars/' ~ author.avatar) }}" alt="{{author.avatar}}" class='rounded-full size-14'>
-            <p class='text-small tetx-gray-300 text-thin'>Article de {{author.pseudo|capitalize}}</p>
-        </div>
-		<p class="mx-auto mb-5 h2 text-clip">{{article.text}}
-		</p>
-
-		
-		
+		<div class="flex items-center gap-4">
+			<img src="{{ asset('images/avatars/' ~ author.avatar) }}" alt="{{author.avatar}}" class='rounded-full size-14'>
+			<p class='text-small tetx-gray-300 text-thin'>Article de
+				{{author.pseudo|capitalize}}</p>
+		</div>
+		<div class="one_article">{{article.text|raw}}
+		</div>
 	</div>
 
+	{% include 'components/spacing.html.twig' %}
 {% endblock %}

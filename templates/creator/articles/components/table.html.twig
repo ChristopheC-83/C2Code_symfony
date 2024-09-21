@@ -1,0 +1,39 @@
+<table class="w-full text-col4 bg-gray-50">
+	<thead class="text-sm uppercase border-2 border-col3">
+		<tr>
+			<th class="px-4 py-3 text-center">Id</th>
+			<th class="px-6 py-3 text-center border-2 border-col3">Titre / Auteur</th>
+			<th class="px-2 py-3 text-center border-2 border-col3">👀 / position</th>
+			<th class="px-6 py-3 text-center border-2 border-col3">Thumbnail</th>
+			<th class="px-6 py-3 text-center border-2 border-col3">Type / Langage</th>
+			<th class="px-6 py-3 text-center">actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for article in articles %}
+			<tr class="text-sm border-2 text-col3 border-col3 hover:bg-neutral-200 {{article.languages.language}} articleInArray">
+				<td class='w-6 text-center'>{{ article.id }}</td>
+				<td class='text-center border-2 border-col3'>{{ article.title }}
+					<br><br>{{ article.author }}</td>
+				<td class='text-center border-2 border-col3'>{{ article.visible ? 'Yes' : 'No' }}
+					<br><br>{{ article.position }}</td>
+				<td><img src="{{ article.thumbnail }}" alt="{{ article.title }}" class='w-[180px] mx-auto  border-2 border-col3'></td>
+				<td class='text-center border-2 border-col3'>{{ article.types.type }}
+					<br><br>{{ article.languages.language }}</td>
+
+				<td class="flex flex-col items-center justify-between h-full gap-4 px-6 py-3">
+					<a href="{{ path('app_creator_articles_edit', {'id': article.id}) }}">
+						<button class="w-24 p-3 font-semibold bg-blue-400 text-col4 rounded-xl hover:opacity-90">Modifier</button>
+					</a>
+					<a href="{{ path('app_creator_articles_delete', {'id': article.id}) }}">
+						<button class="w-24 p-3 font-semibold bg-red-600 text-col4 rounded-xl hover:opacity-90">Supprimer</button>
+					</a>
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="9" class="px-6 py-3 border-2 border-col3 ">no records found</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

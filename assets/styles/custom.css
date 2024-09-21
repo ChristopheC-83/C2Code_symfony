@@ -356,6 +356,74 @@ input[type=radio]:checked + label img {
   filter: brightness(100%);
 }
 
+.one_article h1 {
+  font-size: clamp(23px, 20px + 1.65vw, 40px);
+  letter-spacing: calc(1px + 0.12vw);
+  font-weight: bold;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  color: #0ef6cc;
+  font-family: "Labrada";
+}
+.one_article h2 {
+  font-size: clamp(20px, 20px + 1vw, 29px);
+  letter-spacing: calc(1px + 0.04vw);
+  font-weight: bold;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "Labrada";
+}
+.one_article h3 {
+  font-size: clamp(18px, 14px + 0.7vw, 22px);
+  letter-spacing: calc(1px + 0.02vw);
+  font-weight: bold;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "Labrada";
+}
+.one_article h4 {
+  font-size: clamp(16px, 14px + 0.4vw, 20px);
+  letter-spacing: calc(1px + 0.01vw);
+  font-weight: bold;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "Labrada";
+}
+.one_article h5 {
+  font-size: clamp(16px, 10px + 0.4vw, 20px);
+  letter-spacing: calc(0.8px + 0.01vw);
+  font-weight: bold;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "Labrada";
+}
+.one_article p {
+  font-size: clamp(16px, 10px + 0.4vw, 20px);
+  letter-spacing: calc(0.4px + 0.01vw);
+  line-height: clamp(30px, 24px + 0.66vw, 36px);
+  font-family: "Roboto";
+  font-family: "Reem Kufi fun";
+}
+.one_article strong {
+  font-weight: bold;
+  color: #0ef6cc;
+}
+.one_article iframe {
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px #0ef6cc;
+  border: 1px solid #f4fefd;
+}
+
 .bg-color {
   background: linear-gradient(90deg, #1b2223 0%, #3a4f50 100%);
 }

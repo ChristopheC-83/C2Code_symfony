@@ -48,7 +48,7 @@
 					<ul class="py-2 " aria-labelledby="user-menu-button">
 						{% if  is_granted('ROLE_CREATOR')  %}
 							<li>
-								<a href="{{ path('app_home') }}" class="li_nav" aria-current="page">Nouvel Article</a>
+								<a href="{{ path('app_creator_articles_new') }}" class="li_nav" aria-current="page">Nouvel Article</a>
 							</li>
 						{% endif %}
 						{% for item in navItems_Connected %}

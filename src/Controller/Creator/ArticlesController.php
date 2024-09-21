@@ -6,6 +6,7 @@ use App\Entity\Articles;
 use App\Form\ArticlesType;
 use App\Repository\ArticlesRepository;
 use App\Repository\LanguagesRepository;
+use App\Repository\TypesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -18,11 +19,13 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ArticlesController extends AbstractController
 {
     #[Route(name: 'app_creator_articles_index', methods: ['GET'])]
-    public function index(ArticlesRepository $articlesRepository, LanguagesRepository $langRepo, Security $security): Response
+    public function index(ArticlesRepository $articlesRepository, LanguagesRepository $langRepo, Security $security, TypesRepository $typesRepository): Response
     {
         // Récupérer l'utilisateur connecté
         $user = $security->getUser();
         $pseudo = $user ? $user->getPseudo() : '';
+        $articles=[];
+        $types = $typesRepository->findAll();
 
         // Vérifier si l'utilisateur est "Christophe_C"
         if ($pseudo === 'Christophe_C') {
@@ -32,12 +35,25 @@ final class ArticlesController extends AbstractController
             // Récupère les articles filtrés par l'auteur connecté, triés par position croissante
             $articles = $articlesRepository->findBy(['author' => $pseudo], ['position' => 'ASC']);
         }
+        $articles_tuto = array_filter($articles, function($article) {
+            return $article->getTypes()->getType() === 'tuto';
+        });
+        $articles_projet = array_filter($articles, function($article) {
+            return $article->getTypes()->getType() === 'projet';
+        });
+        $articles_partage = array_filter($articles, function($article) {
+            return $article->getTypes()->getType() === 'partage';
+        });
 
         $languages = $langRepo->findAll();
 
         return $this->render('creator/articles/index.html.twig', [
             'articles' => $articles,
+            'articles_tuto' => $articles_tuto,
+            'articles_projet' => $articles_projet,
+            'articles_partage' => $articles_partage,
             'languages' => $languages,
+            'types' => $types,
         ]);
     }
 
