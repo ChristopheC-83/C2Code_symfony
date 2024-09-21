@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<section class="customContainer">
+	<section class="">
 		{% if app.user.pseudo == "Christophe_C"  %}
 			<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Gestion des articles</h3>
 		{% else %}
@@ -65,22 +65,5 @@
 			</a>
 		</section>
 
-		<script>
-			let articleInArray = document.querySelectorAll(".articleInArray");
-
-console.table(articleInArray);
-
-articleInArray.forEach((article) => {
-articleInArray.addEventListener("click", () => {
-console.log("coucou le array!");
-});
-});
-
-const testBtn = document.querySelector(".testBtn");
-
-testBtn.addEventListener("click", () => {
-console.log("coucou le btn !");
-});
-		</script>
 
 	{% endblock %}

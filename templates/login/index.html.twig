@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-	<section class="customContainer">
+	<section class="">
 		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Connectez-vous !</h3>
 		{% if error %}
 			<div class='text-lg text-center text-red-400'>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
