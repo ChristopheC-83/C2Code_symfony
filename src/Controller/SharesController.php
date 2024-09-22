@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
+use App\Repository\CommentsRepository;
 use App\Repository\LanguagesRepository;
 use App\Repository\TypesRepository;
 use App\Repository\UserRepository;
@@ -30,13 +31,15 @@ class SharesController extends AbstractController
     }
 
     #[Route('/shares/{id}', name: 'app_share_detail')]
-    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository): Response
+    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository, CommentsRepository $commentsRepository): Response
     {
         $article = $articlesRepository->find($id);
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();
         $author = $userRepository->findOneBy(['pseudo' => $authorPseudo]);
+    
+        $comments = $commentsRepository->findBy(['article' => $article]);
 
         if (!$article || $article->getTypes()->getType() !== 'partage') {
             throw $this->createNotFoundException('Article non trouvé');
@@ -46,7 +49,8 @@ class SharesController extends AbstractController
             'article' => $article,
             'type' => $type,
             'language' => $language,
-            'author' => $author
+            'author' => $author,
+            'comments' => $comments,
         ]);
     }
 }

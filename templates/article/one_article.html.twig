@@ -27,7 +27,7 @@
 
 		<div class="flex items-center gap-4">
 			<img src="{{ asset('images/avatars/' ~ author.avatar) }}" alt="{{author.avatar}}" class='rounded-full size-14'>
-			<p class='text-small tetx-gray-300 text-thin'>Article de
+			<p class='text-gray-300 text-small text-thin'>Article de
 				{{author.pseudo|capitalize}}</p>
 		</div>
 		<div class="one_article">{{article.text|raw}}
@@ -36,5 +36,7 @@
 
 	{% include 'components/spacing.html.twig' %}
 	{% include 'article/components/comment_form.html.twig' %}
+	{% include 'components/spacing.html.twig' %}
+	{{ include ('article/components/comments.html.twig', {comments: comments}) }}
 	{% include 'components/spacing.html.twig' %}
 {% endblock %}
