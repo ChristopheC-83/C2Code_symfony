@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Entity\User;
 use App\Repository\ArticlesRepository;
+use App\Repository\CommentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ArticlesController extends AbstractController
 {
@@ -79,6 +81,42 @@ class ArticlesController extends AbstractController
         // Redirige vers la bonne route en fonction du type d'article
         $type = $request->request->get('type');
 
+        switch ($type) {
+            case 'projet':
+                return $this->redirectToRoute('app_project_detail', ['id' => $articleId]); // Remplace par ta route
+            case 'tuto':
+                return $this->redirectToRoute('app_tutos_detail', ['id' => $articleId]); // Remplace par ta route
+            case 'partage':
+                return $this->redirectToRoute('app_partages_detail', ['id' => $articleId]); // Remplace par ta route
+            default:
+                return $this->redirectToRoute('app_home'); // Redirection par défaut
+        }
+    }
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/comment/{id}/delete', name: 'delete_comment', methods: ['POST'])]
+    public function deleteComment($id, Request $request, CommentsRepository $commentsRepository, EntityManagerInterface $entityManager): Response
+    {
+        $comment = $commentsRepository->find($id);
+
+        if (!$comment) {
+            throw $this->createNotFoundException('Commentaire non trouvé');
+        }
+
+        // Vérifie si l'utilisateur a le rôle ADMIN
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas les permissions nécessaires.');
+        }
+
+        $entityManager->remove($comment);
+        $entityManager->flush();
+        $this->addFlash(
+            'info',
+            'Commentaire supprimé avec succés'
+        );
+
+        // Redirige vers la bonne route en fonction du type d'article
+        $type = $request->request->get('type');
+        $articleId = $request->request->get('article_id');
         switch ($type) {
             case 'projet':
                 return $this->redirectToRoute('app_project_detail', ['id' => $articleId]); // Remplace par ta route

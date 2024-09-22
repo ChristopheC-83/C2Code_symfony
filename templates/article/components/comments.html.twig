@@ -1,4 +1,4 @@
-{{ dump(comments) }}
+{# {{ dump(comments) }} #}
 
 <div class="flex flex-col w-full gap-y-3">
 	{% for comment in comments  %}
@@ -17,7 +17,17 @@
 						{{comment.author|capitalize}}</p>
 				</div>
 			{% endif %}
-            <p class="text-justify ml-14 text-col1">{{comment.comment}}</p>
+			<p class="text-justify ml-14 text-col1">{{comment.comment}}</p>
+
+			{% if is_granted('ROLE_ADMIN') %}
+				<form action="{{ path('delete_comment', {'id': comment.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">
+
+					<input type="hidden" name="type" value="{{article.types.type}}">
+					<input type="hidden" name="article_id" value="{{article.id}}">
+					<button type="submit" class="text-red-500 hover:text-red-700">🗑️ Supprimer</button>
+				</form>
+			{% endif %}
+
 		</dif>
 	{% endfor %}
 </div>
