@@ -6,6 +6,7 @@ use App\Entity\Comments;
 use App\Entity\User;
 use App\Repository\ArticlesRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,22 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ArticlesController extends AbstractController
 {
+    private ArticlesRepository $articlesRepository;
+    private CommentsRepository $commentsRepository;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(
+        ArticlesRepository $articlesRepository,
+        CommentsRepository $commentsRepository,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ) {
+        $this->articlesRepository = $articlesRepository;
+        $this->commentsRepository = $commentsRepository;
+        $this->entityManager = $entityManager;
+    }
+
+
     #[Route('/articles', name: 'app_articles')]
     public function index(): Response
     {
@@ -24,12 +41,12 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/article-comment', name: 'post_comment', methods: ['POST'])]
-    public function addComment(Request $request, ArticlesRepository $articlesRepository, EntityManagerInterface $entityManager): Response
+    public function addComment(Request $request): Response
     {
         // dd($request->request->all());        
-        // dd($request->request->get('pseudo'), $request->request->get('user_id'));    
+        // dd($request->request->get('pseudo'), $request->request->get('user_id')); 
         $articleId = $request->request->get('article_id');
-        $article = $articlesRepository->find($articleId);
+        $article = $this->articlesRepository->find($articleId);
         // Vérifie si l'article existe
         if (!$article) {
             throw $this->createNotFoundException('Article non trouvé');
@@ -71,8 +88,8 @@ class ArticlesController extends AbstractController
         $comment->setArticle($article);
 
         // Enregistre le commentaire
-        $entityManager->persist($comment);
-        $entityManager->flush();
+        $this->entityManager->persist($comment);
+        $this->entityManager->flush();
         $this->addFlash(
             'success',
             'Commentaire envoyé avec succés'
@@ -80,23 +97,22 @@ class ArticlesController extends AbstractController
 
         // Redirige vers la bonne route en fonction du type d'article
         $type = $request->request->get('type');
-
         switch ($type) {
             case 'projet':
                 return $this->redirectToRoute('app_project_detail', ['id' => $articleId]); // Remplace par ta route
             case 'tuto':
-                return $this->redirectToRoute('app_tutos_detail', ['id' => $articleId]); // Remplace par ta route
+                return $this->redirectToRoute('app_tuto_detail', ['id' => $articleId]); // Remplace par ta route
             case 'partage':
-                return $this->redirectToRoute('app_partages_detail', ['id' => $articleId]); // Remplace par ta route
+                return $this->redirectToRoute('app_share_detail', ['id' => $articleId]); // Remplace par ta route
             default:
                 return $this->redirectToRoute('app_home'); // Redirection par défaut
         }
     }
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/comment/{id}/delete', name: 'delete_comment', methods: ['POST'])]
-    public function deleteComment($id, Request $request, CommentsRepository $commentsRepository, EntityManagerInterface $entityManager): Response
+    public function deleteComment($id, Request $request): Response
     {
-        $comment = $commentsRepository->find($id);
+        $comment = $this->commentsRepository->find($id);
 
         if (!$comment) {
             throw $this->createNotFoundException('Commentaire non trouvé');
@@ -107,8 +123,8 @@ class ArticlesController extends AbstractController
             throw $this->createAccessDeniedException('Vous n\'avez pas les permissions nécessaires.');
         }
 
-        $entityManager->remove($comment);
-        $entityManager->flush();
+        $this->entityManager->remove($comment);
+        $this->entityManager->flush();
         $this->addFlash(
             'info',
             'Commentaire supprimé avec succés'
@@ -121,9 +137,9 @@ class ArticlesController extends AbstractController
             case 'projet':
                 return $this->redirectToRoute('app_project_detail', ['id' => $articleId]); // Remplace par ta route
             case 'tuto':
-                return $this->redirectToRoute('app_tutos_detail', ['id' => $articleId]); // Remplace par ta route
+                return $this->redirectToRoute('app_tuto_detail', ['id' => $articleId]); // Remplace par ta route
             case 'partage':
-                return $this->redirectToRoute('app_partages_detail', ['id' => $articleId]); // Remplace par ta route
+                return $this->redirectToRoute('app_share_detail', ['id' => $articleId]); // Remplace par ta route
             default:
                 return $this->redirectToRoute('app_home'); // Redirection par défaut
         }
