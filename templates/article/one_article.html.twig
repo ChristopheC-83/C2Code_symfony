@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-	 {# {{ dump(article) }} #}
 	<div class="flex flex-wrap items-center justify-between gap-5 my-6">
 		<div class="flex flex-wrap items-center justify-center m-4 mx-auto ">
 			<div class="w-20 overflow-hidden duration-200 rounded-full md:w-24 aspect-square articles-all color-shadow-md bg-neutral-100 hover:bg-neutral-300 btnLanguages flexMid"><img src="{{language.iconLanguage}}" alt="{{language.language}}" class='object-cover m-1'></div>
@@ -25,10 +24,27 @@
 
 	<div class='w-full p-4 border color-shadow-md rounded-xl md:p-5 lg:p-6 bg-color-reverse text-col1 border-col1'>
 
-		<div class="flex items-center gap-4">
-			<img src="{{ asset('images/avatars/' ~ author.avatar) }}" alt="{{author.avatar}}" class='rounded-full size-14'>
-			<p class='text-gray-300 text-small text-thin'>Article de
-				{{author.pseudo|capitalize}}</p>
+		<div class="flex items-center justify-between">
+			<div class="flex items-center gap-4">
+				<img src="{{ asset('images/avatars/' ~ author.avatar) }}" alt="{{author.avatar}}" class='rounded-full size-14'>
+				<p class='text-gray-300 text-small text-thin'>Article de
+					{{author.pseudo|capitalize}}</p>
+			</div>
+			{% if app.user %}
+				{% if not favorite  %}
+					<form action="{{ path('like_article', {'id': article.id}) }}" method="post">
+						<button type="submit">
+							<i class="mr-4 text-red-500 fa-2x fa-regular fa-heart"></i>
+						</button>
+					</form>
+				{% else %}
+					<form action="{{ path('unlike_article', {'id': article.id}) }}" method="post">
+						<button type="submit">
+							<i class="mr-4 text-red-500 fa-2x fa-solid fa-heart"></i>
+						</button>
+					</form>
+				{% endif %}
+			{% endif %}
 		</div>
 		<div class="one_article">{{article.text|raw}}
 		</div>

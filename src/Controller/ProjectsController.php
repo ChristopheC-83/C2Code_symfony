@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\FavoritesRepository;
 use App\Repository\LanguagesRepository;
 use App\Repository\TypesRepository;
 use App\Repository\UserRepository;
@@ -30,7 +31,7 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/{id}', name: 'app_project_detail')]
-    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository, CommentsRepository $commentsRepository): Response
+    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository, CommentsRepository $commentsRepository, FavoritesRepository $favoritesRepository): Response
     {
         
         $article = $articlesRepository->find($id);
@@ -39,6 +40,10 @@ class ProjectsController extends AbstractController
         $authorPseudo = $article->getAuthor();
         $author = $userRepository->findOneBy(['pseudo' => $authorPseudo]);
         $comments = $commentsRepository->findBy(['article' => $article]);
+        $favorite = false;
+        if($favoritesRepository->findOneBy(['user' => $this->getUser(), 'article' => $id]) !=null){
+            $favorite = true;
+        }
 
 
         if (!$article || $article->getTypes()->getType() !== 'projet') {
@@ -51,6 +56,8 @@ class ProjectsController extends AbstractController
             'language' => $language,
             'author' => $author,
             'comments' => $comments,
+            'favorite' => $favorite,
+            
         ]);
     }
 }

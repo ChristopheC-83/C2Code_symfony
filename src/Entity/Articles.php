@@ -51,9 +51,16 @@ class Articles
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'article')]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, Favorites>
+     */
+    #[ORM\OneToMany(targetEntity: Favorites::class, mappedBy: 'article')]
+    private Collection $favorites;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +200,36 @@ class Articles
             // set the owning side to null (unless already changed)
             if ($comment->getArticle() === $this) {
                 $comment->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorites>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorites $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorites $favorite): static
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getArticle() === $this) {
+                $favorite->setArticle(null);
             }
         }
 

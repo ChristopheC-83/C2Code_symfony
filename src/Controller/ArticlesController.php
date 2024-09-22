@@ -108,6 +108,8 @@ class ArticlesController extends AbstractController
                 return $this->redirectToRoute('app_home'); // Redirection par défaut
         }
     }
+
+    
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/comment/{id}/delete', name: 'delete_comment', methods: ['POST'])]
     public function deleteComment($id, Request $request): Response
