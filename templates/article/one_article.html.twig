@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-
+	 {# {{ dump(article) }} #}
 	<div class="flex flex-wrap items-center justify-between gap-5 my-6">
 		<div class="flex flex-wrap items-center justify-center m-4 mx-auto ">
 			<div class="w-20 overflow-hidden duration-200 rounded-full md:w-24 aspect-square articles-all color-shadow-md bg-neutral-100 hover:bg-neutral-300 btnLanguages flexMid"><img src="{{language.iconLanguage}}" alt="{{language.language}}" class='object-cover m-1'></div>
@@ -34,5 +34,7 @@
 		</div>
 	</div>
 
+	{% include 'components/spacing.html.twig' %}
+	{% include 'article/components/comment_form.html.twig' %}
 	{% include 'components/spacing.html.twig' %}
 {% endblock %}

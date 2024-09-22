@@ -25,7 +25,6 @@ class RegisterController extends AbstractController
         }
 
 
-
         //  nous voulons créer un nouveau User
         $user = new User();
 

@@ -12,10 +12,10 @@
 		{% endif %}
 
 
-		{{ dump(articles_projet) }}
-		{{ dump(articles_tuto) }}
-		{{ dump(articles_partage) }}
-		{{ dump(types) }}
+		{# {{ dump(articles_projet) }}
+				{{ dump(articles_tuto) }}
+				{{ dump(articles_partage) }}
+				{{ dump(types) }} #}
 
 		<div class="flex flex-wrap items-center justify-center gap-3 my-6">
 			{% for  language in languages %}
@@ -25,31 +25,16 @@
 			{% endfor %}
 		</div>
 
-
+		{# Pour chaque type on génère un tableau #}
 		{% for type in types %}
-			<h4 class="mt-4 mb-2 h4 text-clip">Les {{type.type}}s</h4>
-		<div class='relative overflow-x-auto rounded-xl'>
-        {{ include('creator/articles/components/table.html.twig', { articles: attribute(_context, 'articles_' ~ type.type) }) }}
-		</div>
+			<h4 class="mt-4 mb-2 h4 text-clip">Les
+				{{type.type}}s</h4>
+			<div class='relative overflow-x-auto rounded-xl'>
+				{{ include('creator/articles/components/table.html.twig', { articles: attribute(_context, 'articles_' ~ type.type) }) }}
+			</div>
 		{% endfor %}
 
 
-
-		
-		{# <h4 class="mt-4 mb-2 h4 text-clip">Les projets</h4>
-		<div class='relative overflow-x-auto rounded-xl'>
-			{{ include('creator/articles/components/table.html.twig', { articles: articles_projet })}}
-		</div>
-
-		<h4 class="mt-4 mb-2 h4 text-clip">Les tutos</h4>
-		<div class='relative overflow-x-auto rounded-xl'>
-			{{ include('creator/articles/components/table.html.twig', { articles: articles_tuto })}}
-		</div>
-
-		<h4 class="mt-4 mb-2 h4 text-clip">Les partages</h4>
-		<div class='relative overflow-x-auto rounded-xl'>
-			{{ include('creator/articles/components/table.html.twig', { articles: articles_partage })}}
-		</div> #}
 		<a href="{{ path('app_creator_articles_new') }}">
 			<div class="text-center buttonSecondary">Ecrire un nouvel article</div>
 		</a>
