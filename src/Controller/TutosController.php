@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\FavoritesRepository;
 use App\Repository\LanguagesRepository;
 use App\Repository\TypesRepository;
 use App\Repository\UserRepository;
@@ -31,7 +32,7 @@ class TutosController extends AbstractController
     }
 
     #[Route('/tutos/{id}', name: 'app_tuto_detail')]
-    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository,CommentsRepository $commentsRepository): Response
+    public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository,CommentsRepository $commentsRepository,FavoritesRepository $favoritesRepository): Response
     {
         $article = $articlesRepository->find($id);
         $type = $typesRepository->find($article->getTypes()->getId());
@@ -39,6 +40,10 @@ class TutosController extends AbstractController
         $authorPseudo = $article->getAuthor();
         $author = $userRepository->findOneBy(['pseudo' => $authorPseudo]);
         $comments = $commentsRepository->findBy(['article' => $article]);
+        $favorite = false;
+        if($favoritesRepository->findOneBy(['user' => $this->getUser(), 'article' => $id]) !=null){
+            $favorite = true;
+        }
 
 
         if (!$article || $article->getTypes()->getType() !== 'tuto') {
@@ -51,6 +56,7 @@ class TutosController extends AbstractController
             'language' => $language,
             'author' => $author,
             'comments' => $comments,
+            'favorite' => $favorite,
         ]);
     }
 }
