@@ -33,17 +33,19 @@
 						{% endif %}
 					</p>
 				</div>
-				<a href={{ path('app_account_modify_password') }} class="w-full midFlex">
-					<p class="buttonSecondary  w-[300px] text-center ">Modifier mon mot de passe</p>
-				</a>
-				{% if app.user.pseudo != "ChristopheC" %}
-				<a href={{ path('app_account_modify_pseudo') }} class="w-full midFlex">
-					<p class="buttonSecondary w-[300px]  text-center">Modifier mon pseudo</p>
-				</a>
+				{% if  is_granted('ROLE_USER')   %}
+					<a href={{ path('app_account_modify_password') }} class="w-full midFlex">
+						<p class="buttonSecondary  w-[300px] text-center ">Modifier mon mot de passe</p>
+					</a>
+					{% if app.user.pseudo != "ChristopheC" %}
+						<a href={{ path('app_account_modify_pseudo') }} class="w-full midFlex">
+							<p class="buttonSecondary w-[300px]  text-center">Modifier mon pseudo</p>
+						</a>
+					{% endif %}
+					<a href={{ path('app_favorites_articles') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
+					</a>
 				{% endif %}
-				<a href={{ path('app_home') }} class="w-full midFlex">
-					<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
-				</a>
 				{% if  is_granted('ROLE_CREATOR')  %}
 					<a href={{ path('app_creator_articles_new') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Ecrire un nouvel article</p>
@@ -57,15 +59,13 @@
 					<a href={{ path ('app_admin_users') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des utilisateurs</p>
 					</a>
-					<a href={{ path ('app_admin_languages_index')  }} class="w-full midFlex">
+					<a href={{ path ('app_admin_languages_index') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Les Langages</p>
 					</a>
-					<a href={{ path ('app_admin_types_index')  }} class="w-full midFlex">
+					<a href={{ path ('app_admin_types_index') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Les Types</p>
 					</a>
-							
 				{% endif %}
-				
 			</div>
 			<div class="flex flex-col items-center justify-center md:w-1/2 ">
 				<img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.pseudo }}" class="rounded-full w-[250px] color-shadow-md">

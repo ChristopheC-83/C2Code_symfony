@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FavoritesController!{% endblock %}
+{% block title %}Hello FavoritesController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	{# {{ dump(articles) }} #}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/Compagnon_de_Code/c_2_code_symfo/src/Controller/FavoritesController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/Compagnon_de_Code/c_2_code_symfo/templates/favorites/index.html.twig</code></li>
-    </ul>
-</div>
+		<section class="">
+		<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de Code</h1>
+		<h2 class="mx-auto -translate-y-6 h2 text-neutral-300">Tes articles Favoris :</h2>
+		{% include 'components/spacing.html.twig' %}
+        <div class="flex flex-wrap justify-between w-full gap-5 max-lg:flex-col max-lg:gap-y-6 ">
+			{% for article in articles  %}
+				<div class="flex-col mx-auto flexMid ">
+					{{ include('components/card.html.twig', { article: article }) }}
+					
+				</div>
+			{% endfor %} 
+		</div>
+		{% include 'components/spacing.html.twig' %}
+        </section>
 {% endblock %}

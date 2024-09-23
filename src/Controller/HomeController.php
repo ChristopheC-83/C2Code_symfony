@@ -18,7 +18,7 @@ class HomeController extends AbstractController
 
 
         return $this->render(
-            'home/index.html.twig',
+            'favorites/index.html.twig',
             [
                 'meta_description' => $meta_description,
                 'articles' => $articles

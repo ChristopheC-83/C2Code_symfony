@@ -14,7 +14,31 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class FavoritesController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
+    #[Route('/favoris', name: 'app_favorites_articles')]
+    public function index(FavoritesRepository $favoritesRepository): Response
+    {
+        $meta_description = 'Bienvenue chez le Compagnon de code. Voici tes articles favoris et enregistrés.';
 
+        $user = $this->getUser();
+        $favorites = $favoritesRepository->findBy(['user' =>  $user]);
+
+        // Extraire uniquement les articles des favoris
+        $articles = array_map(function ($favorite) {
+            return $favorite->getArticle();
+        }, $favorites);
+
+        // dd($articles);
+
+        return $this->render(
+            'favorites/index.html.twig',
+            [
+                'meta_description' => $meta_description,
+                'articles' => $articles
+            ]
+        );
+    }
+    
     #[IsGranted('ROLE_USER')]
     #[Route('/article/{id}/like', name: 'like_article', methods: ['POST'])]
     public function likeArticle($id, EntityManagerInterface $entityManager, ArticlesRepository $articlesRepository, Request $request): Response
