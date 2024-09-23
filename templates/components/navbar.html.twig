@@ -7,7 +7,7 @@
 
 {% set  navItems_Connected = [
     {'name': 'Profil', 'path': 'app_account'},
-    {'name': 'Favoris', 'path': 'app_home'},
+    {'name': 'Favoris', 'path': 'app_favorites_articles'},
     {'name': 'Déconnexion', 'path': 'app_logout'},
 ]
 
@@ -30,8 +30,6 @@
 		<div class="flex items-center gap-2 mx-3 max-xs:flex-col md:order-2 md:space-x-0 shrink-0">
 
 			{% if app.user %}
-
-
 				<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 shrink-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
 					{# image du user #}
