@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LegalController!
+{% endblock %}
+
+{% block body %}
+
+	<section class="">
+		<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de Code</h1>
+		<h2 class="mx-auto -translate-y-6 h2 text-neutral-300">Politique de confidentialité</h2>
+		{% include 'components/spacing.html.twig' %}
+
+		<h2 class="h2 text-clip">Gestion des commentaires.</h2>
+		<p class="p text-col1">Ce site est un recueil de partages et un lieu potentiel d’échanges n’ayant pour sujet que le développement web.
+			<br>
+			Tout propos étant jugé hors sujet sera supprimé.<br>
+			Ayant foi en l’Humain, tous les commentaires seront visibles immédiatement et modérés si nécessaire à posteriori.<br>
+		</p>
+		<br>
+		<h2 class="h2 text-clip">Cookies</h2>
+		<p class="p text-col1">Aucune connexion persistante n'étant développé sur ce site, aucun cookie ne sera émis. Les liens vers les images et/ou vidéo pat=rtagés sur ce site sont tributaires de l'émetteur.
+			<br>
+			Les vidéos en provenance de Youtube, par exemple, sont soumises à la règlementation de Youtube.</p>
+		<br>
+		<h2 class="h2 text-clip">Droits sur vos données</h2>
+		<p class="p text-col1">La suppression de votre compte ou d'un commentaire, que vous soyez connecté ou non, fera l'objet d'une demande par mail et effective dans les meilleurs délais.
+			<br>
+			Adresse email de contact :
+			<span class="ml-2 text-blue-500">
+				<a href="mailto:admin@compagnondecode.fr">admin@compagnondecode.fr</a>
+			</span>
+		</p>
+		<br>
+		<h2 class="h2 text-clip">Utilisation de vos données</h2>
+		<p class="p text-col1">Vos données ne seront diffusées à aucun tiers et ne feront l'objet d'aucuneutilisation commerciale ou non. Elles n'ont que pour but d'assurer votre connexion et d'avoir des droits supplémentaires de modération ou création de contenus. Tout contenu produit et posté sur ce site resterait alors vortre propriété et vous pourriez en demander la suppression.</p>
+		<br>
+
+		{% include 'components/spacing.html.twig' %}
+	</section>
+{% endblock %}
