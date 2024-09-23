@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Repository\ArticlesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,20 @@ class HomeController extends AbstractController
 
         $articles = $articlesRepo->findBy([], ['position' => 'DESC'], 3);
 
+        $mail = new Mail();
+        $vars = [
+            'firstname' => 'kiki',
+            'lastname' => 'san'
+        ];
+
+        if (
+            $mail->send('kiketdule@gmail.com', 'kikisan', 'sujet test', 'welcome.html', $vars)
+        ) {
+            $this->addFlash(
+                'success',
+                'email envoyé !'
+            );
+        }
 
         return $this->render(
             'home/index.html.twig',
