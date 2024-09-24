@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% block body %}
+
+	<section>
+		<div class="customForm">
+			<form action="{{ path('app_contact') }}" method="post">
+				{% if not app.user  %}
+					<label for="pseudo">Pseudo:</label>
+					<input type="text" id="pseudo" name="_pseudo" required>
+					<label for="email">Email:</label>
+					<input type="email" id="email" name="_email" required>
+				{% else    %}
+					<p class="p text-col1">{{app.user.pseudo}}, écris ton message :
+					</p>
+                    <input type="hidden" name="_pseudo" value='{{app.user.pseudo}}'>
+                    <input type="hidden" name="_email" value='{{app.user.email}}'>
+				{% endif %}
+				<label for="message">Message:</label>
+				<textarea name="_message" id="message" rows="6"></textarea>
+
+
+				<button type="submit" class='buttonValidation'>Envoyer le message</button>
+			</form>
+		</div>
+
+	</section>
+
+{% endblock %}
