@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,14 +37,25 @@ class RegisterController extends AbstractController
         // on écoute le formulaire à travers l'objet request
         $form->handleRequest($request);
 
+        // on créé un mail d econfirmation à l'inscription
+        $mail = new Mail();
+
         // Si le formulaire est soumis
         // On vérifie si le formulaire est valide
         // On récupère les données du formulaire
         //  on envoie une validation flash
         if ($form->isSubmitted() && $form->isValid()) {
-            // $data = $form -> getData();
+            $data = $form -> getData();
             // dd($data);
-
+            $mail->send(
+                $data->getEmail(),
+                $data->getPseudo(),
+                'Bienvenue chez le Compagnon de code',
+                'register.html',
+                [
+                    'pseudo' => $data->getPseudo(),
+                ]
+            );
             //  on fige les données
             $emi->persist($user);
             // on envoie les données en base

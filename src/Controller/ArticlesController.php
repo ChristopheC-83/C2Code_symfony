@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\Comments;
 use App\Entity\User;
 use App\Repository\ArticlesRepository;
@@ -90,6 +91,18 @@ class ArticlesController extends AbstractController
         // Enregistre le commentaire
         $this->entityManager->persist($comment);
         $this->entityManager->flush();
+
+        // envoyer un mail à l'admin pour prévenir d'un nouveau commantaire
+        $mail = new Mail();
+        $mail->send('contact@ducompagnon.fr', 'Admin', 'Nouveau commentaire', 'new_comment.html', [
+            'author' => $comment->getAuthor(),
+            'comment' => $comment->getComment(),
+            'article' => $article->getTitle()
+        ]);
+
+
+
+        // affiche d'un popup de validation
         $this->addFlash(
             'success',
             'Commentaire envoyé avec succés'
