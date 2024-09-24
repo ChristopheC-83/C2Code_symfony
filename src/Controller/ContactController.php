@@ -15,10 +15,13 @@ class ContactController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $formData = $request->request->all();
+        // if ($formData){
+        // dd($formData);}
 
         // Vérifier si le formulaire a été soumis
         if ($request->isMethod('POST')) {
             // Récupérer les données du formulaire
+            // dd($formData);
             $mail = new Mail();
             $vars = [
                 'pseudo' => $formData['_pseudo'],
@@ -26,11 +29,10 @@ class ContactController extends AbstractController
                 'message' => $formData['_message'],
             ];
 
-                $mail->send('contact@ducompagnon.fr', 'kiki', 'Contact du site', 'contact.html', $vars);
-          
-                $this->addFlash('success', 'Message envoyé !');
-                return $this->redirectToRoute('app_home');
-           
+            $mail->send('admin@compagnondecode.fr', 'kiki', 'Contact du site', 'contact.html', $vars);
+
+            $this->addFlash('success', 'Message envoyé !');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('contact/index.html.twig');

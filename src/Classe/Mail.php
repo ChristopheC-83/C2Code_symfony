@@ -50,7 +50,7 @@ class Mail
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => "contact@ducompagnon.fr",
+                        'Email' => "admin@compagnondecode.fr",
                         'Name' => "Le Compagnon de Com"
                     ],
                     'To' => [
