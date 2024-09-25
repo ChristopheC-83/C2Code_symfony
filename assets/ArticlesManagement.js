@@ -43,10 +43,10 @@ function checkIfAllHidden() {
 
     // Si tous les articles sont cachés, affiche le message noArticle
     if (allHidden) {
-        console.log('tous cachés')
+        // console.log('tous cachés')
         noArticle.style.display = "flex";
     } else {
-        console.log("il en reste")
+        // console.log("il en reste")
         noArticle.style.display = "none";
     }
 }
