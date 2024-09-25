@@ -75,7 +75,7 @@
 		{# en mobile on a besoin de l'id pour fermeture si clic hors cadre #}
 		<div class="items-center justify-between hidden w-full max-md:absolute  max-xs:top-[130px] max-md:top-[80px] max-md:right-[10px] max-md:w-fit  my-4 text-base list-none max-md:rounded-lg max-md:bg-col4 color-shadow-md-navbar  md:color-shadow-none z-50" id="navbar-user">
 
-			<ul class="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row md:mt-0 gap-y-2">
+			<ul class="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row md:mt-0 gap-y-2 md:hidden">
 				{% for item in navItems %}
 					<li>
 						<a href="{{ path(item.path) }}" class="li_nav" aria-current="page">{{ item.name }}</a>
