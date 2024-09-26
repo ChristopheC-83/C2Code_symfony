@@ -16,7 +16,7 @@ class SharesController extends AbstractController
     #[Route('/shares', name: 'app_shares')]
     public function index(ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository): Response
     {
-        $meta_meta_description = "Des patages mêlant les différents langages du dev web. Objectif : Partager mes connaissances et mes découvertes.";
+        $meta_meta_description = "Des partages mêlant les différents langages du dev web. Objectif : Partager mes connaissances et mes découvertes.";
         
         $articles = $articlesRepository->findByType('partage');
         $types = $typesRepository->findAll();
@@ -41,6 +41,8 @@ class SharesController extends AbstractController
         $author = $userRepository->findOneBy(['pseudo' => $authorPseudo]);
         $comments = $commentsRepository->findBy(['article' => $article]);
         $favorite = false;
+        $title = $article->getTitle();
+        $meta_meta_description = $title."un tutoriel qui pourrait sûrement vous intéresser !";
         if($favoritesRepository->findOneBy(['user' => $this->getUser(), 'article' => $id]) !=null){
             $favorite = true;
         }
@@ -56,6 +58,7 @@ class SharesController extends AbstractController
             'author' => $author,
             'comments' => $comments,
             'favorite' => $favorite,
+            'meta_description' => $meta_meta_description
         ]);
     }
 }

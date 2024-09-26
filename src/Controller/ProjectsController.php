@@ -41,6 +41,9 @@ class ProjectsController extends AbstractController
         $author = $userRepository->findOneBy(['pseudo' => $authorPseudo]);
         $comments = $commentsRepository->findBy(['article' => $article]);
         $favorite = false;
+        
+        $title = $article->getTitle();
+        $meta_meta_description = $title."un tutoriel qui pourrait sûrement vous intéresser !";
         if($favoritesRepository->findOneBy(['user' => $this->getUser(), 'article' => $id]) !=null){
             $favorite = true;
         }
@@ -57,7 +60,7 @@ class ProjectsController extends AbstractController
             'author' => $author,
             'comments' => $comments,
             'favorite' => $favorite,
-            
+            'meta_description' => $meta_meta_description
         ]);
     }
 }

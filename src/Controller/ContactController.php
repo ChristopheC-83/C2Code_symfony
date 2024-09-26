@@ -14,6 +14,9 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $meta_description = 'Besoin  ou envie de contzacter le Compagnon de Cod e? Ce formulaire de contact ets là pour ça !';
+
         $formData = $request->request->all();
         // if ($formData){
         // dd($formData);}
@@ -35,6 +38,7 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('contact/index.html.twig');
+        return $this->render('contact/index.html.twig', [
+            'meta_description' => $meta_description,]);
     }
 }
