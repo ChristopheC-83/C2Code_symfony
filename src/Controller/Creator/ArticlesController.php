@@ -32,10 +32,10 @@ final class ArticlesController extends AbstractController
         // Vérifier si l'utilisateur est "Christophe_C"
         if ($pseudo === 'Christophe_C') {
             // Récupère tous les articles triés par position croissante
-            $articles = $articlesRepository->findBy([], ['position' => 'ASC']);
+            $articles = $articlesRepository->findBy([], ['position' => 'DESC']);
         } else {
             // Récupère les articles filtrés par l'auteur connecté, triés par position croissante
-            $articles = $articlesRepository->findBy(['author' => $pseudo], ['position' => 'ASC']);
+            $articles = $articlesRepository->findBy(['author' => $pseudo], ['position' => 'DESC']);
         }
         $articles_tuto = array_filter($articles, function($article) {
             return $article->getTypes()->getType() === 'tuto';
