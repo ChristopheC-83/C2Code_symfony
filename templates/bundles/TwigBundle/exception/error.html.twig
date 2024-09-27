@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les Tutoriels | C2Code
-{% endblock %}
-{% block meta_description %}
-	{{ meta_description }}
+{% block title %}Perdu ? | C2Code
 {% endblock %}
 {% block body %}
 
 	<section class="">
 		<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de code</h1>
 		<h2 class="mx-auto -translate-y-6 h2 text-neutral-300">On est perdu ?</h2>
-		
-        <a href="{{path('app_home')}}">
-            <h3 class="mx-auto h3 text-clip">Retour à l'accueil</h3>
-        </a>
+
+		{% if message|default(null) %}
+			<h4 class="mx-auto my-6 text-center h4 text-col1">{{ message }}</h4>
+		{% endif %}
+		{{ include('components/spacing.html.twig') }}
+		<a href="{{path('app_home')}}">
+			<h2 class="mx-auto h2 text-clip">Retour à l'accueil</h2>
+		</a>
 	</section>
 {% endblock %}

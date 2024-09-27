@@ -20,11 +20,11 @@ class ProjectsController extends AbstractController
         $meta_meta_description = "Des projets avec les principaux langages du dev web. Objectif : Pratiquer et apprendre en réalisant des projets concrets.";
         $articles = $articlesRepository->findByType('projet');
         $types = $typesRepository->findAll();
-        $languades = $languagesRepository->findAll();
+        $languages = $languagesRepository->findAll();
         return $this->render('projects/index.html.twig', [
             'types' => $types,
             'articles' => $articles,
-            'languages' => $languades,
+            'languages' => $languages,
             'meta_description' => $meta_meta_description
 
         ]);
@@ -35,6 +35,11 @@ class ProjectsController extends AbstractController
     {
         
         $article = $articlesRepository->find($id);
+        if (!$article) {
+            return $this->render('bundles\TwigBundle\exception\error.html.twig', [
+                'message' => 'Article non trouvé',
+            ]);
+        }
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();

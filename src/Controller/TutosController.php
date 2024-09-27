@@ -21,12 +21,12 @@ class TutosController extends AbstractController
         $meta_meta_description = "Des tutoriels pour apprendre les principaux langages du dev web. Objectif : creuser une notion en particulier sans s'étaler.";
         $articles = $articlesRepository->findByType('tuto');
         $types = $typesRepository->findAll();
-        $languades = $languagesRepository->findAll();
+        $languages = $languagesRepository->findAll();
 
         return $this->render('tutos/index.html.twig', [
             'types' => $types,
             'articles' => $articles,
-            'languages' => $languades,
+            'languages' => $languages,
             'meta_description' => $meta_meta_description
         ]);
     }
@@ -35,6 +35,11 @@ class TutosController extends AbstractController
     public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository,CommentsRepository $commentsRepository,FavoritesRepository $favoritesRepository): Response
     {
         $article = $articlesRepository->find($id);
+        if (!$article) {
+            return $this->render('bundles\TwigBundle\exception\error.html.twig', [
+                'message' => 'Article non trouvé',
+            ]);
+        }
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();

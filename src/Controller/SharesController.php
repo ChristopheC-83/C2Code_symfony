@@ -20,13 +20,13 @@ class SharesController extends AbstractController
         
         $articles = $articlesRepository->findByType('partage');
         $types = $typesRepository->findAll();
-        $languades = $languagesRepository->findAll();
+        $languages = $languagesRepository->findAll();
 
 
         return $this->render('shares/index.html.twig', [
             'types' => $types,
             'articles' => $articles,
-            'languages' => $languades,
+            'languages' => $languages,
             'meta_description' => $meta_meta_description
         ]);
     }
@@ -35,6 +35,11 @@ class SharesController extends AbstractController
     public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository, CommentsRepository $commentsRepository,FavoritesRepository $favoritesRepository): Response
     {
         $article = $articlesRepository->find($id);
+        if (!$article) {
+            return $this->render('bundles\TwigBundle\exception\error.html.twig', [
+                'message' => 'Article non trouvé',
+            ]);
+        }
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();
