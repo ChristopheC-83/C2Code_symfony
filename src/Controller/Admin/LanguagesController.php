@@ -36,8 +36,8 @@ final class LanguagesController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                $language->getLanguage().' a bien été ajouté.'
-             );
+                $language->getLanguage() . ' a bien été ajouté.'
+            );
 
             return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -66,8 +66,8 @@ final class LanguagesController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                $language->getLanguage().' a bien été modifié.'
-             );
+                $language->getLanguage() . ' a bien été modifié.'
+            );
             return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -80,13 +80,13 @@ final class LanguagesController extends AbstractController
     #[Route('/{id}', name: 'app_admin_languages_delete', methods: ['POST'])]
     public function delete(Request $request, Languages $language, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$language->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $language->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($language);
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                $language->getLanguage().' a bien été supprimé.'
-             );
+                $language->getLanguage() . ' a bien été supprimé.'
+            );
         }
 
         return $this->redirectToRoute('app_admin_languages_index', [], Response::HTTP_SEE_OTHER);

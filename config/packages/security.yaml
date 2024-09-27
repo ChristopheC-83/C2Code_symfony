@@ -42,6 +42,7 @@ security:
         # Chemins protégés pour les utilisateurs enregistrés
         - { path: ^/compte, roles: ROLE_USER }
         - { path: ^/edition, roles: ROLE_CREATOR }
+        - { path: ^/creator, roles: ROLE_CREATOR }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
 
