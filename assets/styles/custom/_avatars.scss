@@ -18,6 +18,6 @@ input[type="radio"]:checked + label img {
 .avatar-img-dark {
     filter: brightness(70%);
 }
-.avatar-img-bright {
+.avatar-img-bright , input[type="radio"]:checked {
     filter: brightness(100%);
 }

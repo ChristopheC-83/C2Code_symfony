@@ -14,12 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TutosController extends AbstractController
 {
+    
     #[Route('/tutos', name: 'app_tutos')]
     public function index(ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository): Response
     {
 
         $meta_meta_description = "Des tutoriels pour apprendre les principaux langages du dev web. Objectif : creuser une notion en particulier sans s'étaler.";
-        $articles = $articlesRepository->findByType('tuto');
+        $articles = $articlesRepository->findBy(['visible' => 1, 'types' => 3]);
         $types = $typesRepository->findAll();
         $languages = $languagesRepository->findAll();
 
@@ -35,11 +36,13 @@ class TutosController extends AbstractController
     public function detail($id, ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository, UserRepository $userRepository,CommentsRepository $commentsRepository,FavoritesRepository $favoritesRepository): Response
     {
         $article = $articlesRepository->find($id);
-        if (!$article) {
-            return $this->render('bundles\TwigBundle\exception\error.html.twig', [
-                'message' => 'Article non trouvé',
-            ]);
+        
+        // article visible ?
+        if(!$article || !$article->isVisible()){
+            $this->addFlash('danger', 'Article non trouvé');
+            return $this->redirectToRoute('app_tutos');
         }
+
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();

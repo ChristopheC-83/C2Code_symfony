@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     {
         $meta_description = 'Bienvenue chez le Compagnon de code. Faisons des projets pour valider vos connaissances en développement web.';
 
-        $articles = $articlesRepo->findBy([], ['position' => 'DESC'], 3);
+        $articles = $articlesRepo->findBy(['visible' => 1], ['position' => 'DESC'], 3);
 
         // exemple mail
         // $mail = new Mail();

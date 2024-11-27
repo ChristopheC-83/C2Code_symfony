@@ -62,7 +62,7 @@ class RegisterController extends AbstractController
             $emi->flush();
 
 
-            $this->addFlash('success', 'Votre inscription a bien été prise en compte, vous pouvez vous connectee !'); // message de confirmation de l'inscription
+            $this->addFlash('success', 'Votre inscription a bien été prise en compte, vous pouvez vous connecter !'); // message de confirmation de l'inscription
 
             return $this->redirectToRoute('app_login');  // redirection vers la page de connexion
         }

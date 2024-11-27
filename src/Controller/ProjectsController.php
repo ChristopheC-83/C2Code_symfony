@@ -14,11 +14,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectsController extends AbstractController
 {
+    
     #[Route('/projects', name: 'app_projects')]
     public function index(ArticlesRepository $articlesRepository, TypesRepository $typesRepository, LanguagesRepository $languagesRepository): Response
     {
         $meta_meta_description = "Des projets avec les principaux langages du dev web. Objectif : Pratiquer et apprendre en réalisant des projets concrets.";
-        $articles = $articlesRepository->findByType('projet');
+        $articles = $articlesRepository->findBy(['visible' => 1, 'types' => 2]);
         $types = $typesRepository->findAll();
         $languages = $languagesRepository->findAll();
         return $this->render('projects/index.html.twig', [
@@ -35,11 +36,13 @@ class ProjectsController extends AbstractController
     {
         
         $article = $articlesRepository->find($id);
-        if (!$article) {
-            return $this->render('bundles\TwigBundle\exception\error.html.twig', [
-                'message' => 'Article non trouvé',
-            ]);
+        
+        // article visible ?
+        if(!$article || !$article->isVisible()){
+            $this->addFlash('danger', 'Article non trouvé');
+            return $this->redirectToRoute('app_projects');
         }
+
         $type = $typesRepository->find($article->getTypes()->getId());
         $language = $languagesRepository->find($article->getLanguages()->getId());
         $authorPseudo = $article->getAuthor();
