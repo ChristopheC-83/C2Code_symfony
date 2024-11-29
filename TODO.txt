@@ -1,4 +1,4 @@
-filtrer "mes articles" avec author === app.user.pseudo
-
-
-Mettre les liens footer en placement
+buy me a coffe, account : 
+CompagnonDeCode
+admin@compagnondecode.fr
+https://buymeacoffee.com/compagnondecode
