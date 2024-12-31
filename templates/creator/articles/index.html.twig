@@ -7,15 +7,26 @@
 	<section class="customContainer">
 		{% if app.user.pseudo == "Christophe_C"  %}
 			<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Gestion des articles</h3>
+
+			<div class="flex flex-wrap justify-center gap-5">
+				<a href={{ path ('app_admin_languages_index') }} class="w-fit midFlex">
+					<p class="buttonSecondary w-[300px]  text-center">Les Langages</p>
+				</a>
+				<a href={{ path ('app_admin_types_index') }} class="w-fit midFlex">
+					<p class="buttonSecondary w-[300px]  text-center">Les Types</p>
+				</a>
+			</div>
 		{% else %}
 			<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Gestion de mes articles</h3>
 		{% endif %}
 
-
+		<a href="{{ path('app_creator_articles_new') }}">
+			<div class="text-center buttonSecondary">Ecrire un nouvel article</div>
+		</a>
 		{# {{ dump(articles_projet) }}
-				{{ dump(articles_tuto) }}
-				{{ dump(articles_partage) }}
-				{{ dump(types) }} #}
+												{{ dump(articles_tuto) }}
+												{{ dump(articles_partage) }}
+												{{ dump(types) }} #}
 
 		<div class="flex flex-wrap items-center justify-center gap-3 my-6">
 			{% for  language in languages %}
@@ -27,8 +38,11 @@
 
 		{# Pour chaque type on génère un tableau #}
 		{% for type in types %}
-			<h4 class="mt-4 mb-2 h4 text-clip">Les
-				{{type.type}}s</h4>
+
+			<h4 class="mt-4 mb-2 h4 text-clip">
+				Les
+				{{ type.type }}s
+			</h4>
 			<div class='relative overflow-x-auto rounded-xl'>
 				{{ include('creator/articles/components/table.html.twig', { articles: attribute(_context, 'articles_' ~ type.type) }) }}
 			</div>
@@ -40,22 +54,22 @@
 		</a>
 	</section>
 
-	<script>
-		let articleInArray = document.querySelectorAll(".articleInArray");
-
-console.table(articleInArray);
-
-articleInArray.forEach((article) => {
-articleInArray.addEventListener("click", () => {
-console.log("coucou le array!");
-});
-});
-
-const testBtn = document.querySelector(".testBtn");
-
-testBtn.addEventListener("click", () => {
-console.log("coucou le btn !");
-});
-	</script>
+	 <script>
+						let articleInArray = document.querySelectorAll(".articleInArray");
+				
+				console.table(articleInArray);
+				
+				articleInArray.forEach((article) => {
+				articleInArray.addEventListener("click", () => {
+				console.log("coucou le array!");
+				});
+				});
+				
+				const testBtn = document.querySelector(".testBtn");
+				
+				testBtn.addEventListener("click", () => {
+				console.log("coucou le btn !");
+				});
+					</script>
 
 {% endblock %}

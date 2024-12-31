@@ -15,7 +15,7 @@
 				<td class='w-6 text-center'>{{ article.id }}</td>
 				<td class='text-center border-2 border-col3'>{{ article.title }}
 					<br><br>{{ article.author }}</td>
-				<td class='text-center border-2 border-col3'>{{ article.visible ? 'Yes' : 'No' }}
+				<td class="text-center border-2 border-col3 {{ article.visible ? 'bg-green-300' : 'bg-red-300' }}">{{ article.visible ? 'Yes' : 'No' }}
 					<br><br>{{ article.position }}</td>
 				<td><img src="{{ article.thumbnail }}" alt="{{ article.title }}" class='w-[180px] mx-auto  border-2 border-col3'></td>
 				<td class='text-center border-2 border-col3'>{{ article.types.type }}

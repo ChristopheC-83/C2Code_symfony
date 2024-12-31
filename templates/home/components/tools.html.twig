@@ -18,19 +18,25 @@
         'description' : "<b>Tailwind CSS</b> est un framework qui permet de créer des sites web personnalisés et modernes. Il utilise une approche <b>utility-first</b>, ce qui signifie qu'il fournit des classes utilitaires pour créer des styles personnalisés. Cela permet de produire des sites web uniques et originaux. C'est un outil très flexible et puissant qui permet de créer des designs uniques et innovants. C'est le pinceau de votre site."
       },
     {
-        'id' : 4,
+        'id': 4,
+        'name': 'git/github',
+        'pitch': "Le duo indispensable pour tout développeur !",
+        'description': "<b><b>Git</b></b> est un système de gestion de version décentralisé qui permet de suivre les modifications apportées à un projet, de collaborer avec d'autres développeurs et de gérer différentes branches de développement. <b><b>GitHub</b></b>, quant à lui, est une plateforme qui héberge vos projets Git et facilite la collaboration en ligne. Grâce à cette combinaison, vous pouvez <b><b>travailler en équipe</b></b>, gérer vos versions et déployer vos projets de manière efficace. Git est le cerveau de votre code, et GitHub en est le carnet de voyage."
+    },
+    {
+        'id' : 9,
         'name' : 'mvc',
         'pitch' : "L'architecture de votre site coté serveur.",
         'description' : "Le <b>modèle-vue-contrôleur (MVC)</b> est un modèle d'architecture logicielle qui sépare les données, la présentation et la logique de contrôle d'une application. Cela permet de rendre l'<b>application plus modulaire</b>, plus flexible et plus <b>facile à maintenir</b>. C'est un modèle très populaire qui est utilisé par de nombreux frameworks web. C'est le dispatcheur de votre site."
       },
     {
-        'id' : 5,
+        'id' : 12,
         'name' : 'prisma',
         'pitch' : "L'ORM pour Node.js et TypeScript.",
         'description' : "<b>Prisma</b> est un ORM (Object-Relational Mapping) qui permet de simplifier l'accès aux bases de données dans les applications React et Next. Il offre une API intuitive et puissante pour interagir avec les bases de données, ce qui permet de gagner du temps et de réduire les erreurs. C'est un outil très complet qui permet de <b>gérer les données</b> de votre application de manière efficace. C'est le magasinier de votre site."
       },
     {
-        'id' : 6,
+        'id' : 15,
         'name' : 'vercel',
         'pitch' : 'Idéal pour déployer vos applications Next.js.',
         'description':"<b>Vercel</b> est une solution d'hébergement qui permet de déployer des applications Next.js de manière simple et rapide. Il offre de nombreuses fonctionnalités avancées, comme <b>le déploiement automatique</b>, la mise en cache, la gestion des environnements, etc.<br>
@@ -38,7 +44,7 @@
         Tu fais du NextJs, tu veux te simplifier la vie : <b>VERCEL est ton ami !</b>"
       },
     {
-        'id' : 7,
+        'id' : 18,
         'name' : 'toolbox',
         'pitch' : "Quelques outils de ma boîte.",
         'description' : "<b>Supabase</b>, <b>MongoDB</b> et <b>Firebase</b> pour des bases de données.<br>
@@ -55,22 +61,22 @@
 <h2 class="mx-auto mb-5 h2 text-clip">Les outils dont nous aurons besoin</h2>
 
 <div class="flex flex-wrap justify-between w-full pb-8 gap-y-5 gap-x-8">
-    {% for tool in tools %}
-        <div class="h-full mx-auto cursor-pointer tool-item bg-color-reverse color-shadow-card rounded-xl" data-tool-id="{{ tool.id }}" onclick="showToolDescription({{ tool.id }})">
-            <div class="flex flex-col justify-between flex-wrap w-[145px] h-[200px] gap-3 p-3 border border-col1 rounded-xl">
-                <p class="text-xl ">{{ tool.name }}</p>
-                <p class="text-lg text-col1">{{ tool.pitch }}</p>
-            </div>
-        </div>
-    {% endfor %}
+	{% for tool in tools %}
+		<div class="h-full mx-auto cursor-pointer tool-item bg-color-reverse color-shadow-card rounded-xl" data-tool-id="{{ tool.id }}" onclick="showToolDescription({{ tool.id }})">
+			<div class="flex flex-col justify-between flex-wrap w-[145px] h-[200px] gap-3 p-3 border border-col1 rounded-xl">
+				<p class="text-xl ">{{ tool.name }}</p>
+				<p class="text-lg text-col1">{{ tool.pitch }}</p>
+			</div>
+		</div>
+	{% endfor %}
 </div>
 
 {% for tool in tools %}
-    <div id="tool-description-{{ tool.id }}" class="tool-description bg-color-reverse w-full p-4 border color-shadow-md border-col1 rounded-xl text-col1 {% if tool.id != 1 %}hidden{% endif %}">
-        <div class="flex flex-col">
-            <p class="mb-4 underline h4 text-col2 underline-offset-8">{{ tool.name }} :</p>
-            <div class="text-lg font-light leading-7 text-col1 ">{{ tool.description|raw }}</div>
-        </div>
-    </div>
+	<div id="tool-description-{{ tool.id }}" class="tool-description bg-color-reverse w-full p-4 border color-shadow-md border-col1 rounded-xl text-col1 {% if tool.id != 1 %}hidden{% endif %}">
+		<div class="flex flex-col">
+			<p class="mb-4 underline h4 text-col2 underline-offset-8">{{ tool.name }}
+				:</p>
+			<div class="text-lg font-light leading-7 text-col1 ">{{ tool.description|raw }}</div>
+		</div>
+	</div>
 {% endfor %}
-

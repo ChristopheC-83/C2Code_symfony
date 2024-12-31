@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Cours | C2Code
+{% endblock %}
+
+{% block body %}
+	<section class="customBodyContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Gestion des cours</h3>
+		<a href={{ path ('app_creator_courses_create') }} class="mx-auto w-fit midFlex">
+			<p class="buttonSecondary w-[300px]  text-center">Créer un cours</p>
+		</a>
+		<div class="flex flex-wrap items-stretch justify-center gap-5 my-6">
+			{% if courses  %}
+				{% for course in courses %}
+					{% include 'creator/courses/components/card.html.twig' with { course: course } %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="p text-amber-100">Vous n'avez pas encore de cours</p>
+		{% endif %}
+	</section>
+
+{% endblock %}

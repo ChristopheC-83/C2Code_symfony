@@ -41,33 +41,30 @@
 						<a href={{ path('app_account_modify_pseudo') }} class="w-full midFlex">
 							<p class="buttonSecondary w-[300px]  text-center">Modifier mon pseudo</p>
 						</a>
+						<a href={{ path('app_favorites_articles') }} class="w-full midFlex">
+							<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
+						</a>
 					{% endif %}
-					<a href={{ path('app_favorites_articles') }} class="w-full midFlex">
-						<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
-					</a>
 				{% endif %}
 				{% if  is_granted('ROLE_CREATOR')  %}
-					<a href={{ path('app_creator_articles_new') }} class="w-full midFlex">
-						<p class="buttonSecondary w-[300px]  text-center">Ecrire un nouvel article</p>
-					</a>
 					{# filtrer sur author #}
 					<a href={{ path('app_creator_articles_index') }} class="w-full midFlex">
-						<p class="buttonSecondary w-[300px]  text-center">Mes articles</p>
+						<p class="buttonSecondary w-[300px]  text-center">Les articles</p>
+					</a>
+					<a href={{ path ('app_creator_courses_management') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Les Cours</p>
 					</a>
 				{% endif %}
 				{% if  is_granted('ROLE_ADMIN')  %}
+
 					<a href={{ path ('app_admin_users') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des utilisateurs</p>
 					</a>
 					<a href={{ path ('app_admin_messages') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des commentaires</p>
 					</a>
-					<a href={{ path ('app_admin_languages_index') }} class="w-full midFlex">
-						<p class="buttonSecondary w-[300px]  text-center">Les Langages</p>
-					</a>
-					<a href={{ path ('app_admin_types_index') }} class="w-full midFlex">
-						<p class="buttonSecondary w-[300px]  text-center">Les Types</p>
-					</a>
+
+
 				{% endif %}
 			</div>
 			<div class="flex flex-col items-center justify-center md:w-1/2 ">

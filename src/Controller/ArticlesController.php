@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ArticlesController extends AbstractController
 {
+    
     private ArticlesRepository $articlesRepository;
     private CommentsRepository $commentsRepository;
     private EntityManagerInterface $entityManager;

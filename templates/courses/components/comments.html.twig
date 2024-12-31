@@ -1,0 +1,33 @@
+{# {{ dump(comments) }} #}
+
+<div class="flex flex-col-reverse w-full gap-y-4">
+	{% for comment in comments  %}
+		<dif class="flex flex-col w-full p-4 border border-col1 bg-color-reverse rounded-xl">
+			{% if comment.user %}
+				<div class="flex items-center gap-4">
+					<img src="{{ asset('images/avatars/' ~ comment.user.avatar) }}" alt="{{comment.user.pseudo}}" class='rounded-full size-12'>
+					<p class='text-gray-300 text-small text-thin'>Commentaire de
+						{{comment.user.pseudo|capitalize}}</p>
+				</div>
+				{# Si l'utilisateur est connecté #}
+			{% else %}
+				<div class="flex items-center gap-4">
+					<img src="{{ asset('images/avatars/nobody.png') }}" alt="avatar" class='rounded-full size-12'>
+					<p class='text-gray-300 text-small text-thin'>Commentaire de
+						{{comment.author|capitalize}}</p>
+				</div>
+			{% endif %}
+			<p class="text-justify ml-14 text-col1">{{comment.comment}}</p>
+
+			{% if is_granted('ROLE_ADMIN') %}
+				<form action="{{ path('delete_comment_lesson', {'id': comment.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">
+
+					<input type="hidden" name="type" value="{{lesson.type.type}}">
+					<input type="hidden" name="alesson_id" value="{{lesson.id}}">
+					<button type="submit" class="text-red-500 hover:text-red-700">🗑️ Supprimer</button>
+				</form>
+			{% endif %}
+
+		</dif>
+	{% endfor %}
+</div>

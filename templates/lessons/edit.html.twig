@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Lessons{% endblock %}
+
+{% block body %}<section class="">
+		<h3 class="mx-auto my-5 text-center h3 text-clip xs:my-6 md:my-7">Modifier la leçon : <br>
+            {{lesson.title}}
+        </h3>
+
+    {{ include('lessons/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path ('app_lessons_show', { 'slug' : lesson.course.slug} )}}"><div class="w-full mx-auto text-center xs:w-3/4 md:w-1/2 buttonSecondary hover:text-white">Retour au Cours</div></a> 
+
+    {{ include('lessons/_delete_form.html.twig') }}
+    </section>
+{% endblock %}

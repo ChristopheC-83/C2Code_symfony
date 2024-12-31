@@ -13,30 +13,30 @@
 		<meta name="description" content="{% block meta_description %}Tutos et Projets d'un Compagnon de code !{% endblock %}">
 
 		 <script src="https://cdn.tiny.cloud/1/ioe3eh75wlk0ed6bxqzlm9mmphf2fa5dzibxjrx77bxl9520/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-		 <script>
-							tinymce.init({
-				selector: 'textarea#articles_text',
-				plugins: 'lists link image media table code formatselect',
-				toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image media | code',
-				menubar: true,
-				// Formats disponibles dans le menu déroulant
-				block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4; Header 5=h5; Header 6=h6',
-				// Insertion d'images/vidéos via URL
-				// Active l'intégration d'image par URL uniquement
-				images_upload_handler: function (blobInfo, success, failure) { // Interception de l'upload, comme on ne veut pas uploader on passe
-				failure('L\'upload est désactivé');
-				},
-				// Autorise la sélection d'images via URL
-				file_picker_callback: function (callback, value, meta) {
-				if (meta.filetype === 'image' || meta.filetype === 'media') {
-				const url = prompt('Entrez l\'URL de l\'image ou de la vidéo:');
-				if (url) {
-				callback(url);
-				}
-				}
-				}
-				});
-						</script>
+		 {# <script>
+						tinymce.init({
+			selector: 'textarea#articles_text',
+			plugins: 'lists link image media table code formatselect',
+			toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image media | code',
+			menubar: true,
+			// Formats disponibles dans le menu déroulant
+			block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4; Header 5=h5; Header 6=h6',
+			// Insertion d'images/vidéos via URL
+			// Active l'intégration d'image par URL uniquement
+			images_upload_handler: function (blobInfo, success, failure) { // Interception de l'upload, comme on ne veut pas uploader on passe
+			failure('L\'upload est désactivé');
+			},
+			// Autorise la sélection d'images via URL
+			file_picker_callback: function (callback, value, meta) {
+			if (meta.filetype === 'image' || meta.filetype === 'media') {
+			const url = prompt('Entrez l\'URL de l\'image ou de la vidéo:');
+			if (url) {
+			callback(url);
+			}
+			}
+			}
+			});
+		</script> #}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" referrerpolicy="no-referrer"/> {% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -51,7 +51,7 @@
 	<body class='flex flex-col min-h-svh bg-color'>
 		{% include 'components/navbar.html.twig' %}
 
-		<main class="relative flex-grow py-2 md:py-4 customContainer">
+		<main class="relative flex-grow py-2 md:py-4 customBodyContainer">
 
 			<div class="container_alerts">
 				{% for label, messages in app.flashes %}
@@ -64,7 +64,9 @@
 			</div>
 			{% block body %}{% endblock %}
 		</main>
-		 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="CompagnonDeCode" data-description="Support me on Buy me a coffee!" data-message="Soutenir mon travail ?" data-color="#0ef6cc" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+		{% if not app.user or app.user.pseudo != "Christophe_C"  %}
+			 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="CompagnonDeCode" data-description="Support me on Buy me a coffee!" data-message="Soutenir mon travail ?" data-color="#0ef6cc" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+		{% endif %}
 		{% include 'components/footer.html.twig' %}
 
 	</body>

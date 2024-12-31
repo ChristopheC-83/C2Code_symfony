@@ -41,7 +41,7 @@
 
 <h2 class="mx-auto mb-5 h2 text-clip">Les langages que nous utiliserons ensemble</h2>
 
-<div class="flex justify-between w-full">
+<div class="flex justify-between w-full max-w-[1200px] mx-auto">
 	{% for language in languages %}
 		<div class="text-col1 icoFontawesome" data-id="{{ language.id }}" onclick="showDescription({{ language.id }})">
 			{{ language.iconLanguage|raw }}

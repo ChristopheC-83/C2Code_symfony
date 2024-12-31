@@ -1,4 +1,5 @@
-buy me a coffe, account : 
-CompagnonDeCode
-admin@compagnondecode.fr
-https://buymeacoffee.com/compagnondecode
+
+
+Dans cloud
+
+ Une erreur est survenue lors de la création du dossier : An exception occurred while executing a query: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'uuid_public' cannot be null

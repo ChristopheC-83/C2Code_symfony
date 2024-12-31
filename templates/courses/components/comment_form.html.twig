@@ -1,0 +1,21 @@
+<h2 class="mx-auto my-4 h2 text-clip">Commentaires</h2>
+<form action="{{ path('post_lesson_comment') }}" method="post" class="p-4 customForm ">
+	<input type="hidden" name="lesson_id" value="{{lesson.id}}">
+
+	<h3 class="h3 text-col1">Ajoutez un commentaire</h3>
+	<label for="comment_text" class="block text-sm font-medium text-col1">Votre pseudo</label>
+	{% if app.user %}
+		<input type="hidden" name="user_id" value="{{app.user.id }}">
+		<input type="text" name="pseudo" value="{{ app.user.pseudo }}" disabled>
+	{% else %}
+		<input type="text" name="pseudo" id="pseudo" class="block w-full mt-1 form-input" placeholder="Entrez votre pseudo" required>
+	{% endif %}
+
+	<div class="mb-4">
+		<label for="comment_text" class="block text-sm font-medium text-col1">Votre commentaire</label>
+		<textarea name="comment_text" id="comment_text" class="block w-full mt-1 form-textarea" rows="4" required></textarea>
+	</div>
+
+	<button type="submit" class="buttonValidation">Envoyer le commentaire</button>
+</form>
+

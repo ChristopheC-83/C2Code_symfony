@@ -1,0 +1,56 @@
+{# {% if course.language == "html" %}
+	{% set styleLanguage = 'styleHTML' %}
+{% elseif course.language == "javascript" %}
+	{% set styleLanguage = 'styleJS' %}
+{% elseif course.language == "css" %}
+	{% set styleLanguage = 'styleCSS' %}
+{% elseif course.language == "php" %}
+	{% set styleLanguage = 'stylePHP' %}
+{% elseif course.language == "react" %}
+	{% set styleLanguage = 'styleREACT' %}
+{% elseif course.language == "next" %}
+	{% set styleLanguage = 'styleNEXT' %}
+{% else %}
+	{% set styleLanguage = 'bg-white' %}
+{% endif %} #}
+
+
+<div class="flex flex-col justify-between max-w-sm p-6 duration-500 border border-gray-200 rounded-lg shadow gap-y-3 style_{{ course.language|upper }}">
+
+	<div class="flex flex-col">
+		<div class="flex items-start justify-between w-full mb-3 gap-x-2">
+			<img src="{{course.logo}}" alt="logo" class="p-1 bg-white rounded-full size-12">
+			<div class="flex flex-col">
+				<h5 class="mb-2 text-2xl font-bold text-left text-gray-900">{{course.title}}</h5>
+			</div>
+		</div>
+		<p class="text-xs ">
+			Nb d'articles :
+			{{ course.getNbLessons() }}</p>
+	</div>
+
+	<p class="mb-3 font-normal text-gray-700 ">{{course.pitch}}</p>
+	<div class="flex items-center w-full justify-evenly">
+		<a href="{{ path ('app_creator_courses_update_visibility', { 'id' : course.id} )}}">
+			{% if course.isVisible %}
+				<i class="p-3 bg-white rounded-full fa-solid fa-eye"></i>
+			{% else    %}
+				<i class="p-3 bg-white rounded-full fa-solid fa-eye-slash"></i>
+			{% endif %}
+		</a>
+		<a href="{{ path ('app_creator_courses_update', { 'id' : course.id} )}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+			Modifier
+		</a>
+		<a href="{{ path ('app_creator_courses_delete', { 'id' : course.id} )}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 " onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?');">
+			Supprimer
+		</a>
+	</div>
+	<div class="flex justify-between">
+		<a href="{{ path ('app_lessons_show', { 'slug' : course.slug} )}}" class="inline-flex items-center w-2/5 px-3 py-2 text-sm font-medium text-white rounded-lg bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-blue-300" >
+			<p class="mx-auto text-center">Voir les leçons</p>
+		</a>
+		<a href="{{ path ('app_lessons_new', { 'slug' : course.slug} )}}" class="inline-flex items-center w-2/5 px-3 py-2 text-sm font-medium text-white rounded-lg bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-blue-300" >
+			<p class="mx-auto text-center">Ajouter une leçon</p>
+		</a>
+	</div>
+</div>

@@ -22,8 +22,6 @@ class SharesController extends AbstractController
         $articles = $articlesRepository->findBy(['visible' => 1, 'types' => 1]);
         $types = $typesRepository->findAll();
         $languages = $languagesRepository->findAll();
-
-
         return $this->render('shares/index.html.twig', [
             'types' => $types,
             'articles' => $articles,

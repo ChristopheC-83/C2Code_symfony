@@ -352,7 +352,7 @@ input[type=radio]:checked + label img {
   filter: brightness(70%);
 }
 
-.avatar-img-bright {
+.avatar-img-bright, input[type=radio]:checked {
   filter: brightness(100%);
 }
 
@@ -429,6 +429,37 @@ input[type=radio]:checked + label img {
   max-width: 560px;
 }
 
+code {
+  display: block;
+  background-color: #fff;
+  color: purple;
+  padding: 5px 10px;
+}
+
+.style_HTML {
+  background-color: rgba(251, 213, 213, 0.9);
+}
+
+.style_CSS {
+  background-color: rgba(195, 221, 253, 0.9);
+}
+
+.style_JAVASCRIPT {
+  background-color: rgba(253, 246, 178, 0.9);
+}
+
+.style_PHP {
+  background-color: rgba(229, 224, 254, 0.9);
+}
+
+.style_REACT {
+  background-color: rgba(207, 250, 254, 0.9);
+}
+
+.style_NEXT {
+  background-color: rgba(245, 245, 245, 0.9);
+}
+
 .bg-color {
   background: linear-gradient(90deg, #1b2223 0%, #3a4f50 100%);
 }
@@ -443,7 +474,14 @@ input[type=radio]:checked + label img {
   margin: 0 auto;
 }
 
-.midFlex, .flexMid {
+.customBodyContainer {
+  width: 96%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.midFlex,
+.flexMid {
   display: flex;
   justify-content: center;
   justify-items: center;

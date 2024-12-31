@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours | C2Code
+{% endblock %}
+{# Metedesc fixe pour une page donnée #}
+{% block meta_description %}
+	Cours gratuits pour apprendre à coder en ligne. Découvrez les bases de la programmation et les langages de développement web.
+{% endblock %}
+
+{% block body %}
+	<section class="text-neutral-100">
+		<h1 class="mx-auto mt-5 mb-3 text-center h1 text-clip xs:my-6 md:my-7">Compagnon de code</h1>
+		<h2 class="mx-auto text-center -translate-y-6 h2 text-neutral-300">Tous les cours</h2>
+		<h4 class="h4 max-w-[950px] mx-auto text-justify text-col2">Chaque cours contient des notions à apprendre, des exercices pour comprendre et mettre en application, et enfin des projets pour une vue globale de votre apprentissage.</h4>
+ 
+		{% if courses != []  %}
+			<div class="flex flex-wrap items-stretch justify-center gap-5 my-6 customBodyContainer text-neutral-900">
+				{% for course in courses  %}
+					{% include "courses/components/card.html.twig" %}
+
+				{% endfor %}
+			</div>
+
+		{% else   %}
+		{% include 'components/spacing.html.twig' %}
+			<h4 class="h4 max-w-[950px] mx-auto text-justify text-col1">En cours de préparation... patience !</h4>
+		{% endif %}
+	</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lessons{% endblock %}
+
+{% block body %}
+    <h1>Lessons :  PAGE UTILE ?</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ lesson.id }}</td>
+            </tr>
+            <tr>
+                <th>Is_premium</th>
+                <td>{{ lesson.isPremium ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Is_visible</th>
+                <td>{{ lesson.isVisible ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ lesson.title }}</td>
+            </tr>
+            <tr>
+                <th>Text</th>
+                <td>{{ lesson.text }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ lesson.createdAt ? lesson.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ lesson.updatedAt ? lesson.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ lesson.position }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ lesson.time ? lesson.time|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_lessons_index') }}">back to list</a>
+
+    <a href="{{ path('app_lessons_edit', {'id': lesson.id}) }}">edit</a>
+
+    {{ include('lessons/_delete_form.html.twig') }}
+{% endblock %}

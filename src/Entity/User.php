@@ -61,11 +61,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Favorites::class, mappedBy: 'user')]
     private Collection $favorites;
 
+    /**
+     * @var Collection<int, CommentsLessons>
+     */
+    #[ORM\OneToMany(targetEntity: CommentsLessons::class, mappedBy: 'user')]
+    private Collection $commentsLessons;
+
+
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->commentsLessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -268,4 +277,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, CommentsLessons>
+     */
+    public function getCommentsLessons(): Collection
+    {
+        return $this->commentsLessons;
+    }
+
+    public function addCommentsLesson(CommentsLessons $commentsLesson): static
+    {
+        if (!$this->commentsLessons->contains($commentsLesson)) {
+            $this->commentsLessons->add($commentsLesson);
+            $commentsLesson->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentsLesson(CommentsLessons $commentsLesson): static
+    {
+        if ($this->commentsLessons->removeElement($commentsLesson)) {
+            // set the owning side to null (unless already changed)
+            if ($commentsLesson->getUser() === $this) {
+                $commentsLesson->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

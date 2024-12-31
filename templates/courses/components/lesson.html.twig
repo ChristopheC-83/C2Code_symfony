@@ -1,0 +1,8 @@
+<h2 class="w-full text-center h2 text-clip">{{lesson.title}}</h2>
+<div class="one_article">{{lesson.text|raw}}
+</div>
+
+<p class="mt-5 text-sm text-gray-500 p ">Écrit en {{ lesson.createdAt|date('m/y') }} par Christophe C.</p>
+ {% if  lesson.updatedAt %}
+<p class="text-sm text-gray-500 p ">Mis à jour en {{ lesson.updatedAt|date('m/y') }}</p>
+ {% endif %}

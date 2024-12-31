@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Cours | C2Code
+{% endblock %}
+
+{% block body %}
+	<section class="customContainer">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Modification d'un cours</h3>
+		<a href={{ path ('app_creator_courses_create') }} class="mx-auto w-fit midFlex">
+			<p class="buttonSecondary w-[300px]  text-center">Créer un cours</p>
+		</a>
+
+
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="buttonValidation">{{ button_label|default('Modifier') }}</button>
+		{{ form_end(form) }}
+
+
+		<a href="{{ path('app_creator_courses_management') }}">
+			<div class="text-center buttonSecondary">Retour</div>
+		</a>
+
+
+	</section>
+
+{% endblock %}
