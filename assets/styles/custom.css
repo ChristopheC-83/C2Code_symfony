@@ -65,6 +65,7 @@
   width: -moz-fit-content;
   width: fit-content;
   font-family: "Labrada";
+  display: flex;
 }
 
 .h2 {
@@ -407,7 +408,7 @@ input[type=radio]:checked + label img {
   margin: 0 auto;
   font-family: "Labrada";
 }
-.one_article p {
+.one_article p, .one_article li {
   font-size: clamp(16px, 10px + 0.4vw, 20px);
   letter-spacing: calc(0.4px + 0.01vw);
   line-height: clamp(30px, 24px + 0.66vw, 36px);

@@ -45,7 +45,7 @@
     margin: 0 auto;
     font-family: "Labrada";
   }
-  p {
+  p, li {
     font-size: clamp(16px, calc(10px + 0.4vw), 20px);
     letter-spacing: calc(0.4px + 0.01vw);
     line-height: clamp(30px, calc(24px + 0.66vw), 36px);

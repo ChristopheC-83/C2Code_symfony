@@ -27,6 +27,7 @@
   font-weight: bold;
   width: fit-content;
   font-family: "Labrada";
+  display: flex;
 }
 .h2 {
   font-size: clamp(23px, calc(20px + 1.65vw), 40px);

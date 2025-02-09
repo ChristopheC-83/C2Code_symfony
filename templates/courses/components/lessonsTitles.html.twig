@@ -1,10 +1,12 @@
 {% for lesson in lessons  %}
 
 	<a href="{{ path('app_one_course', { slug: course.slug , position: lesson.position}) }}" class="flex items-center gap-2 p-2 duration-300 rounded-xl hover:text-col2 {{ lesson.isPremium ? 'text-amber-500' : 'text-col1' }} ">
-		<div class="flex items-center justify-between w-full ">
+		<div class="flex items-center justify-between w-full flex-nowrap">
 			<div class="flex items-center gap-2">
 				{% if lesson.type.type is same as "notion"  %}
 					<i class="fa-solid fa-book-open"></i>
+				{% elseif lesson.type.type is same as "express" %}
+					<i class="fa-solid fa-truck-fast"></i>
 				{% elseif lesson.type.type is same as "exercice" %}
 					<i class="fa-solid fa-screwdriver-wrench"></i>
 				{% elseif lesson.type.type is same as "projet" %}
@@ -23,6 +25,10 @@
 	<p>
 		<i class="fa-solid fa-book-open"></i>
 		=> leçons</p>
+	
+	<p>
+		<i class="fa-solid fa-truck-fast"></i>
+		=> express</p>
 	<p>
 		<i class="fa-solid fa-screwdriver-wrench"></i>
 		=> exercices
