@@ -29,6 +29,15 @@ class LessonsType extends AbstractType
                 'mapped' => true,
                 'attr' => ['id' => 'premium_field'],
             ])
+            ->add('price', null, [ 
+                'label' => 'Prix (en crédits)',
+                'required' => false,
+                'attr' => ['min' => 0],
+            ])
+            ->add('youtubeId', null, [
+                'label' => 'ID YouTube',
+                'required' => false,
+            ])
             ->add('text', TextareaType::class, [
                 'required' => false,
                 'attr' => [
@@ -46,6 +55,7 @@ class LessonsType extends AbstractType
             ->add('time', TimeType::class, [
                 'required' => false,
                 'widget' => 'single_text', 
+                'with_seconds' => true
             ])
             ->add('course', EntityType::class, [
                 'class' => Courses::class,

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ShowAllPremiumLessonsController!
+{% endblock %}
+
+{% block body %}
+	<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de Code</h1>
+	<h2 class="mx-auto -translate-y-6 mt-7 h2 text-col2">Les leçons Premium
+		<i class="fa-solid fa-crown"></i>
+	</h2>
+
+	<p class="mb-3 p text-col1 md:mb-5">
+		<span class="text-col2">Quand tu "achètes" une leçon Premium, tu ne m'enrichis pas vraiment !</span>
+		<br>
+		- tu me soutiens et me motives !
+		<br>
+		- tu m'incites à partager d'avantage !
+		<br>
+	</p>
+
+	<p class="p text-col1">
+		<span class="text-col2">Tu n'achètes rien !?!</span>
+		<br>
+		- je ne t'en veux pas le moins du monde, il existe moults ressources gratuites sur le même sujet sur Youtube !
+		<br>
+		- mais n'hésite pas à partager à quelqu'un que ces vidéos pourraient aider !
+		<br>
+	</p>
+	{% include 'components/spacing.html.twig' %}
+	<div class="w-fit">
+		<h3 class="h3 text-col1">Il te reste actuellement {{app.user.credits}} Crédit{{ app.user.credits != 1 ? 's' : '' }}.</h3>
+		<div class="midFlex">
+			<a href="{{ path('app_home')}}">
+				<button class="px-4 buttonValidation w-fit">
+					<p class="p">Si besoin, achète de nouveaux Crédits !</p>
+				</button>
+			</a>
+		</div>
+	</div>
+	{% include 'components/spacing.html.twig' %}
+	{# {{ dump(lessonsNotPurchased) }}
+	{{ dump(lessonsPurchased) }} #}
+
+	{# Premium dispo #}
+	{% if lessonsNotPurchased or  lessonsPurchased   %}
+			<h2 class="mb-5 h2 text-clip">Les leçons Premium disponibles pour étoffer ta bibliothèque de tutos :</h2>
+		{% if lessonsNotPurchased is defined and lessonsNotPurchased|length > 0 %}
+			{{ include('account/show_all_premium_lessons/components/arrayOfLessonsNotPurchased.html.twig', { lessons: lessonsNotPurchased }) }}
+
+		{% else %}
+			<h3 class="h3 text-clip">Tu as consommé tout ce que j'ai déjà tourné !?!
+				<span class="text-black">😱</span>
+			</h3>
+		{% endif %}
+		{# premium achetés #}
+		{% include 'components/spacing.html.twig' %}
+			<h2 class="mb-5 h2 text-clip">Les leçons Premium accessibles dans ta vidéothèque :</h2>
+		{% if lessonsPurchased is defined and lessonsPurchased|length > 0 %}
+			{{ include('account/show_all_premium_lessons/components/arrayOfLessonsPurchased.html.twig', { lessons: lessonsPurchased }) }}
+		{% else %}
+			<h3 class="h3 text-clip">Tu n'as pas encore trouvé une leçon assez intéressante ? Je vais travailler pour
+				<span class="text-black">😉</span>
+			</h3>
+		{% endif %}
+
+	{% else %}
+		<h2 class="h2 text-clip">Les tournages sont en cours ! Patience...
+			<span class="text-black">😴</span>
+		</h2>
+
+	{% endif %}
+	{% include 'components/spacing.html.twig' %}
+{% endblock %}

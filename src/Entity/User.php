@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -67,6 +68,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: CommentsLessons::class, mappedBy: 'user')]
     private Collection $commentsLessons;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column]
+    private ?int $credits = null;
+
+    /**
+     * @var Collection<int, UserLesson>
+     */
+    #[ORM\OneToMany(targetEntity: UserLesson::class, mappedBy: 'User')]
+    private Collection $lesson;
+
+    /**
+     * @var Collection<int, UserLesson>
+     */
+    #[ORM\OneToMany(targetEntity: UserLesson::class, mappedBy: 'user')]
+    private Collection $userLessons;
+
+    /**
+     * @var Collection<int, ConnectionRegister>
+     */
+    #[ORM\OneToMany(targetEntity: ConnectionRegister::class, mappedBy: 'user')]
+    private Collection $connected_at;
+
+    /**
+     * @var Collection<int, ConnectionRegister>
+     */
+    #[ORM\OneToMany(targetEntity: ConnectionRegister::class, mappedBy: 'user')]
+    private Collection $connectionRegisters;
+
+    /**
+     * @var Collection<int, PurchaseRegister>
+     */
+    #[ORM\OneToMany(targetEntity: PurchaseRegister::class, mappedBy: 'user')]
+    private Collection $purchaseRegisters;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isFirstPurchase = null;
+
+    /**
+     * @var Collection<int, CreditsPurchaseRegister>
+     */
+    #[ORM\OneToMany(targetEntity: CreditsPurchaseRegister::class, mappedBy: 'user')]
+    private Collection $creditsPurchaseRegisters;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $StripeSessionId = null;
+
+    /**
+     * @var Collection<int, UserConnection>
+     */
+    #[ORM\OneToMany(targetEntity: UserConnection::class, mappedBy: 'user')]
+    private Collection $ipAdress;
+
+    /**
+     * @var Collection<int, UserConnection>
+     */
+    #[ORM\OneToMany(targetEntity: UserConnection::class, mappedBy: 'user')]
+    private Collection $userConnections;
+
 
 
     public function __construct()
@@ -75,6 +136,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->commentsLessons = new ArrayCollection();
+        $this->lesson = new ArrayCollection();
+        $this->userLessons = new ArrayCollection();
+        $this->connected_at = new ArrayCollection();
+        $this->connectionRegisters = new ArrayCollection();
+        $this->purchaseRegisters = new ArrayCollection();
+        $this->creditsPurchaseRegisters = new ArrayCollection();
+        $this->ipAdress = new ArrayCollection();
+        $this->userConnections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +371,294 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commentsLesson->getUser() === $this) {
                 $commentsLesson->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCredits(): ?int
+    {
+        return $this->credits;
+    }
+
+    public function setCredits(int $credits): static
+    {
+        $this->credits = $credits;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLesson>
+     */
+    public function getLesson(): Collection
+    {
+        return $this->lesson;
+    }
+
+    public function addLesson(UserLesson $lesson): static
+    {
+        if (!$this->lesson->contains($lesson)) {
+            $this->lesson->add($lesson);
+            $lesson->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(UserLesson $lesson): static
+    {
+        if ($this->lesson->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getUser() === $this) {
+                $lesson->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLesson>
+     */
+    public function getUserLessons(): Collection
+    {
+        return $this->userLessons;
+    }
+
+    public function addUserLesson(UserLesson $userLesson): static
+    {
+        if (!$this->userLessons->contains($userLesson)) {
+            $this->userLessons->add($userLesson);
+            $userLesson->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLesson(UserLesson $userLesson): static
+    {
+        if ($this->userLessons->removeElement($userLesson)) {
+            // set the owning side to null (unless already changed)
+            if ($userLesson->getUser() === $this) {
+                $userLesson->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConnectionRegister>
+     */
+    public function getConnectedAt(): Collection
+    {
+        return $this->connected_at;
+    }
+
+    public function addConnectedAt(ConnectionRegister $connectedAt): static
+    {
+        if (!$this->connected_at->contains($connectedAt)) {
+            $this->connected_at->add($connectedAt);
+            $connectedAt->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConnectedAt(ConnectionRegister $connectedAt): static
+    {
+        if ($this->connected_at->removeElement($connectedAt)) {
+            // set the owning side to null (unless already changed)
+            if ($connectedAt->getUser() === $this) {
+                $connectedAt->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConnectionRegister>
+     */
+    public function getConnectionRegisters(): Collection
+    {
+        return $this->connectionRegisters;
+    }
+
+    public function addConnectionRegister(ConnectionRegister $connectionRegister): static
+    {
+        if (!$this->connectionRegisters->contains($connectionRegister)) {
+            $this->connectionRegisters->add($connectionRegister);
+            $connectionRegister->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConnectionRegister(ConnectionRegister $connectionRegister): static
+    {
+        if ($this->connectionRegisters->removeElement($connectionRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($connectionRegister->getUser() === $this) {
+                $connectionRegister->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseRegister>
+     */
+    public function getPurchaseRegisters(): Collection
+    {
+        return $this->purchaseRegisters;
+    }
+
+    public function addPurchaseRegister(PurchaseRegister $purchaseRegister): static
+    {
+        if (!$this->purchaseRegisters->contains($purchaseRegister)) {
+            $this->purchaseRegisters->add($purchaseRegister);
+            $purchaseRegister->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseRegister(PurchaseRegister $purchaseRegister): static
+    {
+        if ($this->purchaseRegisters->removeElement($purchaseRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseRegister->getUser() === $this) {
+                $purchaseRegister->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isFirstPurchase(): ?bool
+    {
+        return $this->isFirstPurchase;
+    }
+
+    public function setFirstPurchase(?bool $isFirstPurchase): static
+    {
+        $this->isFirstPurchase = $isFirstPurchase;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CreditsPurchaseRegister>
+     */
+    public function getCreditsPurchaseRegisters(): Collection
+    {
+        return $this->creditsPurchaseRegisters;
+    }
+
+    public function addCreditsPurchaseRegister(CreditsPurchaseRegister $creditsPurchaseRegister): static
+    {
+        if (!$this->creditsPurchaseRegisters->contains($creditsPurchaseRegister)) {
+            $this->creditsPurchaseRegisters->add($creditsPurchaseRegister);
+            $creditsPurchaseRegister->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreditsPurchaseRegister(CreditsPurchaseRegister $creditsPurchaseRegister): static
+    {
+        if ($this->creditsPurchaseRegisters->removeElement($creditsPurchaseRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($creditsPurchaseRegister->getUser() === $this) {
+                $creditsPurchaseRegister->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStripeSessionId(): ?string
+    {
+        return $this->StripeSessionId;
+    }
+
+    public function setStripeSessionId(?string $StripeSessionId): static
+    {
+        $this->StripeSessionId = $StripeSessionId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserConnection>
+     */
+    public function getIpAdress(): Collection
+    {
+        return $this->ipAdress;
+    }
+
+    public function addIpAdress(UserConnection $ipAdress): static
+    {
+        if (!$this->ipAdress->contains($ipAdress)) {
+            $this->ipAdress->add($ipAdress);
+            $ipAdress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIpAdress(UserConnection $ipAdress): static
+    {
+        if ($this->ipAdress->removeElement($ipAdress)) {
+            // set the owning side to null (unless already changed)
+            if ($ipAdress->getUser() === $this) {
+                $ipAdress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserConnection>
+     */
+    public function getUserConnections(): Collection
+    {
+        return $this->userConnections;
+    }
+
+    public function addUserConnection(UserConnection $userConnection): static
+    {
+        if (!$this->userConnections->contains($userConnection)) {
+            $this->userConnections->add($userConnection);
+            $userConnection->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserConnection(UserConnection $userConnection): static
+    {
+        if ($this->userConnections->removeElement($userConnection)) {
+            // set the owning side to null (unless already changed)
+            if ($userConnection->getUser() === $this) {
+                $userConnection->setUser(null);
             }
         }
 

@@ -33,11 +33,14 @@ class CoursesController extends AbstractController
 
         $user = $this->getUser();
         $courses = $this->coursesRepository->findAll();
+      
 
-        if (!$user || $user->getRoles()[0] != 'ROLE_ADMIN') {
+
+        if (!$user || (!in_array('ROLE_ADMIN', $user->getRoles()) && !in_array('ROLE_CREATOR', $user->getRoles()))) {
             $this->addFlash('danger', 'On s\'est perdu ?');
             return $this->redirectToRoute('app_home');
         }
+        
 
         return $this->render('creator/courses/manage.html.twig', [
             'courses' => $courses
@@ -173,7 +176,7 @@ public function createCourse(Request $request, SluggerInterface $slugger): Respo
     {
         $user = $this->getUser();
 
-        if (!$user || $user->getRoles()[0] != 'ROLE_ADMIN') {
+        if (!$user || (!in_array('ROLE_ADMIN', $user->getRoles()) )) {
             $this->addFlash('danger', 'On s\'est perdu ?');
             return $this->redirectToRoute('app_home');
         }

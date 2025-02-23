@@ -52,7 +52,7 @@ class LessonsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-    
+
     public function findFirstLessonByCourse(Courses $course): ?Lessons
     {
         return $this->createQueryBuilder('l')
@@ -63,5 +63,15 @@ class LessonsRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getTotalDurationByCourse($courseId): array
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l.time')
+            ->where('l.course = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getResult();
     }
 }

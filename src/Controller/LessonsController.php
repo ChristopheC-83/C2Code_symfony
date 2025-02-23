@@ -139,6 +139,13 @@ class LessonsController extends AbstractController
                     'position' => $lesson->getPosition(),
                 ]);
             }
+            if ($lesson->getIsPremium() == false) {
+                dd("non");
+            } else if ($lesson->getIsPremium() == true) {
+                dd("oui");
+            } else {
+                dd("rien");
+            }
             $this->emi->flush();
 
             $this->updateNbLessonsAllCourses();

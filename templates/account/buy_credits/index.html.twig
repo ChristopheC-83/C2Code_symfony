@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BuyCreditsController!
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de Code</h1>
+	{% if app.user.credits > 0  %}
+		<h2 class="mx-auto mb-3 h2 text-clip xs:my-6 md:my-7">Tu possèdes actuellement
+			{{app.user.credits}}
+			crédits.</h2>
+	{% else %}
+		<h2 class="mx-auto mb-3 h2 text-clip xs:my-6 md:my-7">Tu n'a plus de crédit !</h2>
+	{% endif %}
+
+	{% if app.user.isFirstPurchase  %}
+			<h2 class="mx-auto mb-3 h2 text-clip xs:my-6 md:my-7">Pour ton 1er achat, je t'offre 10% de Crédits en plus</h2>
+
+	{% endif %}
+
+
+	<h2 class="mx-auto -translate-y-6 my-7 h2 text-neutral-300">Obtiens des Crédits supplémentaires !</h2>
+
+	{% for credit in creditsDatas %}
+		<div class="flex justify-center mb-8">
+			<div class="flex items-center justify-between overflow-hidden border rounded-lg color-shadow-card max-xs:flex-col bg-neutral-100 border-col1 w-[212px] xs:w-[424px]">
+				<img src="{{ asset('images/illustrations/credits/' ~ credit.img) }}" alt="Crédits {{ credit.credits }}" class="w-[212px]  aspect-square">
+				<div class="flex flex-col items-center justify-between w-[212px]  h-[150px] xs:h-[212px] p-1 xs:p-5 bg-color-reverse">
+					<h3 class="h3 text-col1">{{ credit.credits }}
+						Crédits</h3>
+					<h3 class=" h3 text-col2">{{ credit.price }}
+						€</h3>
+					<a href="{{ path ('app_account_purchase_credits', {'number': credit.credits })}}">
+						<button class=" buttonSecondary">Obtenir les crédits</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	{% include 'components/spacing.html.twig' %}
+
+
+{% endblock %}

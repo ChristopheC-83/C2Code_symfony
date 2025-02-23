@@ -1,0 +1,21 @@
+<h2 class="w-full text-center h2 text-clip">{{lesson.title}} </h2>
+{# <div class="text-white one_article">{{lesson.text|raw}}
+</div> #}
+{% include 'components/spacing.html.twig' %}
+<div class='flex flex-col p-3 mx-auto border gap-y-6 md:gap-y-7 lg:gap-y-8 w-fit color-shadow-md rounded-xl md:p-3 lg:p-4 bg-color-reverse text-col1 border-col1'>
+	<div class="flex items-center justify-center gap-x-5">
+		<i class=" fa-solid fa-lock text-col2 fa-2xl scale[1.5]"></i>
+		<h3 class=" h3 text-col2">
+			L'accés à ce cours est limité.</h3>
+	</div>
+	<h4 class="mx-auto text-justify h4 text-col1">Vous devez vous connecter et avoir validé votre accés à ce cours</h4>
+	
+	<div class="flexMid">
+		<a href="{{ path('app_login')}}" >
+			<button class="px-4 buttonValidation w-fit"><p class="p">Je me connecte</p></button>
+		</a>
+	</div>
+</div>
+
+
+{% include 'components/spacing.html.twig' %}

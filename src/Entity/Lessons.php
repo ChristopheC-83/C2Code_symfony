@@ -53,11 +53,31 @@ class Lessons
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private Collection $commentsLessons;
 
+    /**
+     * @var Collection<int, UserLesson>
+     */
+    #[ORM\OneToMany(targetEntity: UserLesson::class, mappedBy: 'lesson')]
+    private Collection $userLessons;
+
+    #[ORM\Column]
+    private ?int $price = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $youtubeId = null;
+
+    /**
+     * @var Collection<int, PurchaseRegister>
+     */
+    #[ORM\OneToMany(targetEntity: PurchaseRegister::class, mappedBy: 'lesson')]
+    private Collection $purchaseRegisters;
+
   
 
     public function __construct()
     {
         $this->commentsLessons = new ArrayCollection();
+        $this->userLessons = new ArrayCollection();
+        $this->purchaseRegisters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,6 +229,90 @@ class Lessons
             // set the owning side to null (unless already changed)
             if ($commentsLesson->getLesson() === $this) {
                 $commentsLesson->setLesson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLesson>
+     */
+    public function getUserLessons(): Collection
+    {
+        return $this->userLessons;
+    }
+
+    public function addUserLesson(UserLesson $userLesson): static
+    {
+        if (!$this->userLessons->contains($userLesson)) {
+            $this->userLessons->add($userLesson);
+            $userLesson->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLesson(UserLesson $userLesson): static
+    {
+        if ($this->userLessons->removeElement($userLesson)) {
+            // set the owning side to null (unless already changed)
+            if ($userLesson->getLesson() === $this) {
+                $userLesson->setLesson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): static
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getYoutubeId(): ?string
+    {
+        return $this->youtubeId;
+    }
+
+    public function setYoutubeId(?string $youtubeId): static
+    {
+        $this->youtubeId = $youtubeId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseRegister>
+     */
+    public function getPurchaseRegisters(): Collection
+    {
+        return $this->purchaseRegisters;
+    }
+
+    public function addPurchaseRegister(PurchaseRegister $purchaseRegister): static
+    {
+        if (!$this->purchaseRegisters->contains($purchaseRegister)) {
+            $this->purchaseRegisters->add($purchaseRegister);
+            $purchaseRegister->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseRegister(PurchaseRegister $purchaseRegister): static
+    {
+        if ($this->purchaseRegisters->removeElement($purchaseRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseRegister->getLesson() === $this) {
+                $purchaseRegister->setLesson(null);
             }
         }
 

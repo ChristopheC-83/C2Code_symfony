@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConnectionLogController!
+{% endblock %}
+
+{% block body %}
+
+
+	<section class="">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Visualisation des connexions</h3>
+
+		{# {{ dump(ipCounts) }} #}
+
+		<div class="relative overflow-x-auto">
+			<table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
+				<thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+					<tr>
+						<th scope="col" class="px-6 py-3">
+							ID Utilisateur</th>
+						<th scope="col" class="px-6 py-3">
+							Pseudo Utilisateur</th>
+						<th scope="col" class="px-6 py-3">
+							Nombre d'IP uniques</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ipData in ipCounts %}
+						<tr class="bg-white border-b border-gray-200 ">
+							<td class="px-6 py-4">
+								{{ ipData.userId }}</td>
+							<td class="px-6 py-4">
+								{{ ipData.pseudo }}</td>
+							<td class="px-6 py-4">
+								{{ ipData.ipCount }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+
+		<form>
+			<label for="user" class="block mb-2 text-sm font-medium text-gray-100">Filtrer par utilisateur :</label>
+			<select id="user" class="p-2 border rounded-md" onchange="location.href=this.value">
+				<option value="{{ path('app_admin_connection_log') }}">Tous les utilisateurs</option>
+				{% for user in users %}
+					<option value="{{ path('app_admin_connection_log', { id: user.id }) }}" {{ user == selectedUser ? 'selected' : '' }}>
+						{{ user.pseudo }}
+					</option>
+				{% endfor %}
+			</select>
+		</form>
+
+
+		<div class="relative overflow-x-auto">
+			<table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
+				<thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+					<tr>
+						<th scope="col" class="px-6 py-3">
+							ID
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Pseuso
+						</th>
+						<th scope="col" class="px-6 py-3">
+							IP de connexion
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Date
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for connection in connections %}
+
+						<tr class="bg-white border-b border-gray-200 ">
+							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+								{{connection.user.id}}
+							</th>
+							<td class="px-6 py-4">
+								{{connection.user.pseudo}}
+							</td>
+							<td class="px-6 py-4">
+								{{connection.ipAddress}}
+							</td>
+							<td class="px-6 py-4">
+								{{connection.connectionAt|date('d/m/Y H:i')}}
+							</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+
+
+	</section>
+{% endblock %}

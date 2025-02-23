@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BuyCreditsController!
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="mx-auto mt-5 mb-3 h1 text-clip xs:my-6 md:my-7">Compagnon de Code</h1>
+
+	<h2 class="mx-auto mb-3 h2 text-clip xs:my-6 md:my-7">Merci pour ta confiance
+		{{pseudo}}</h2>
+
+	<h2 class="mx-auto mb-3 h2 text-clip xs:my-6 md:my-7">Tu possèdes désormais {{creditsQuantity}} Crédits.</h2>
+
+
+	<a href="{{path('app_account_show_all_premium_lessons')}}"><h3 class="mx-auto h3 text-col2">Retour au tableau des cours Premium.</h3></a>
+
+	{% include 'components/spacing.html.twig' %}
+
+
+{% endblock %}

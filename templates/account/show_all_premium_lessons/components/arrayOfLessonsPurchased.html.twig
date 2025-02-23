@@ -1,0 +1,11 @@
+{% for lesson  in lessons %}
+
+	<div class="flex items-center justify-between w-full p-4 my-2 border bg-color-reverse color-shadow-md border-col1 rounded-xl text-col2 max-w-[600px] mx-auto">
+		<div class="flex items-center gap-x-3 ">
+			<i class="fa-solid fa-crown fa-xl"></i>
+			<p class="p">{{ lesson.title}}</p>
+		</div>
+		<a href="{{ path('app_one_course', { slug: lesson.course.slug , position: lesson.position}) }}" class="buttonValidation w-fit">Voir cette leçon</a>
+	</div>
+
+{% endfor %}

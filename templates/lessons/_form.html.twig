@@ -2,8 +2,10 @@
 {# {{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }} #}
 {{ form_row(form.title) }}
 <div class="flex justify-between w-full gap-x-3">
-	<div class="w-1/12">{{ form_row(form.is_visible) }}</div>
-	<div class="w-1/12">{{ form_row(form.is_premium) }}</div>
+	<div class="w-1/12" >{{ form_row(form.is_visible) }}</div>
+	<div class="w-1/12" id="btnIsPremium">{{ form_row(form.is_premium) }}</div>
+	<div class="w-1/12 forPremium"  style="opacity:0" >{{ form_row(form.youtubeId) }}</div>
+	<div class="w-1/12 forPremium"  style="opacity:0">{{ form_row(form.price) }}</div>
 	<div class="w-1/6">{{ form_row(form.position) }}</div>
 	<div class="flex-grow">{{ form_row(form.course) }}</div>
 	<div class="flex-grow">{{ form_row(form.type) }}</div>
@@ -13,3 +15,5 @@
 {{ form_errors(form.text) }}
 <div class="flex justify-center w-full"><button class="w-full mx-auto text-center buttonValidation xs:w-3/4 md:w-1/2">{{ button_label|default('Créer la leçon') }}</button></div>
 {{ form_end(form) }}
+
+

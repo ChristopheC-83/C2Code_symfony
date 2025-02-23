@@ -1,5 +1,8 @@
 
+A débloquer  : 
 
-Dans cloud
+- page d'achat des crédits
 
- Une erreur est survenue lors de la création du dossier : An exception occurred while executing a query: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'uuid_public' cannot be null
+Registre des achats de crédits et de cours pour user et admin
+
+Qd achat credit / cours premium => mail à l'admin

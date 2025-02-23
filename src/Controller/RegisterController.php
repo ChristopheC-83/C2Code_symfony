@@ -56,15 +56,15 @@ class RegisterController extends AbstractController
                     'pseudo' => $data->getPseudo(),
                 ]
             );
-            //  on fige les données
+            $user->setCreatedAt(new \DateTimeImmutable);
+            $user->setCredits(50);
+            $user -> setFirstPurchase(true);
             $emi->persist($user);
-            // on envoie les données en base
             $emi->flush();
 
+            $this->addFlash('success', 'Votre inscription a bien été prise en compte, vous pouvez vous connecter !'); // 
 
-            $this->addFlash('success', 'Votre inscription a bien été prise en compte, vous pouvez vous connecter !'); // message de confirmation de l'inscription
-
-            return $this->redirectToRoute('app_login');  // redirection vers la page de connexion
+            return $this->redirectToRoute('app_login'); 
         }
 
 

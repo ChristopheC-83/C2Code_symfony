@@ -1,0 +1,41 @@
+<h2 class="w-full text-center h2 text-clip">{{lesson.title}}
+</h2>
+{# <div class="text-white one_article">{{lesson.text|raw}}
+</div> #}
+{% include 'components/spacing.html.twig' %}
+<div class='flex flex-col p-3 mx-auto border gap-y-6 md:gap-y-7 lg:gap-y-8 w-fit color-shadow-md rounded-xl md:p-3 lg:p-4 bg-color-reverse text-col1 border-col1'>
+	<div class="flex items-center justify-center gap-5">
+		<i class=" fa-solid fa-lock text-col2 fa-2xl scale[1.5]"></i>
+		<h3 class=" h3 text-col2">
+			L'accés à ce cours est limité.</h3>
+	</div>
+	<h4 class="mx-auto text-justify h4 text-col1">Afin de soutenir la création, ce contenu est de type Premium</h4>
+
+
+	<div class=" flexMid">
+		<form action="{{ path('app_account_purchase_lesson') }}" method="POST">
+			<input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+			<input type="hidden" name="_token" value="{{ csrf_token('purchase_lesson') }}">
+			<button type="submit" class="px-4 buttonValidation w-fit">
+				Acheter cette leçon pour
+				{{ lesson.price }}
+				crédits
+			</button>
+		</form>
+	</div>
+
+	<h4 class="mx-auto h4 text-col1">
+		Vous possédez actuellement
+		<span class="{{ lesson.price > app.user.credits ? 'text-red-500' : 'text-col2' }}">{{ app.user.credits }}
+			crédit{{ app.user.credits != 1 ? 's' : '' }}</span>.
+	</h4>
+
+	<div class="flexMid">
+		<a href="{{ path('app_account_buy_credits')}}">
+			<button class="px-4 buttonValidation w-fit">
+				<p class="p">Acheter des Crédits.</p>
+			</button>
+		</a>
+	</div>
+</div>
+{% include 'components/spacing.html.twig' %}

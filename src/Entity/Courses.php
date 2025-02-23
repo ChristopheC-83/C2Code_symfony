@@ -25,7 +25,7 @@ class Courses
     #[ORM\Column(type: Types::TEXT)]
     private ?string $pitch = null;
 
-   
+
 
     #[ORM\Column]
     private ?int $position = null;
@@ -94,7 +94,7 @@ class Courses
         return $this;
     }
 
-  
+
 
     public function getPosition(): ?int
     {
@@ -124,11 +124,11 @@ class Courses
     {
         return $this->is_visible;
     }
-    
+
     public function setIsVisible(bool $is_visible): static
     {
         $this->is_visible = $is_visible;
-    
+
         return $this;
     }
 
@@ -184,5 +184,9 @@ class Courses
         $this->nb_lessons = $nb_lessons;
 
         return $this;
+    }
+    public function getTotalTime(): string
+    {
+        return $this->totalTime ?? '00:00:00';
     }
 }

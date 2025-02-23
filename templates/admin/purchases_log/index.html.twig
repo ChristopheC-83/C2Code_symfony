@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PurchasesLogController!
+{% endblock %}
+
+{% block body %}
+	<section class="">
+		<h3 class="mx-auto my-5 h3 text-clip xs:my-6 md:my-7">Administration : Visualisation des Achats de Crédits</h3>
+
+
+		<form>
+			<label for="user" class="block mb-2 text-sm font-medium text-gray-700">Filtrer par utilisateur :</label>
+			<select id="user" class="p-2 border rounded-md" onchange="location.href=this.value">
+				<option value="{{ path('app_admin_purchases_log') }}">Tous les utilisateurs</option>
+				{% for user in users %}
+					<option value="{{ path('app_admin_purchases_log', { pseudo: user.pseudo }) }}" {{ user == selectedUser ? 'selected' : '' }}>
+						{{ user.pseudo }}
+					</option>
+				{% endfor %}
+			</select>
+		</form>
+
+
+		<div class="relative overflow-x-auto">
+			<table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
+				<thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+					<tr>
+						<th scope="col" class="px-6 py-3">
+							Pseudo
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Qtt de crédits achetée
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Prix
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Date
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for purchase in purchases %}
+
+						<tr class="bg-white border-b border-gray-200 ">
+							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+								{{purchase.user.pseudo}}
+							</th>
+							<td class="px-6 py-4">
+								{{purchase.creditsQuantity}}
+							</td>
+							<td class="px-6 py-4">
+								{{purchase.purchaseAmount}}
+							</td>
+							<td class="px-6 py-4">
+								{{purchase.purchasedAt|date('d/m/Y')}}
+							</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+
+
+	</section>
+{% endblock %}

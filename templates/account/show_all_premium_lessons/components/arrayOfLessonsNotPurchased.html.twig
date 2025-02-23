@@ -1,0 +1,19 @@
+{% for lesson  in lessons %}
+
+	<div class="flex flex-col items-center justify-between p-4 mx-auto my-2 border w-[300px] bg-color-reverse color-shadow-md border-col1 rounded-xl text-col2">
+		<div class="flex items-center gap-x-3 ">
+			<i class="fa-solid fa-crown fa-xl text-amber-500"></i>
+			<p class="p">{{ lesson.title}}</p>
+		</div>
+		<form action="{{ path('app_account_purchase_lesson') }}" method="POST">
+			<input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+			<input type="hidden" name="_token" value="{{ csrf_token('purchase_lesson') }}">
+			<button type="submit" class="px-4 buttonValidation w-[240px]">
+				Accéder à cette leçon <br> {{ lesson.price }}
+				crédits.
+			</button>
+		</form>
+		<a href="{{ path('app_one_course', { slug: lesson.course.slug}) }}" class="buttonValidation w-[240px] text-center">Rejoindre le cours complet</a>
+	</div>
+
+{% endfor %}

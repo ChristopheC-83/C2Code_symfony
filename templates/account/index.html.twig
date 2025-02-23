@@ -12,8 +12,6 @@
 		<h3 class="mx-auto my-3 h2 text-clip xs:my-4 md:my-5">Salut
 			{{ app.user.pseudo |upper }}
 			!</h3>
-
-
 		<div class="flex w-full max-md:flex-col-reverse max-md:gap-y-2">
 			<div class="flex flex-col md:w-1/2 md:justify-between md:pt-2">
 				<div class="w-full midFlex">
@@ -23,17 +21,28 @@
 				<div class="w-full midFlex">
 					<p class="mt-2 text-col2 h5">
 						{% if 'ROLE_ADMIN' in app.user.roles %}
-							Vous êtes Administrateur.
+							Tu es Administrateur.
 						{% elseif 'ROLE_CREATOR' in app.user.roles %}
-							Vous êtes Créateur.
+							Tu es Créateur.
 						{% elseif 'ROLE_USER' in app.user.roles %}
-							Vous êtes connecté.
+							Tu es connecté à ton compte.
 						{% else %}
-							Votre rôle est inconnu.
+							Ton rôle est inconnu.
 						{% endif %}
 					</p>
 				</div>
 				{% if  is_granted('ROLE_USER')   %}
+					{# A débloquer qd leçons premium #}
+					{# <a href={{ path('app_account_buy_credits') }} class="w-full midFlex">
+																<p class="buttonValidation  w-[300px] text-center ">Il me reste
+																	{{app.user.credits}}
+																	Crédit{{ app.user.credits != 1 ? 's' : '' }}.
+																	<br>
+																	Je renfloue mon portefeuille !</p>
+															</a> #}
+						{# <a href={{ path('app_account_show_all_premium_lessons') }} class="w-full midFlex"> <p class="buttonSecondary  w-[300px] text-center ">Voir toutes les leçons Premium
+						</p>
+					</a> #}
 					<a href={{ path('app_account_modify_password') }} class="w-full midFlex">
 						<p class="buttonSecondary  w-[300px] text-center ">Modifier mon mot de passe</p>
 					</a>
@@ -41,13 +50,14 @@
 						<a href={{ path('app_account_modify_pseudo') }} class="w-full midFlex">
 							<p class="buttonSecondary w-[300px]  text-center">Modifier mon pseudo</p>
 						</a>
-						<a href={{ path('app_favorites_articles') }} class="w-full midFlex">
-							<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
-						</a>
 					{% endif %}
+					<a href={{ path('app_favorites_articles') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Mes articles favoris</p>
+					</a>
 				{% endif %}
 				{% if  is_granted('ROLE_CREATOR')  %}
 					{# filtrer sur author #}
+					<p class="mx-auto mt-2 text-col2 h5">Les options Créateur :</p>
 					<a href={{ path('app_creator_articles_index') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Les articles</p>
 					</a>
@@ -56,15 +66,19 @@
 					</a>
 				{% endif %}
 				{% if  is_granted('ROLE_ADMIN')  %}
-
+					<p class="mx-auto mt-2 text-col2 h5">Les options Admin :</p>
 					<a href={{ path ('app_admin_users') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des utilisateurs</p>
 					</a>
 					<a href={{ path ('app_admin_messages') }} class="w-full midFlex">
 						<p class="buttonSecondary w-[300px]  text-center">Gestion des commentaires</p>
 					</a>
-
-
+					<a href={{ path ('app_admin_purchases_log') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Registre des achats</p>
+					</a>
+					<a href={{ path ('app_admin_connection_log') }} class="w-full midFlex">
+						<p class="buttonSecondary w-[300px]  text-center">Registre des connexions</p>
+					</a>
 				{% endif %}
 			</div>
 			<div class="flex flex-col items-center justify-center md:w-1/2 ">
@@ -74,7 +88,5 @@
 				</a>
 			</div>
 		</div>
-
-
 	</div>
-</section></section>{% endblock %}
+</section></section>{% include 'components/spacing.html.twig' %}{% endblock %}
