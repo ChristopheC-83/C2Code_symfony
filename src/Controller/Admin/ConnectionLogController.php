@@ -27,29 +27,32 @@ class ConnectionLogController extends AbstractController
         $this->creditsPurchaselog = $creditsPurchaselog;
         $this->userRepository = $userRepository;
         $this->userConnectionRepository = $userConnectionRepository;
-
     }
 
-    
+
+    // Controller.php
+
     #[Route('/admin/connection-log/{id}', name: 'app_admin_connection_log', defaults: ['id' => null])]
     public function index($id): Response
     {
-
         $selectedUser = null;
         $users = $this->userRepository->findAll();
         $ipCounts = $this->userConnectionRepository->countDistinctIpsByUser();
 
+        // Récupération des connexions de manière ordonnée
+        $connections = $this->userConnectionRepository->findConnectionsByUserOrderedByDate($id);
 
-        if (!$id) {
-            $connections = $this->userConnectionRepository->findAll();
-        } else {
-            $selectedUser = $this->userConnectionRepository->findOneBy(['id' => $id]);
-            if (!$selectedUser) {
-                throw $this->createNotFoundException('User not found');
-            }
-            $connections = $this->creditsPurchaselog->findBy(['user' => $selectedUser]);
+        if ($id && empty($connections)) {
+            // Si un ID est passé mais aucune connexion n'est trouvée pour cet utilisateur
+            throw $this->createNotFoundException('User not found or no connections');
         }
 
+        // Si un ID est fourni, on définit l'utilisateur sélectionné
+        if ($id) {
+            $selectedUser = $this->userRepository->find($id);
+        }
+
+        // Retour de la vue avec les variables
         return $this->render('admin/connection_log/index.html.twig', [
             'users' => $users,
             'connections' => $connections,

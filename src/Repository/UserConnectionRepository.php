@@ -50,5 +50,17 @@ class UserConnectionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
+    public function findConnectionsByUserOrderedByDate($id = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->orderBy('u.connectionAt', 'DESC');
+
+        if ($id) {
+            $queryBuilder->where('u.user = :user')
+                ->setParameter('user', $id);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

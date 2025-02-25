@@ -59,7 +59,7 @@ class Lessons
     #[ORM\OneToMany(targetEntity: UserLesson::class, mappedBy: 'lesson')]
     private Collection $userLessons;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]

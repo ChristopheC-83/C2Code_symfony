@@ -1,3 +1,14 @@
+A faire :
+
+- qd affichage des connexions, mettre en ordre décroissant de la date
+- si affichage d'un seul user, afficher aussi l'ipAddress
+
+
+
+
+
+
+
 
 A débloquer  : 
 
