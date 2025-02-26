@@ -430,13 +430,6 @@ input[type=radio]:checked + label img {
   max-width: 560px;
 }
 
-code {
-  display: block;
-  background-color: #fff;
-  color: purple;
-  padding: 5px 10px;
-}
-
 .style_HTML {
   background-color: rgba(251, 213, 213, 0.9);
 }
@@ -459,6 +452,42 @@ code {
 
 .style_NEXT {
   background-color: rgba(245, 245, 245, 0.9);
+}
+
+.code-lesson {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 2px 2px 3px #f1f1f1;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.code-html {
+  background: #f16a30;
+  box-shadow: 2px 2px 3px rgba(241, 106, 48, 0.5019607843);
+  color: #333;
+}
+.code-html .code {
+  background: none;
+}
+
+.code-css {
+  background: #2face3;
+  box-shadow: 2px 2px 3px rgba(47, 172, 227, 0.5019607843);
+  color: #333;
+}
+.code-css .code {
+  background: none;
+}
+
+.code-js {
+  background: #f7e025;
+  box-shadow: 2px 2px 3px rgba(247, 224, 37, 0.5019607843);
+  color: #333;
+}
+.code-js .code {
+  background: none;
 }
 
 .bg-color {

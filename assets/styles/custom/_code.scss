@@ -1,0 +1,42 @@
+// A mettre dans la div parent
+
+
+.code-lesson{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #f1f1f1;
+    box-shadow: 2px 2px 3px #f1f1f1;
+    margin: 10px 0;
+    width: 100%;
+
+}
+// class="code-lesson code-html"
+.code-html{
+    background: #f16a30;
+    box-shadow: 2px 2px 3px #f16a3080;
+    color : #333;
+    .code{
+        background: none;
+    }
+}
+
+// class="code-lesson code-css"
+.code-css{
+    background: #2face3;
+    box-shadow: 2px 2px 3px #2face380;
+    color : #333;
+
+    .code{
+        background: none;
+    }
+}
+// class="code-lesson code-js"
+.code-js{
+    background: #f7e025;
+    box-shadow: 2px 2px 3px #f7e02580;
+    color : #333;
+
+    .code{
+        background: none;
+    }
+}
