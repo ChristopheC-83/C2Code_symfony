@@ -129,15 +129,18 @@ class LessonsController extends AbstractController
                 'course' => $course,
                 'position' => $lesson->getPosition(),
             ]);
+            
+            if ($existingLesson != $lesson) {
 
-            while ($existingLesson) {
-                $lesson->setPosition($lesson->getPosition() + 1);
+                while ($existingLesson) {
+                    $lesson->setPosition($lesson->getPosition() + 1);
 
-                // Vérifie si une autre leçon a maintenant la même position
-                $existingLesson = $this->lessonsRepository->findOneBy([
-                    'course' => $course,
-                    'position' => $lesson->getPosition(),
-                ]);
+                    // Vérifie si une autre leçon a maintenant la même position
+                    $existingLesson = $this->lessonsRepository->findOneBy([
+                        'course' => $course,
+                        'position' => $lesson->getPosition(),
+                    ]);
+                }
             }
             // if ($lesson->getIsPremium() == false) {
             //     dd("non");
