@@ -62,8 +62,7 @@ class Lessons
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $youtubeId = null;
+    
 
     /**
      * @var Collection<int, PurchaseRegister>
@@ -277,17 +276,7 @@ class Lessons
         return $this;
     }
 
-    public function getYoutubeId(): ?string
-    {
-        return $this->youtubeId;
-    }
-
-    public function setYoutubeId(?string $youtubeId): static
-    {
-        $this->youtubeId = $youtubeId;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, PurchaseRegister>

@@ -35,7 +35,7 @@
 
 
 							<td class="{{ lesson.isVisible ? '' : 'bg-red-400/90' }} w-12 text-center border-r border-black">
-								<a href="{{ path ('app_lesson_update_visibility', { 'id' : lesson.id} )}}">
+								<a href="{{ path ('app_lesson_update_visibility', { 'id' : lesson.id } )}}">
 									{% if lesson.isVisible %}
 										<i class="p-3 bg-white rounded-full fa-solid fa-eye"></i>
 									{% else    %}

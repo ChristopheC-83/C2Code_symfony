@@ -57,7 +57,7 @@ class RegisterController extends AbstractController
                 ]
             );
             $user->setCreatedAt(new \DateTimeImmutable);
-            $user->setCredits(50);
+            $user->setCredits(0);
             $user -> setFirstPurchase(true);
             $emi->persist($user);
             $emi->flush();

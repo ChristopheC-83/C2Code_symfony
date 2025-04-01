@@ -34,10 +34,6 @@ class LessonsType extends AbstractType
                 'required' => false,
                 'attr' => ['min' => 0],
             ])
-            ->add('youtubeId', null, [
-                'label' => 'ID YouTube',
-                'required' => false,
-            ])
             ->add('text', TextareaType::class, [
                 'required' => false,
                 'attr' => [

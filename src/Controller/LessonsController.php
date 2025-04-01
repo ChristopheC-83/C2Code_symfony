@@ -129,7 +129,7 @@ class LessonsController extends AbstractController
                 'course' => $course,
                 'position' => $lesson->getPosition(),
             ]);
-            
+
             if ($existingLesson != $lesson) {
 
                 while ($existingLesson) {
@@ -189,7 +189,9 @@ class LessonsController extends AbstractController
         $this->addFlash('success', 'La visibilité de la leçon a été mise à jour.');
 
         // Reste sur la page actuelle
-        return $this->redirect($request->headers->get('referer'));
+        
+        $slug=$lesson->getCourse()->getSlug();
+        return $this->redirectToRoute('app_lessons_show', ['slug' => $slug]);
     }
     #[Route('/lesson/updatePremium/{id}', name: 'app_lesson_update_premium', methods: ['GET'])]
     public function updatePremium(int $id, Request $request): Response

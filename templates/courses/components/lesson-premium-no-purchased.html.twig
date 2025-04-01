@@ -11,18 +11,29 @@
 	</div>
 	<h4 class="mx-auto text-justify h4 text-col1">Afin de soutenir la création, ce contenu est de type Premium</h4>
 
-
-	<div class=" flexMid">
-		<form action="{{ path('app_account_purchase_lesson') }}" method="POST">
-			<input type="hidden" name="lesson_id" value="{{ lesson.id }}">
-			<input type="hidden" name="_token" value="{{ csrf_token('purchase_lesson') }}">
-			<button type="submit" class="px-4 buttonValidation w-fit">
-				Acheter cette leçon pour
-				{{ lesson.price }}
-				crédits
-			</button>
-		</form>
-	</div>
+	{% if  lesson.price == 0  %}
+		<div class=" flexMid">
+			<form action="{{ path('app_account_purchase_lesson') }}" method="POST">
+				<input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+				<input type="hidden" name="_token" value="{{ csrf_token('purchase_lesson') }}">
+				<button type="submit" class="px-4 buttonValidation w-fit">
+					Votre Compagnon de Code vous offre cette leçon 😍 !
+				</button>
+			</form>
+		</div>
+	{% else %}
+		<div class=" flexMid">
+			<form action="{{ path('app_account_purchase_lesson') }}" method="POST">
+				<input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+				<input type="hidden" name="_token" value="{{ csrf_token('purchase_lesson') }}">
+				<button type="submit" class="px-4 buttonValidation w-fit">
+					Acheter cette leçon pour
+					{{ lesson.price }}
+					crédits
+				</button>
+			</form>
+		</div>
+	{% endif %}
 
 	<h4 class="mx-auto h4 text-col1">
 		Vous possédez actuellement

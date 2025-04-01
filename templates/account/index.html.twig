@@ -33,16 +33,34 @@
 				</div>
 				{% if  is_granted('ROLE_USER')   %}
 					{# A débloquer qd leçons premium #}
-					{# <a href={{ path('app_account_buy_credits') }} class="w-full midFlex">
-																<p class="buttonValidation  w-[300px] text-center ">Il me reste
-																	{{app.user.credits}}
-																	Crédit{{ app.user.credits != 1 ? 's' : '' }}.
-																	<br>
-																	Je renfloue mon portefeuille !</p>
-															</a> #}
-						{# <a href={{ path('app_account_show_all_premium_lessons') }} class="w-full midFlex"> <p class="buttonSecondary  w-[300px] text-center ">Voir toutes les leçons Premium
+					{% if app.user.credits == 0  %}
+						<a href={{ path('app_account_buy_credits') }} class="w-full midFlex">
+							<p class="buttonValidation  w-[300px] text-center ">Je n'ai aucun Crédit.
+								<br>
+								Je commence à investir<br>sur moi-même👍</p>
+						</a>
+					{% elseif  app.user.credits > 999  %}
+						<div class="w-full cursor-default midFlex">
+							<p class="buttonValidation  w-[300px] text-center ">Il me reste
+								{{app.user.credits}}
+								Crédits.
+								<br>
+								J'ai assez de crédits<br>pour le moment ! 😅</p>
+						</div>
+					{% else   %}
+						<a href={{ path('app_account_buy_credits') }} class="w-full midFlex">
+							<p class="buttonValidation  w-[300px] text-center ">Il me reste
+								{{app.user.credits}}
+								Crédits.
+								<br>
+								Je veux aller plus loin ! 🚀</p>
+						</a>
+					{% endif %}
+
+					<a href={{ path('app_account_show_all_premium_lessons') }} class="w-full midFlex">
+						<p class="buttonSecondary  w-[300px] text-center ">Voir toutes les leçons Premium
 						</p>
-					</a> #}
+					</a>
 					<a href={{ path('app_account_modify_password') }} class="w-full midFlex">
 						<p class="buttonSecondary  w-[300px] text-center ">Modifier mon mot de passe</p>
 					</a>
