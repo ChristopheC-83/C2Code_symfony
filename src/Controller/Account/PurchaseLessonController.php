@@ -37,6 +37,8 @@ class PurchaseLessonController extends AbstractController
     public function index(Request $request, CsrfTokenManagerInterface $csrfTokenManager): Response
     {
 
+
+
         $user = $this->getUser();
         // dd($user);
 
@@ -54,14 +56,16 @@ class PurchaseLessonController extends AbstractController
         // Récupération de la leçon
         $lessonId = $request->request->get('lesson_id');
         $lesson = $this->lessonsRepository->find($lessonId);
+        $slug = $lesson->getCourse()->getSlug();
+        $position = $lesson->getPosition();
 
         // Vérifier si l'utilisateur a déjà acheté la leçon
         if ($this->userLessonRepository->hasPurchasedLesson($user, $lesson)) {
             // Si l'utilisateur a déjà acheté la leçon, redirige-le ou montre un message
             $this->addFlash('info', 'Vous avez déjà acheté cette leçon.');
             return $this->redirectToRoute('app_one_course', [
-                'slug' => $lesson->getCourse()->getSlug(),
-                'position' => $lesson->getPosition()
+                'slug' => $slug,
+                'position' => $position
             ]);
         }
 
@@ -75,8 +79,8 @@ class PurchaseLessonController extends AbstractController
             $this->addFlash('danger', 'Vous n\'avez pas assez de crédits. Merci de recharger votre compte.');
 
             return $this->redirectToRoute('app_one_course', [
-                'slug' => $lesson->getCourse()->getSlug(),
-                'position' => $lesson->getPosition()
+                'slug' => $slug,
+                'position' => $position
             ]);
         }
 
@@ -100,13 +104,13 @@ class PurchaseLessonController extends AbstractController
         // ]);
 
         // Récupérer la page précédente
-        $referer = $request->headers->get('referer');
+        if ($slug && $position)
+            return $this->redirectToRoute('app_one_course', [
+                'slug' => $slug,
+                'position' => $position
+            ]);
 
-        if ($referer) {
-            return new RedirectResponse($referer);
-        }
-
-        // Fallback si aucun referer n'est disponible
+        // Sinon, rediriger vers la page d'accueil
         return $this->redirectToRoute('app_home');
     }
 }
