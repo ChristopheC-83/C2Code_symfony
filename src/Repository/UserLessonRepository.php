@@ -29,5 +29,15 @@ class UserLessonRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+    public function countValidatedPremiumLessonsForUser(User $user): int
+{
+    return $this->createQueryBuilder('ul')
+        ->select('COUNT(ul.id)')
+        ->join('ul.lesson', 'l')
+        ->where('ul.user = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
     
 }

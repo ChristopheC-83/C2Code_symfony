@@ -17,53 +17,71 @@
 			<table class="w-full text-col4 bg-gray-50">
 				<thead class="text-sm uppercase border-2 border-col3">
 					<tr >
-						<th class="px-6 py-3 text-left">
+						<th class="px-6 py-2 text-left">
 							ID
 						</th>
-						<th class="px-6 py-3 text-left" >
+						<th class="px-6 py-2 text-left" >
 							Avatar
 						</th>
-						<th class="px-6 py-3 text-left">
+						<th class="px-6 py-2 text-left">
 							Pseudo
 						</th>
-						<th class="px-6 py-3 text-left">
+						<th class="px-6 py-2 text-left">
+							Depuis
+						</th>
+						<th class="px-6 py-2 text-left">
 							Email
 						</th>
-						<th class="px-6 py-3 text-left">
+						<th class="px-6 py-2 text-right">
+							Crédits
+						</th>
+						<th class="px-6 py-2 text-right">
+							{{ usersWithCounts[0].total }} Premium
+						</th>
+						<th class="px-6 py-2 text-left">
 							Role
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for user in users %}
+					{% for data in usersWithCounts %}
 						<tr class="text-sm border-2 text-col3 border-col3">
-							<td class="px-6 py-3">
-								{{ user.id }}
+							<td class="px-6 py-2">
+								{{ data.user.id }}
 							</td>
-							<td class="px-6 py-3">
-								<img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="{{ user.pseudo }}" class="w-12 h-12 rounded-full">
+							<td class="px-6 py-2">
+								<img src="{{ asset('images/avatars/' ~ data.user.avatar) }}" alt="{{ data.user.pseudo }}" class="w-12 h-12 rounded-full">
 							</td>
-							<td class="px-6 py-3">
-								{{ user.pseudo }}
+							<td class="px-6 py-2">
+								{{ data.user.pseudo }}
 							</td>
-							<td class="px-6 py-3">
-								{{ user.email }}
+							<td class="px-6 py-2">
+								{{ data.user.createdAt|date('d/m/Y') }}
+							</td>
+							<td class="px-6 py-2">
+								{{ data.user.email }}
+							</td>
+							<td class="px-6 py-2 text-end">
+								{{ data.user.credits }}
+							</td>
+							<td class="px-6 py-2 text-end">
+								{{ data.validated }}
 							</td>
 							
-							<td class="px-6 py-3 w-[250px]">
-								{% if user.pseudo == "ChristopheC" %}
+							<td class="px-6 py-2 w-[250px]">
+								{% if data.user.pseudo == "ChristopheC" %}
 									Super Admin
-								{% elseif user.pseudo == app.user.pseudo %}
+								{% elseif data.user.pseudo == app.user.pseudo %}
 										Vous êtes Administrateur.
 								{% else %}
 									<form action="{{ path('app_admin_update_role') }}" method="POST" class="flexMid gap-x-2">
-										<input type="hidden" name="user_id" value="{{ user.id }}">
+										<input type="hidden" name="user_id" value="{{ data.user.id }}">
 										<select name="role" class="m-0" required>
 											<option value="" disabled>Choisissez un rôle</option>
-											<option value="ROLE_USER" {% if 'ROLE_USER' in user.roles %} selected {% endif %}>Utilisateur</option>
-											<option value="ROLE_CREATOR" {% if 'ROLE_CREATOR' in user.roles %} selected {% endif %}>Créateur</option>
-											<option value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in user.roles %} selected {% endif %}>Administrateur</option>
-											<option value="ROLE_BAN" {% if 'ROLE_BAN' in user.roles %} selected {% endif %}>Banni</option>
+											<option value="ROLE_USER" {% if 'ROLE_USER' in data.user.roles %} selected {% endif %}>Utilisateur</option>
+											<option value="ROLE_CREATOR" {% if 'ROLE_CREATOR' in data.user.roles %} selected {% endif %}>Créateur</option>
+											<option value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in data.user.roles %} selected {% endif %}>Administrateur</option>
+											<option value="ROLE_BAN" {% if 'ROLE_BAN' in data.user.roles %} selected {% endif %}>Banni</option>
 										</select>
 										<button type="submit" class="scale-150">✅</button>
 									</form>

@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Repository\LessonsRepository;
+use App\Repository\UserLessonRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +17,28 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class UsersController extends AbstractController
 {
     #[Route('/admin/gestion-utilisateurs', name: 'app_admin_users')]
-    public function index(UserRepository $UserRepo): Response
+    public function index(UserRepository $UserRepo, LessonsRepository $lessonRepo, UserLessonRepository $ULRepo): Response
     {
-        $users = $UserRepo->findAll();
-        // dd($users);
+        $users = $UserRepo->findBy([], ['id' => 'DESC']);
+        $totalPremium = $lessonRepo->countPremiumLessons();
 
-        return $this->render('admin/users/index.html.twig',['users'=> $users]);
+        $usersWithCounts = [];
+
+        foreach ($users as $user) {
+            $validated = $ULRepo->countValidatedPremiumLessonsForUser($user);
+
+            $usersWithCounts[] = [
+                'user' => $user,
+                'validated' => $validated,
+                'total' => $totalPremium,
+            ];
+        }
+        // dd($usersWithCounts);
+
+        return $this->render('admin/users/index.html.twig', [
+            'users' => $users,
+            'usersWithCounts' => $usersWithCounts
+        ]);
     }
     #[Route('/admin/gestion-utilisateurs/modif-role', name: 'app_admin_update_role')]
     public function updateRole(Request $request, EntityManagerInterface $em): Response

@@ -74,4 +74,12 @@ class LessonsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function countPremiumLessons(): int
+{
+    return $this->createQueryBuilder('l')
+        ->select('COUNT(l.id)')
+        ->where('l.is_premium = true')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 }
