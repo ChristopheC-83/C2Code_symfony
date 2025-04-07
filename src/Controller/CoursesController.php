@@ -6,8 +6,10 @@ use App\Entity\UserLesson;
 use App\Repository\CommentsLessonsRepository;
 use App\Repository\CoursesRepository;
 use App\Repository\LessonsRepository;
+use App\Repository\PremiumLessonsAccessRepository;
 use App\Repository\UserLessonRepository;
 use App\Service\LessonDurationService;
+use App\Entity\PremiumLessonsAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +25,7 @@ class CoursesController extends AbstractController
     private $commentsLessonsRepository;
     private $lessonDurationService;
     private $userLessonRepository;
+    private $PremiumLessonAccessRepository;
 
     public function __construct(
         CoursesRepository $coursesRepository,
@@ -31,6 +34,7 @@ class CoursesController extends AbstractController
         CommentsLessonsRepository $commentsLessonsRepository,
         LessonDurationService $lessonDurationService,
         UserLessonRepository $userLessonRepository,
+        PremiumLessonsAccessRepository $PremiumLessonAccessRepository,
 
     ) {
         $this->coursesRepository = $coursesRepository;
@@ -39,6 +43,7 @@ class CoursesController extends AbstractController
         $this->commentsLessonsRepository = $commentsLessonsRepository;
         $this->lessonDurationService = $lessonDurationService;
         $this->userLessonRepository = $userLessonRepository;
+        $this->PremiumLessonAccessRepository = $PremiumLessonAccessRepository;
     }
 
     #[Route('/courses', name: 'app_courses')]
@@ -110,8 +115,19 @@ class CoursesController extends AbstractController
             ]);
         }
 
+        // 3 - si user est connecté et a déjà acheté la leçon, on sauvegarde son accés
+        if ($user && $currentLesson->getIsPremium() && $this->userLessonRepository->hasPurchasedLesson($user, $currentLesson)) {
+            $access = new PremiumLessonsAccess();
+            $access->setUser($user);      // Objet User
+            $access->setLesson($currentLesson);  // Objet Lesson
+            $access->setViewedAt(new \DateTimeImmutable());
 
-        
+            $this->emi->persist($access);
+            $this->emi->flush();
+        }
+
+
+
 
         return $this->render('courses/one-course.html.twig', [
             'course' => $course,

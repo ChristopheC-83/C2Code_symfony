@@ -2,6 +2,7 @@
 
 namespace App\Controller\Account;
 
+use App\Classe\Mail;
 use App\Entity\UserLesson;
 use App\Repository\LessonsRepository;
 use App\Repository\UserLessonRepository;
@@ -96,6 +97,11 @@ class PurchaseLessonController extends AbstractController
         $this->emi->flush();
 
         $this->addFlash('success', 'Leçon achetée avec succès !');
+        $mail = new Mail();
+        $mail->send('christophe.chiappetta@gmail.com', 'Admin', 'Nouvel achat', 'purchased_premium.html', [
+            'user' => $user->getPseudo(),
+            'lesson' => $lesson->getTitle(),
+        ]);
 
 
         // return $this->redirectToRoute('app_one_course', [

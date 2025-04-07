@@ -15,7 +15,7 @@ class ContactController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $meta_description = 'Besoin  ou envie de contzacter le Compagnon de Cod e? Ce formulaire de contact ets là pour ça !';
+        $meta_description = 'Besoin  ou envie de contacter le Compagnon de Code ? Ce formulaire de contact est là pour ça !';
 
         $formData = $request->request->all();
         // if ($formData){

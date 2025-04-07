@@ -128,6 +128,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserConnection::class, mappedBy: 'user')]
     private Collection $userConnections;
 
+    /**
+     * @var Collection<int, PremiumLessonsAccess>
+     */
+    #[ORM\OneToMany(targetEntity: PremiumLessonsAccess::class, mappedBy: 'user')]
+    private Collection $premiumLessonsAccesses;
+
+    
+
+
+
 
 
     public function __construct()
@@ -144,6 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->creditsPurchaseRegisters = new ArrayCollection();
         $this->ipAdress = new ArrayCollection();
         $this->userConnections = new ArrayCollection();
+        $this->premiumLessonsAccesses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -659,6 +670,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userConnection->getUser() === $this) {
                 $userConnection->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PremiumLessonsAccess>
+     */
+    public function getPremiumLessonsAccesses(): Collection
+    {
+        return $this->premiumLessonsAccesses;
+    }
+
+    public function addPremiumLessonsAccess(PremiumLessonsAccess $premiumLessonsAccess): static
+    {
+        if (!$this->premiumLessonsAccesses->contains($premiumLessonsAccess)) {
+            $this->premiumLessonsAccesses->add($premiumLessonsAccess);
+            $premiumLessonsAccess->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePremiumLessonsAccess(PremiumLessonsAccess $premiumLessonsAccess): static
+    {
+        if ($this->premiumLessonsAccesses->removeElement($premiumLessonsAccess)) {
+            // set the owning side to null (unless already changed)
+            if ($premiumLessonsAccess->getUser() === $this) {
+                $premiumLessonsAccess->setUser(null);
             }
         }
 

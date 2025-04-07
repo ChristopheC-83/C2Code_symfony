@@ -70,6 +70,12 @@ class Lessons
     #[ORM\OneToMany(targetEntity: PurchaseRegister::class, mappedBy: 'lesson')]
     private Collection $purchaseRegisters;
 
+    /**
+     * @var Collection<int, PremiumLessonsAccess>
+     */
+    #[ORM\OneToMany(targetEntity: PremiumLessonsAccess::class, mappedBy: 'lesson')]
+    private Collection $premiumLessonsAccesses;
+
   
 
     public function __construct()
@@ -77,6 +83,7 @@ class Lessons
         $this->commentsLessons = new ArrayCollection();
         $this->userLessons = new ArrayCollection();
         $this->purchaseRegisters = new ArrayCollection();
+        $this->premiumLessonsAccesses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -307,6 +314,38 @@ class Lessons
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, PremiumLessonsAccess>
+     */
+    public function getPremiumLessonsAccesses(): Collection
+    {
+        return $this->premiumLessonsAccesses;
+    }
+
+    public function addPremiumLessonsAccess(PremiumLessonsAccess $premiumLessonsAccess): static
+    {
+        if (!$this->premiumLessonsAccesses->contains($premiumLessonsAccess)) {
+            $this->premiumLessonsAccesses->add($premiumLessonsAccess);
+            $premiumLessonsAccess->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removePremiumLessonsAccess(PremiumLessonsAccess $premiumLessonsAccess): static
+    {
+        if ($this->premiumLessonsAccesses->removeElement($premiumLessonsAccess)) {
+            // set the owning side to null (unless already changed)
+            if ($premiumLessonsAccess->getLesson() === $this) {
+                $premiumLessonsAccess->setLesson(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
  
 

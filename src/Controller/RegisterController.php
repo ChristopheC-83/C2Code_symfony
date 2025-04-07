@@ -39,13 +39,14 @@ class RegisterController extends AbstractController
 
         // on créé un mail d econfirmation à l'inscription
         $mail = new Mail();
+        $mailToAdmin = new Mail();
 
         // Si le formulaire est soumis
         // On vérifie si le formulaire est valide
         // On récupère les données du formulaire
         //  on envoie une validation flash
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form -> getData();
+            $data = $form->getData();
             // dd($data);
             $mail->send(
                 $data->getEmail(),
@@ -56,15 +57,24 @@ class RegisterController extends AbstractController
                     'pseudo' => $data->getPseudo(),
                 ]
             );
+            $mailToAdmin->send(
+                'christophe.chiappetta@gmail.com',
+                'Admin',
+                'Nouvel Inscrit sur le Site C2Code',
+                'register_to_admin.html',
+                [
+                    'pseudo' => $data->getPseudo(),
+                ],
+            );
             $user->setCreatedAt(new \DateTimeImmutable);
             $user->setCredits(0);
-            $user -> setFirstPurchase(true);
+            $user->setFirstPurchase(true);
             $emi->persist($user);
             $emi->flush();
 
             $this->addFlash('success', 'Votre inscription a bien été prise en compte, vous pouvez vous connecter !'); // 
 
-            return $this->redirectToRoute('app_login'); 
+            return $this->redirectToRoute('app_login');
         }
 
 
