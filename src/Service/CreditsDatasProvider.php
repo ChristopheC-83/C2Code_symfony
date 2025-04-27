@@ -22,7 +22,7 @@ class CreditsDatasProvider
             ],
             [
                 'credits' => 200,
-                'price' => 10,
+                'price' => 9,
                 'img'  =>   "credits_200.webp",
                 'purchase_id' => 'price_1QtYMlPl7UDO5tMUASL2HOZL'
 

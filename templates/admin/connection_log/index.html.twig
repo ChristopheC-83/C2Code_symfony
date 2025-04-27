@@ -25,6 +25,8 @@
 				</thead>
 				<tbody>
 					{% for ipData in ipCounts %}
+
+
 						<tr class="bg-white border-b border-gray-200 ">
 							<td class="px-6 py-4">
 								{{ ipData.userId }}</td>
@@ -44,54 +46,61 @@
 			<select id="user" class="p-2 border rounded-md" onchange="location.href=this.value">
 				<option value="{{ path('app_admin_connection_log') }}">Tous les utilisateurs</option>
 				{% for user in users %}
-					<option value="{{ path('app_admin_connection_log', { id: user.id }) }}" {{ user == selectedUser ? 'selected' : '' }}>
-						{{ user.pseudo }}
-					</option>
+					{% if user.pseudo is not same as("Christophe_C") %}
+
+						<option value="{{ path('app_admin_connection_log', { id: user.id }) }}" {{ user == selectedUser ? 'selected' : '' }}>
+							{{ user.pseudo }}
+						</option>
+					{% endif %}
 				{% endfor %}
 			</select>
 		</form>
 
-
-		<div class="relative overflow-x-auto">
-			<table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
-				<thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-					<tr>
-						<th scope="col" class="px-6 py-3">
-							ID
-						</th>
-						<th scope="col" class="px-6 py-3">
-							Pseudo
-						</th>
-						<th scope="col" class="px-6 py-3">
-							IP de connexion
-						</th>
-						<th scope="col" class="px-6 py-3">
-							Date
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for connection in connections %}
-
-						<tr class="bg-white border-b border-gray-200 ">
-							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-								{{connection.user.id}}
+		{% if connections %}
+			<div class="relative mb-10 overflow-x-auto">
+				<table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
+					<thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+						<tr>
+							<th scope="col" class="px-6 py-3">
+								ID
 							</th>
-							<td class="px-6 py-4">
-								{{connection.user.pseudo}}
-							</td>
-							<td class="px-6 py-4">
-								{{connection.ipAddress}}
-							</td>
-							<td class="px-6 py-4">
-								{{connection.connectionAt|date('d/m/Y H:i')}}
-							</td>
+							<th scope="col" class="px-6 py-3">
+								Pseudo
+							</th>
+							<th scope="col" class="px-6 py-3">
+								IP de connexion
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Date
+							</th>
 						</tr>
-					{% endfor %}
+					</thead>
+					<tbody>
+						{% for connection in connections %}
+							{% if connection.user.pseudo is not same as("Christophe_C") %}
+								<tr class="bg-white border-b border-gray-200 ">
+									<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+										{{connection.user.id}}
+									</th>
+									<td class="px-6 py-4">
+										{{connection.user.pseudo}}
+									</td>
+									<td class="px-6 py-4">
+										{{connection.ipAddress}}
+									</td>
+									<td class="px-6 py-4">
+										{{connection.connectionAt|date('d/m/Y H:i')}}
+									</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
 
-				</tbody>
-			</table>
-		</div>
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<h3 class="mx-auto mb-10 text-center h3 text-col2">Aucune connexion trouvée pour cet utilisateur.</h3>
+		{% endif %}
 
 
 	</section>

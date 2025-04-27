@@ -42,10 +42,7 @@ class ConnectionLogController extends AbstractController
         // Récupération des connexions de manière ordonnée
         $connections = $this->userConnectionRepository->findConnectionsByUserOrderedByDate($id);
 
-        if ($id && empty($connections)) {
-            // Si un ID est passé mais aucune connexion n'est trouvée pour cet utilisateur
-            throw $this->createNotFoundException('User not found or no connections');
-        }
+        
 
         // Si un ID est fourni, on définit l'utilisateur sélectionné
         if ($id) {
